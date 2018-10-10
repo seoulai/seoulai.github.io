@@ -1,13 +1,12 @@
-checkers:
-  about:
-    tbd
+- name: checkers gym
+  about: Checkers game using Seoul AI Gym which is a toolkit for developing AI algorithms.
   members:
-    martin
-    adel
-    cinyoung
-market:
-  about:
-    tbd
+      - martin
+      - adel
+      - cinyoung
+- name: market gym
+  about: Market game using Seoul AI Gym is a toolkit for developing AI algorithms.
   members:
-    james
-    cinyoung
+      - james
+      - cinyoung
+~                 
