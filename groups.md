@@ -10,12 +10,8 @@ tags: [Seoul,"Artificial Intelligence",meetup,AI,"Machine Learning",NN,"Neural N
 {% for group in groups %}
   <div>
       <h3 style="display:inline-block;margin-bottom:0px"><a href="{{ group.label }}">{{ group.label }}</a></h3><br>
-      {% for member in group.members %}
-        {% assign member = site.data.members[member] %}
-        <a href="{{ site.url }}/members/{{ member.label }}">{{ member.fullname }}</a><br>
-        <p style="text-align:justify;margin-top:10px;">
+      <p style="text-align:justify;margin-top:10px;">
         {{ group.about }}
-        </p>
-      {% endfor %}
+      </p>
   </div>
 {% endfor %}
