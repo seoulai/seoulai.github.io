@@ -6,7 +6,7 @@ tags: [Seoul,"Artificial Intelligence",meetup,AI,"Machine Learning",NN,"Neural N
 
 # Groups
 
-{% assign groups = site.data.groups | group_by_exp:"post", "post.date | date: '%Y %b'"  %}
+{% assign groups = site.data.groups %}
 {% for group in groups %}
   <div>
       <h3 style="display:inline-block;margin-bottom:0px"><a href="{{ group }}">{{ group }}</a></h3><br>
