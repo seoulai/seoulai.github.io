@@ -6,7 +6,7 @@ tags: [Seoul,"Artificial Intelligence",meetup,AI,"Machine Learning",NN,"Neural N
 
 # Groups
 
-{% for group in site.data.groups%}
+{% for group in site.data.groups %}
   <div>
       <h3 style="display:inline-block;margin-bottom:0px">{{ group.name }}</h3><br>
       <p style="text-align:justify;margin-top:10px;">
