@@ -220,7 +220,6 @@ adel:
   gitlab:
   linkedin: adelshb
   email:
-  rajweb:
   bio: Adel is a researcher in Quantum Information with an interest in Machine Learning.
   presentations:
     - date: April 28, 2018
@@ -245,7 +244,6 @@ vincent:
   gitlab:
   linkedin: vincecontreras
   email: vincent.contreras@outlook.com
-  rajweb:
   bio: Vincent is a software engineer at [BluepanNet](https://www.bluepan.net/) (formerly Bluepan). Outside work, he is very interested in machine learning, optimization algorithms, heuristics and metaheuristics.
   presentations:
     - date: February 17, 2018
@@ -258,7 +256,6 @@ emilio:
   gitlab:
   linkedin: emiliocoronadolopez
   email:
-  rajweb:
   bio: Emilio is a visiting professor of IT Department in Gachon University in Seoul, long career developing mobile devices. His interest is in big data, IOT, distributed computing, running machine learning, AI frameworks in mobile devices or embedded chipsets with reasonable performance.
   presentations:
     - date: April 28, 2018
@@ -272,3 +269,32 @@ emilio:
     - date: March 3, 2018
       title: Mobile AI
       pdf: ../presentations/Mobile_AI.pdf
+
+james:
+  fullname: James Park
+  linkedin: james-park-laplace
+  github: laplacian-k
+  email: laplacian.k@gmail.com
+  bio:
+  presentations:
+    - date: July 7, 2018
+      title: Cryptocurrency Trading Project Proposal
+      pdf: ../presentations/Cryptocurrency_Trading_Project_Proposal.pdf
+
+hjung:
+  fullname: Hyeyun Jung
+  linkedin: hyeyun-jung-377b891b
+  github:
+  gitlab:
+  email: jerryjung80@gmail.com
+  bio:
+  presentations:
+
+ayo:
+  fullname: Seung-Hyun Kim
+  linkedin:
+  github: ayo79
+  gitlab:
+  email:
+  bio:
+  presentations:

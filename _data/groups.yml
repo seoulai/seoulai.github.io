@@ -1,11 +1,18 @@
-- name: checkers gym
+- name: Checkers Gym
   about: Checkers game using Seoul AI Gym which is a toolkit for developing AI algorithms.
+  video: O-Q9hg7Vng8
   members:
       - martin
       - adel
       - cinyoung
-- name: market gym
-  about: Market game using Seoul AI Gym is a toolkit for developing AI algorithms.
+- name: Mighty Gym
+  about: Mighty game using Seoul AI Gym which is a toolkit for developing AI algorithms.
+  video: M3GCt8evGkQ
+  members: 
+      - ayo
+      - jeongwon
+- name: Market Gym
+  about: Market game using Seoul AI Gym which is a toolkit for developing AI algorithms.
   members:
       - james
       - cinyoung
