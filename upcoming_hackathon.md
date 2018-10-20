@@ -1,21 +1,42 @@
-<!--## Seoul AI Hackathon-->
+---
+layout: hackathon
+title: SeoulAI Hackathon
+date: Saturday, October 13, 2018 10:00:00 PM GMT+09:00
+description: Seoul AI is hosting fourth AI hackathon on [date]. Hackathon is based on the new toolkit from Seoul AI Gym
+tags:
+  [
+    Seoul,
+    "Artificial Intelligence",
+    meetup,
+    AI,
+    call,
+    presenters,
+    practioners,
+    "Machine Learning",
+    Korea,
+    Gangnam,
+    2017,
+    2018,
+    Hackathon,
+  ]
+---
 
-<!--10:00 - 10:30 1-3 minutes pitch of your topic-->
+{% capture event_info %}
 
-<!--10:30 - 12:00 Happy hacking-->
+# Comming Soon
 
-<!--12:00 - 13:00 Lunch break-->
+{% endcapture %}
 
-<!--13:00 - 17:00 Happy hacking-->
+{% capture technical_info %}
 
-<!--17:00 - 17:30 1-3 minutes presentation of what you've done-->
+{% endcapture %}
 
-<!--17:30 - 18:00 AI Hackathon review-->
+{% capture build_with %}
 
-<!--### Details-->
+<footer class="footer">
+    <p>Build with <span class="love">❤</span> by <a href="#" target="_blank">Imane</a></p>
+</footer>
+  
+{% endcapture %}
 
-<!--It is recommended to think about project you want to work on in advance. You can continue working on some of your projects. You can learn new framework that could be useful for you later on. Or maybe you want implement some new NN architecture? Great! There are no limits to projects, however, the project should be related to Artificial Intelligence.-->
-
-<!--### Team-->
-
-<!--Seoul AI Hackathon allows you to participate either as a single participant or in a team. In case you want to participate in a team, all members (not more than 2 is recommended) have to RSVP to this event through meetup.com. If you want to search for potential team members, the best way is through our slack [seoulai.slack.com](https://seoulai.slack.com/) (before joining slack you have to ask for invitation at [seoulai.herokuapp.com](https://seoulai.herokuapp.com/))-->
+{% include hackathon.html %}

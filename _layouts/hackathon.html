@@ -1,190 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="assets/img/SeoulAI.ico" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/img/SeoulAI.ico" />
 
-  <title>Seoul AI Hackathon</title>
-  <meta name="description" content="Seoul AI is hosting third AI hackathon on Saturday, October 13th. Hackathon is based on the new toolkit from Seoul AI for developing AI algorithms - Seoul AI Gym. This gym simulates various environments and enables the use of any teaching technique on an agent. The goal of every hackathon participant is to develop an agent that can play Checkers. Each participant will train an agent to compete in a tournament. We encourage participants to use any machine learning algorithm of their choice. No particular training set will be given. Each participant will have their own responsibility to find a way to train their ow        ">
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
 
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /assets/css/main.css " | prepend: site.baseurl }}">
+
+    <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="{{ " /assets/js/sweet-scroll.min.js " | prepend: site.baseurl }}"></script>
+    <script src="{{ " /assets/js/main.js " | prepend: site.baseurl }}"></script>
+    <script src="{{ " /assets/js/timer.js " | prepend: site.baseurl }}"></script>
+    <script>
+        window.onload = function (e) {
+            DisplayTimer("{{ page.date }}");
+        }
+    </script> {% if site.google_analytics %}
+    <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '{{ site.google_analytics }}', 'auto');
+        ga('send', 'pageview');
+    </script> {% endif %}
 </head>
 
-<body>
 <div id="particles-js">
-  <div class="header">
-      <h1>
-        <img src="assets/img/logo.png" style="max-width: 99%; max-height: 99%;">
-        <div id="Compteur">&nbsp;</div>
-      </h1>
-      <div class="header-icons">
-        <a aria-label="Seoul AI Slack" href="https://seoulai.slack.com/" target="_blank"><i class="icon fa fa-slack"></i></a>
-        <a aria-label="Seoul AI Meetup" href="https://www.meetup.com/Seoul-Artificial-Intelligence/"  target="_blank"><i class="icon fa fa-meetup"></i></a>
-        <a aria-label="Seoul AI Twitter" target="_blank" href="https://twitter.com/seoul_ai"  target="_blank"><i class="icon fa fa-twitter" aria-hidden="true"></i></a>
-        <a aria-label="Seoul AI Facebook" target="_blank" href="https://www.facebook.com/seoulai"  target="_blank"><i class="icon fa fa-facebook" aria-hidden="true"></i></a>
-        <a aria-label="Seoul AI Github" target="_blank" href="https://github.com/seoulai/gym"  target="_blank"><i class="icon fa fa-github-alt" aria-hidden="true"></i></a>
-      </div>
-  </div>
-  <a class="down" href="#projects" data-scroll><i class="icon fa fa-chevron-down" aria-hidden="true"></i></a>
+    <div class="header">
+        <h1>
+            <img src="assets/img/logo.png" style="max-width: 99%; max-height: 99%;">
+            <div id="Compteur">&nbsp;</div>
+        </h1>
+        <div class="header-icons">
+            <a aria-label="Seoul AI Slack" href="https://seoulai.slack.com/" target="_blank">
+                <i class="icon fa fa-slack"></i>
+            </a>
+            <a aria-label="Seoul AI Meetup" href="https://www.meetup.com/Seoul-Artificial-Intelligence/" target="_blank">
+                <i class="icon fa fa-meetup"></i>
+            </a>
+            <a aria-label="Seoul AI Twitter" target="_blank" href="https://twitter.com/seoul_ai" target="_blank">
+                <i class="icon fa fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a aria-label="Seoul AI Facebook" target="_blank" href="https://www.facebook.com/seoulai" target="_blank">
+                <i class="icon fa fa-facebook" aria-hidden="true"></i>
+            </a>
+            <a aria-label="Seoul AI Github" target="_blank" href="https://github.com/seoulai/gym" target="_blank">
+                <i class="icon fa fa-github-alt" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <a class="down" href="#projects" data-scroll>
+        <i class="icon fa fa-chevron-down" aria-hidden="true"></i>
+    </a>
 </div>
-
-<script type="text/JavaScript">
-var idtimeCompteur=0;
-function DisplayCompteurCompteur() {
-	var delais = 1;
-	var CompteurAffiche=document.getElementById("Compteur");
-	var html = "<span style=\"color: #fff; font-size:0.8em\"><strong><span>[j]D </span></strong><span>[h]h [m]m [s]s </span></span>" ;
-	var htmlafter = "" ;
-	var date1 = new Date();
-	var date2 = new Date (2018, 9, 13, 10, 0, 0);
-	var nbsec = (date2 - date1) / 1000;
-	var nbsecj = 24 * 3600;
-	var stopcpt=false
-	if (nbsec <= 0) {
-		nbsec=-nbsec;
-		if (htmlafter!="")
-			{ html=htmlafter; }
-		else
-			{stopcpt=true;}
-	}
-	var j = Math.floor (nbsec / nbsecj);
-	var h = Math.floor ((nbsec - (j * nbsecj)) / 3600);
-	var m = Math.floor ((nbsec - ((j * nbsecj + h * 3600))) / 60);
-	var s = Math.floor (nbsec - ((j * nbsecj + h * 3600 + m * 60)));
-	if (stopcpt==true) {j=0;h=0;m=0;s=0}
-	var html = html.replace("[j]",j);
-	var html = html.replace("[h]",h);
-	var html = html.replace("[m]",m);
-	var html = html.replace("[s]",s);
-	if (CompteurAffiche!=null) {CompteurAffiche.innerHTML = html;}
-	if (stopcpt==false) {idtimeCompteur=setTimeout ("DisplayCompteurCompteur();", 1*1000);}
-}
-DisplayCompteurCompteur();
-</script>
-
 <section id="projects">
-<div class="user-details">
-<br/>
-<p style="text-align:right">
-  English | <a href="hackathon-kr">한국어</a>
-</p>
-<p style="text-align:justify">
-<br/>
-Seoul AI is hosting third AI hackathon on <b>Saturday, October 13th</b>.
-Hackathon is based on the new toolkit from Seoul AI for developing AI algorithms: <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>.
-This gym simulates various environments and enables the use of any teaching technique on an agent.
-The goal of every hackathon participant is to develop an agent that can play <a href="https://en.wikipedia.org/wiki/Draughts">Checkers</a>.
-Each participant will train an agent to compete in a tournament.
-We encourage participants to use any machine learning algorithm of their choice.
-No particular training set will be given.
-Each participant will have their own responsibility to find a way to train their own agent.
-</p>
-</div>
-
-<h3 style="text-align:left">Tournament</h3>
-
-<span>The competition will be a <a href="https://en.wikipedia.org/wiki/Bracket_(tournament)">Tournament Tree</a> will be held in the following way:</span>
-<ul>
-  <li>The Tournament Tree will be generated randomly.</li>
-  <li>All trained agents will compete in 1v1 for several games during 1 minute. The winner will be the agent with the higher number of wins. In the case of an equality, the agent who won the first game will be the winner.</li>
-  <li>Agents are allowed to learn during the competition.</li>
-  <li>If an agent takes more than 1 seconds to act, random move will be perfomed automatically.</li>
-</ul>
-
-<h3 style="text-align:left">Schedule</h3>
-Saturday, October 13, 2018</br>
-&nbsp;</br>
-
-<span><b>10:00 - 10:15</b> Opening</span>
-<span><b>10:15 - 10:30</b> Seoul AI Gym introduction + Checkers</span>
-<span><b>10:30 - 12:30</b> Hacking</span>
-<span><b>12:30 - 01:30</b> Lunch (provided by venue sponsor)</span>
-<span><b>01:30 - 06:20</b> Hacking</span>
-<span><b>06:20 - 06:50</b> Tournament</span>
-<span><b>06:50 - 07:00</b> Winner announcement</span>
-
-<h3 style="text-align:left">Registration</h3>
-<span>Every participant has to register through <a href="http://bit.ly/seoulai-hackathon">http://bit.ly/seoulai-hackathon</a>.
-After we check your application you will receive email with confirmation.</span>
-
-<span>&nbsp;</span>
-<span> If you have any question feel free to reach to <a href="mailto:martin@seoulai.com">martin@seoulai.com</a>.</span>
-
-<h3 style="text-align:left">Location</h3>
-Hyperconnect</br>
-서울시 서초구 서초대로78길 5, 대각빌딩 14층
-&nbsp;</br>
-&nbsp;</br>
-
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.4515690893822!2d127.02735559999999!3d37.4972664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca15a2f9719ab%3A0x20210a76b2b256f7!2z64yA6rCB67mM65Sp!5e0!3m2!1sen!2s!4v1508801167955" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-
-<h3 style="text-align:left">Venue</h3>
-<div class="user-projects">
-  <div class="images-left">
-    <a href="{{ "/assets/img/hackathon/venue1.jpg" | prepend: site.baseurl }}" target="_blank">
-    <img src="{{ "/assets/img/hackathon/venue1.jpg" | prepend: site.baseurl }}" />
-    </a>
-  </div>
-  <div class="images-right">
-    <a href="{{ "/assets/img/hackathon/venue2.jpg" | prepend: site.baseurl }}" target="_blank">
-    <img src="{{ "/assets/img/hackathon/venue2.jpg" | prepend: site.baseurl }}" />
-    </a>
-  </div>
-</div>
-<div class="user-projects">
-  <div class="images-left">
-    <a href="{{ "/assets/img/hackathon/venue3.jpg" | prepend: site.baseurl }}" target="_blank">
-    <img src="{{ "/assets/img/hackathon/venue3.jpg" | prepend: site.baseurl }}" />
-    </a>
-  </div>
-  <div class="images-right">
-    <a href="{{ "/assets/img/hackathon/venue4.jpg" | prepend: site.baseurl }}" target="_blank">
-    <img src="{{ "/assets/img/hackathon/venue4.jpg" | prepend: site.baseurl }}" />
-    </a>
-  </div>
-</div>
-
-<div style="width: 100px;">&nbsp;</div>
-<a name="sponsors"></a>
-<h3 style="text-align:left; padding-top: 10px;">Sponsors</h3>
-<div class="user-projects" style="vertical-align: center">
-  <div class="images-left">
-    <img src="{{ "/assets/img/hackathon/hpcnt.png" | prepend: site.baseurl }}" />
-  </div>
-  <div class="images-right">
-    <img src="{{ "/assets/img/hackathon/aws.png" | prepend: site.baseurl }}" />
-  </div>
-</div>
-<div style="width: 100px;">&nbsp;</div>
-<div style="width: 100px;">&nbsp;</div>
+    {{ content }}
 </section>
-
-<div style="background-color: black;">
-  <section id="projects">
-    <div id="technical"> {{ content }} <div>
-  </section>
-
-  <footer class="footer">
-    <p>Build with <span class="love">❤</span> by <a href="#" target="_blank">Imane</a></p>
-  </footer>
-</div>
-
-<script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script src="{{ "/assets/js/sweet-scroll.min.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/assets/js/main.js" | prepend: site.baseurl }}"></script>
-
-{% if site.google_analytics %}
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', '{{ site.google_analytics }}', 'auto');
-      ga('send', 'pageview');
-  </script>
-{% endif %}
-<body>
-<html>
