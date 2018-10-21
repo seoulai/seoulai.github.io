@@ -23,11 +23,33 @@ tags:
 
 {% capture event_info %}
 
-# Comming Soon
+# Overview
+
+# Competition
+
+# Schedule
+
+# Registration
+
+# Location
+
+# Venue
+
+# Sponsors
+
 
 {% endcapture %}
 
 {% capture technical_info %}
+
+# Technical information
+
+# Install
+
+# Environment and agent
+
+# Rules
+
 
 {% endcapture %}
 
