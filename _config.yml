@@ -1,14 +1,14 @@
 # Site settings
 title: Seoul Artificial Intelligence
-description: Seoul AI is the largest international Artificial Intelligence community in Seoul. Group of professionals from different fields meets twice per month in the heart of Seoul to discuss about AI or implement various AI applications.
+description: Seoul AI is the international Artificial Intelligence community in Seoul. Group of professionals from different fields meets in the heart of Seoul to discuss AI or implement various AI applications. Join our interest groups.
 
 # User settings
-user_description: Group of professionals from different fields meets twice per month in the heart of Seoul to discuss about AI or implement various AI applications.
+user_description: Seoul AI is the international Artificial Intelligence community in Seoul. Group of professionals from different fields meets in the heart of Seoul to discuss AI or implement various AI applications. Join our interest groups.
 url: http://seoulai.com
 highlighter: rouge
 google_analytics: UA-106993341-1
 plugins:
-    - jekyll-sitemap
-    - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
-exclude: ['package.json', 'src' , 'node_modules']
+exclude: ["package.json", "src", "node_modules"]

@@ -1,12 +1,24 @@
 ---
 layout: default
-summary: Seoul AI Blog&#x3a; Share your knowledge with other AI enthusiasts!
-tags: [Seoul,"Artificial Intelligence",meetup,AI,"Machine Learning",NN,"Neural Networks",Korea,Gangnam]
+summary: Seoul AI Groups
+tags:
+  [
+    Seoul,
+    "Artificial Intelligence",
+    meetup,
+    AI,
+    "Machine Learning",
+    NN,
+    "Neural Networks",
+    Korea,
+    Gangnam,
+  ]
 ---
 
 # Groups
 
 {% for group in site.data.groups %}
+
   <div>
       <h3 style="display:inline-block;margin-bottom:0px">{{ group.name }}</h3><br>
       <p style="text-align:justify;margin-top:10px;">

@@ -1,6 +1,6 @@
 ---
 layout: default
-summary: Seoul AI is the largest international Artificial Intelligence community in Seoul. Group of professionals from different fields meets twice per month in the heart of Seoul to discuss about AI or implement various AI applications.
+summary: Seoul AI is the international Artificial Intelligence community in Seoul. Group of professionals from different fields meets in the heart of Seoul to discuss AI or implement various AI applications. Join our interest groups.
 
 tags:
   [
@@ -17,7 +17,7 @@ tags:
   ]
 ---
 
-If you want to collaborate with us, register at [seoulai.herokuapp.com](https://seoulai.herokuapp.com/) and join our slack at [seoulai.slack.com](https://seoulai.slack.com/). If you want to give a talk [fill in this form](https://bit.ly/seoulai-talk-proposal). To receive (by email) the latest information about upcoming meetups, hackathons and other events organized by Seoul AI, [subscribe through this form](subscribe).
+If you want to collaborate with us, register at [seoulai.herokuapp.com](https://seoulai.herokuapp.com/) and join our slack at [seoulai.slack.com](https://seoulai.slack.com/). If you want to give a talk [fill in this form](https://bit.ly/seoulai-talk-proposal). To receive (by email) the latest information about upcoming meetups, hackathons and other events organized by Seoul AI, [subscribe through this form](subscribe). To join one or more interest groups, check [Active Groups](http://seoulai.com/groups).
 
 {% include_relative upcoming_meetup.md %}
 
