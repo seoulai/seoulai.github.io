@@ -19,9 +19,10 @@ tags:
 
 {% include_relative notice.md %}
 
+<hr/>
 {% include_relative upcoming_meetup.md %}
 
-<br/>
+<hr/>
 ## Previous Meetups
 
 ### October 13, 2018
