@@ -2,4 +2,4 @@
 
 ### December 15, 2018
 
-- [Seoul AI Trading Hackathon](hackathon)
+- [Seoul AI Hackathon for Trading](hackathon)
