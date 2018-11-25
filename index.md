@@ -17,7 +17,7 @@ tags:
   ]
 ---
 
-If you want to collaborate with us, register at [seoulai.herokuapp.com](https://seoulai.herokuapp.com/) and join our slack at [seoulai.slack.com](https://seoulai.slack.com/). If you want to give a talk [fill in this form](https://bit.ly/seoulai-talk-proposal). To receive (by email) the latest information about upcoming meetups, hackathons and other events organized by Seoul AI, [subscribe through this form](subscribe). To join one or more interest groups, check [Active Groups](http://seoulai.com/groups).
+{% include_relative notice.md %}
 
 {% include_relative upcoming_meetup.md %}
 

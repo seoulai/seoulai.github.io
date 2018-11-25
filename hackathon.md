@@ -46,7 +46,7 @@ Saturday, December 13, 2018
 
 # Registration
 
-Every participant has to register through <a href="http://bit.ly/seoulai_market_hackathon">this form</a>. After we check your application you will receive an email with confirmation.
+Every participant has to register through <a href="https://www.meetup.com/ko-KR/Seoul-Artificial-Intelligence/events/255710722/">SeoulAI Meetup</a>.
 
 If you have any question feel free to reach to cinyoung.hur@gmail.com.
 
