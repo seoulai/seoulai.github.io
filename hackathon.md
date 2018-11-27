@@ -25,7 +25,7 @@ tags:
 
 # Overview
 
-Seoul AI is hosting third AI hackathon on <b>Saturday, December 15th</b>.
+Seoul AI is hosting 4th AI hackathon on <b>Saturday, December 15th</b>.
 Hackathon is based on the new toolkit from Seoul AI for developing AI algorithms: <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>.
 This gym simulates various environments and enables the use of any teaching technique on an agent. The goal of every hackathon participant is to develop an agent that can do cryptocurrency trading. Each participant will train an agent to compete for the first place. We encourage participants to use any machine learning algorithm of their choice. Dataset will be given. Each participant will have their own responsibility to find a way to train their own agent.
 
