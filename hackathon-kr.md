@@ -2,7 +2,7 @@
 layout: hackathon
 title: SeoulAI Hackathon
 date: Saturday, December 15, 2018 10:00:00 PM GMT+09:00
-description: Seoul AI is hosting third AI hackathon on Saturday, October 13th. Hackathon is based on the new toolkit from Seoul AI Gym
+description: Seoul AI is hosting 4th AI hackathon on Saturday, December 15th. Hackathon is based on the new toolkit from Seoul AI Gym
 tags:
   [
     Seoul,
@@ -25,34 +25,46 @@ tags:
 
 # Overview
 
-Seoul AI 는 10 월 13 일 토요일에 세 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다. Gym 은 AI 알고리즘을 개발하기 위한 Seoul AI 의 새로운 툴킷이고, 다양한 환경을 시뮬레이션하며 에이전트에게 어떤 학습 기법도 적용할 수 있습니다. 모든 해커톤 참가자에게 주어지는 과제는 <a href="https://en.wikipedia.org/wiki/Draughts">Checkers</a>를 실행할 수 있는 에이전트를 개발하는 것입니다. 각 참가자는 토너먼트에서 참가할 에이전트를 훈련시켜야 합니다. 이를 위해 참가자들이 선택한 기계 학습 알고리즘을 사용하길 권장합니다. 특정한 훈련 세트는 주어지지 않을 것입니다. 각 참가자는 자신의 에이전트를 훈련 할 수있는 방법을 찾아서 적용해야 합니다.
+Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다. Gym 은 AI 알고리즘을 개발하기 위한 Seoul AI 의 새로운 툴킷이고, 다양한 환경을 시뮬레이션하며 에이전트에게 어떤 학습 기법도 적용할 수 있습니다.
+이번 해커톤 참가자에게 주어지는 과제는 "알고리즘 트레이딩"을 수행하는 에이전트를 개발하는 것입니다. 각 참가자는 자신의 에이전트를 훈련 할 수있는 방법을 찾아서 적용해야 합니다.
 
-# 토너먼트
+# 대회 방식 
+- 트레이딩 시간 : 10:00 - 18:50
+- 모든 에어전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
+- 대회가 종료되는 18시 50분에 가장 큰 수익률을 기록한 에이전트가 우승합니다.
 
-대회는 [토너먼트](<https://en.wikipedia.org/wiki/Bracket_(tournament)>) 방식이고, 다음과 같은 방법으로 진행됩니다:
+# 순위 산정 방식
+- 수익률= (포트폴리오 가치 / 10,000,000 KRW) x 100 (%)
+- 포트폴리오 가치 = 현금 + 잔고수량 x 현재가, 18시 50분 기준.
+- 수익률이 0% 이하인 에이전트는 순위 산정에서 제외됩니다. 
+- 동점자가 존재할 경우 거래 회수가 더 높은 에이전트 개발자가 우승합니다.
 
-- 토너먼트 트리가 무작위로 생성됩니다.
-- 모든 훈련된 에이전트는 1 분 동안 여러 게임과 1 대 1 로 겨룹니다. 더 많은 승수를 가진 에이전트가 우승합니다. 동점인 경우 첫 번째 게임에서 우승 한 에이전트가 우승자입니다.
-- 에이전트는 경기 중에 배울 수 있습니다.
-- 에이전트가 행동하는데 1 초 이상 걸리면 무작위 이동이 자동으로 수행됩니다.
+# Awards
+우승자에게는 에어팟(AirPods)이 수여됩니다.
+
+# 제약 조건
+- <a href="http://bit.ly/seoulai_market_hackathon">form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
+- 주문수량, 현금, 자산 수량은 소수점 넷째 자리까지만 유효합니다.
+- 매수주문은 매도 1호가, 매도주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
+- 매수, 매도 주문은 % 단위의 가능수량으로만 매매 가능합니다. (technical information 참조)
+- 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
+- 트레이딩 방식에는 제약조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
 
 # 일정
 
-2018 년 10 월 13 일 토요일
+2018 년 12 월 15 일 토요일
 
-- 10:00 - 10:15 대회 시작
-- 10:15 - 10:30 Seoul AI Gym 과 Checkers 소개
+- 10:00 - 10:15 Opening 
+- 10:15 - 10:30 Seoul AI Gym 과 Market 소개
 - 10:30 - 12:30 해킹
-- 12:30 - 01:30 중식 (장소 스폰서가 제공)
-- 01:30 - 06:20 해킹
-- 06:20 - 06:50 토너먼트
+- 12:30 - 01:30 중식 (간단한 다과류)
+- 01:30 - 06:50 해킹
 - 06:50 - 07:00 우승자 발표
 
 # 등록
 
-모든 참가자는 http://bit.ly/seoulai-hackathon를 통해 사전등록해야 합니다. 사전등록을 하신분 중 참석 확정 메일을 받은 분에 한해서 입장이 가능합니다.
-
-문의사항은 cinyoung@seoulai.com 으로 자유롭게 보내주세요.
+모든 참가자는 http://bit.ly/seoulai_market_hackathon를 통해 agent_id(hackathon_id) 를 사전등록해야 합니다.
+문의사항은 seoul.ai.global@gmail 로 자유롭게 보내주세요.
 
 # 위치
 
@@ -98,6 +110,11 @@ Seoul AI 는 10 월 13 일 토요일에 세 번째 AI 해커톤을 개최 합니
     <img src="{{ "/assets/img/hackathon/aws.png" | prepend: site.baseurl }}" />
   </div>
 </div>
+
+# Seoul AI Leaderboard.
+해커톤 참여자는 일괄적으로 100 point를 얻게됩니다.
+이 점수는 Seoul AI Learderboard에 누적 되어지고, 멤버 모두에게 공유될 예정입니다.
+Learder / Follower
 
 {% endcapture %}
 
