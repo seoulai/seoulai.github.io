@@ -197,12 +197,11 @@ for t in count():
 
 ### mode
 
-현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
-HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
-따라서 LOCAL 모드에서 충분히 테스트를 진행한 후 HACKATHON 모드로 전환하길 권장합니다.
+- 현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
+- HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
+- 따라서 LOCAL 모드에서 충분히 테스트를 진행한 후 HACKATHON 모드로 전환하길 권장합니다.
 
 #### LOCAL 모드 예제 1
-LOCAL에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
 
 ```python
 your_id = "seoul_ai"
@@ -211,7 +210,8 @@ mode = Constants.LOCAL
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-obs = env.reset()    # 현금과 잔고수량이 모두 초기화
+# LOCAL에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
+obs = env.reset()
 
 for t in count():
     action = a1.act(obs)
@@ -220,7 +220,6 @@ for t in count():
 ```
 
 #### LOCAL 모드 예제 2
-LOCAL 모드에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 
 ```python
 your_id = "seoul_ai"
@@ -231,6 +230,7 @@ env.participate(your_id, mode)
 
 obs = env.reset()
 
+# LOCAL 모드에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 EPISODES = 100
 for e in EPISODES: 
     for t in count():
@@ -244,9 +244,6 @@ for e in EPISODES:
 ```
 
 #### HACKATHON 모드 예제
-HACKATHON 모드의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
-LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
-Episodes를 활용한 반복 학습은 불가합니다.
 
 ```python
 your_id = "seoul_ai"
@@ -255,8 +252,11 @@ mode = Constants.HACKATHON
 env = gym.make("Market")
 env.participate(your_id, mode)
 
+# HACKATHON 모드의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
+# LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
 obs = env.reset()
 
+# Episodes를 활용한 반복 학습은 불가합니다.
 for t in count():
     action = a1.act(obs)
     next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
@@ -264,19 +264,21 @@ for t in count():
 ```
 
 ### act
-act는 내부적으로 아래의 순서로 수행됩니다.
-- preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
-- algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
 
 ```python
 action = a1.act(obs)
 ```
+
+act는 내부적으로 아래의 순서로 수행됩니다.
+- preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
+- algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
+
     
 ### step
 step 함수는 크립토의 실시간 시장 상황(state)을 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
 step 함수를 수행하면 세 가지 변수를 return 받습니다.
 
-- `obs`
+#### `obs`
 obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
@@ -286,7 +288,7 @@ statistics = obs.get("statistics")    # {Agent가 사용할 수 있는 통계값
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
-- `rewards`
+#### `rewards`
 기본적으로 아래의 5 가지 rewards가 제공됩니다.
 
 ```python
@@ -298,22 +300,20 @@ rewards = dict(
     score=score)    # 초기 자본(110,000,0000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
 ```
 
-- `done`
-일반적인 강화학습에서는 게임의 끝(done)이 있으나,
-Online Reinforcement Learning인 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
+#### `done`
+일반적인 강화학습에서는 게임의 끝(done)이 있으나, 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
 따라서 done의 값은 항상 False입니다.
-
 
 
 ### Agent 클래스 개발
 
 #### Agent 생성
-Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
 
 ```python
 import seoulai_gym as gym
 from seoulai_gym.envs.market.agents import Agent
 
+# Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
 class YourAgentClassName(Agent):
     ...
 ```
@@ -321,10 +321,6 @@ class YourAgentClassName(Agent):
 #### set_actions 함수 정의
 참가자는 반드시 set_actions 함수를 정의해야 합니다.
 actions는 딕셔너리 형태로 정의하고 마지막에 반드시 return 해야 합니다.
-딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
-action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
-order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
-order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다.
 
 ```python
 class YourAgentClassName(Agent):
@@ -334,6 +330,12 @@ class YourAgentClassName(Agent):
     )->dict:
 
         your_actions = {}
+
+        """ 딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
+            action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
+            order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
+            order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다. """
+
         your_actions = dict(
             holding = 0,
             buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다. (매도 1호가로) 
@@ -345,7 +347,7 @@ class YourAgentClassName(Agent):
 #### preprocess (데이터 전처리)
 obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, 원하는 형태로 변경 가능합니다.
 데이터 정규화를 수행하길 권장합니다.
-preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
+- preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
 
 ```python
     def preprocess(
@@ -367,9 +369,6 @@ preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로
 
 #### algo (알고리즘 정의)
 어떤 조건에 따라 trading을 수행할지 정의하는 함수입니다.
-action은 set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다. 
-set_actions에서 정의한 action_name의 index를 파라미터로 입력 할 수 있습니다.
-
 
 ```python
     def algo(
@@ -377,6 +376,7 @@ set_actions에서 정의한 action_name의 index를 파라미터로 입력 할 �
         state,
     ):
         if state["buy_signal"]:
+            # set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다. 
             return self.action("buy_all")
         elif state["sell_signal"]:
             return self.action("sell_20per")
