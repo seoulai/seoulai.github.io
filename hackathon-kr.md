@@ -45,7 +45,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 # 제약 조건
 - <a href="http://bit.ly/seoulai_market_hackathon">Form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
 - 주문수량, 현금, 잔고 수량은 소수점 넷째 자리까지만 유효합니다.
-- 매수주문은 매도 1호가, 매도주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
+- 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
 - 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
 - 트레이딩 방식에는 제약조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
@@ -154,7 +154,7 @@ pip3 install -e
 
 가장 중요한 컴포넌트는 Environment입니다.
 
-Environment는 비트코인의 실시간 시장 상황(state)를 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
+Environment는 비트코인의 실시간 시장 상황(state)을 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
 
 {% highlight python %}
 
@@ -224,64 +224,182 @@ There are 4 important environment variables returned by
 ```python
 ```
 
-#### Example
+## main 함수 작성에 대한 안내
+#### Local mode example
 
+```python
+your_id = "seoul_ai"
+mode = 0    # LOCAL
+
+env = gym.make("Market")
+env.participate(your_id, mode)
+
+# LOCAL 모드의 reset에서는 로컬에 저장된 현금과 잔고수량이 모두 초기화됩니다.
+obs = env.reset()
+
+for t in count():
+    action = a1.act(obs)
+    next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
+    a1.postprocess(obs, action, next_obs, rewards)
+```
+
+#### Local mode example2
+
+```python
+# LOCAL 모드에서는 Episodes를 활용해 반복 학습을 할 수 있습니다.
+
+your_id = "seoul_ai"
+mode = 0    # LOCAL
+
+env = gym.make("Market")
+env.participate(your_id, mode)
+
+obs = env.reset()
+
+EPISODES = 100
+for e in EPISODES: 
+    for t in count():
+        action = a1.act(obs)
+        next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
+        a1.postprocess(obs, action, next_obs, rewards)
+    
+        # Local에 저장된 데이터를 모두 학습하면 게임이 끝납니다.
+        if done:
+            break
+```
+
+#### Hackathon mode example
+
+```python
+your_id = "seoul_ai"
+mode = 1    # HACKATHON 
+
+env = gym.make("Market")
+env.participate(your_id, mode)
+
+# HACKATHON 모드의 reset에서는 서버에서 현금과 잔고수량을 가져옵니다. (초기화 작업은 일어나지 않습니다.)
+obs = env.reset()
+
+for t in count():
+    action = a1.act(obs)
+    next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
+    a1.postprocess(obs, action, next_obs, rewards)
+```
+
+## Agent 클래스 개발에 대한 안내 
+
+### Agent 생성 예제 
+```python
+import seoulai_gym as gym
+from seoulai_gym.envs.market.agents import Agent
+
+# Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
+class YourAgentClassName(Agent):
+    ...
+```
+
+### set_actions 함수
+
+#### action 정의
+- 참가자는 반드시 set_actions 함수를 정의해야 합니다.
+- actions는 딕셔너리 형태로 정의합니다. ex. your_actions = dict(key1=value1, key2=value2...)
+- key는 action name, value는 order_percent를 입력합니다.
+- action name은 당신이 원하는 어떤 이름을 사용해도 무방합니다.
+- order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
+
+```python
+class YourAgentClassName(Agent):
+
+    def set_actions(
+        self,
+    )->dict:
+
+        your_actions = {}
+        your_actions = dict(
+            holding = 0,
+            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다.
+            sell_20per = -20,  # sell_20 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다.
+        )
+        return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
+```
+
+#### preprocess (데이터 전처리)
+- obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, 필요한 데이터의 형태로 변경 가능합니다.
+- obs가 전달하는 raw data를 정제하고, 정규화 합니다.
+- preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
+
+```python
+    def preprocess(
+        self,
+        obs,
+    ):
+        cur_price = self.cur_price
+        ma10 = self.statistics.get("ma10")
+        std10 = self.statistics.get("std10")
+        thresh_hold = 1.0
+
+        your_state = dict(
+            buy_signal=(cur_price > ma10 + std10*thresh_hold),
+            sell_signal=(cur_price < ma10 - std10*thresh_hold),
+        )
+
+        return your_state
+```
+
+#### algo (알고리즘 정의)
+- 어떤 조건에서 어떤 action을 취할지 정의하는 함수입니다. 
+
+```python
+    def algo(
+        self,
+        state,
+    ):
+        if state["buy_signal"]:
+            return self.action("buy_all")
+        elif state["sell_signal"]:
+            return self.action("sell_20per")
+        else:
+            return self.action(0)    # action은 set_actions에서 정의한 순서를 index로 활용할 수 있습니다.
+```
+
+#### DQN example
+```python
+# link 1
+```
+
+#### Rule Base example
+```python
+# link 2
+```
+
+### Rewards (`rewards`)
+
+기본적으로 아래의 5 가지 rewards가 제공됩니다.
+
+- `return_amt` - 해당 action으로 발생한 수익 금액
+
+- `return_per` - 해당 action으로 발생한 수익률 = (이전 포트폴리오 가치 / 현재 포트폴리오 가치) x 100 (%)
+
+- `return_sign` - 해당 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 포트폴리오 가치에 변화가 없다면 0점
+
+- `score_amt` - 10,000,0000 KRW 대비 현재까지 발생한 수익(혹은 손익) 금액 
+
+- `score` - 10,000,0000 KRW 대비 현재까지 발생한 수익(혹은 손익) 률 = 순위 산정 지표 
+
+
+postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 ```python
 ```
 
-#### Example
-
-
-```python
-```
-
-```python
-```
-
-### Reward (`rewards`)
-
-Rewards for different situations in the game are
-predefined within environment.
-
-There are 7 different basic rewards that are
-mutually exclusive.
-
-Some rewards should be considered as "punishments"
-(`invalid_move`, `move_opponent_piece`).
-
-- `return_amt` - 
-
-- `return_per` - agent attempted to make an [invalid
-  move](#invalid-move)
-
-- `return_sign` - agent attempted to move with
-  opponent's piece
-
-- `score_amt` - agent removed opponent's
-  piece
-
-- `score` - agent made move with piece that became
-  king
-
-In case you want to set your own rewards, you can do as
-following:
-
-```python
-```
-
-#### Invalid Actions 
-
-- 현금이 1,000 KRW 미만인데 매수 주문을 낼 경우 
+#### 아래의 경우에는 자동으로 hold 주문이 발생됩니다.
+- 현금이 1,000 KRW 미만일 때 매수 주문을 낼 경우. (최소 주문 금액 1,000 KRW)
 - 잔고 수량이 0인데 매도 주문을 낼 경우 
 
 ## End of game (`done`)
 
-When game finished, environment returns `True` from
-`step` method, otherwise `False`.
-
-Agent that receives `True` won the game.
-
-### Additional information (`info`)
+일반적인 강화학습에서는 게임의 끝(done)이 있으나,
+Online Reinforcement Learning인 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
+따라서 done의 값은 항상 False입니다.
 
 {% endcapture %}
 
