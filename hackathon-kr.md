@@ -25,29 +25,36 @@ tags:
 
 # Overview
 
-Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다. Gym 은 AI 알고리즘을 개발하기 위한 Seoul AI 의 새로운 툴킷이고, 다양한 환경을 시뮬레이션하며 에이전트에게 어떤 학습 기법도 적용할 수 있습니다.
-이번 해커톤 참가자에게 주어지는 과제는 "알고리즘 트레이딩"을 수행하는 에이전트를 개발하는 것입니다. 각 참가자는 자신의 에이전트를 훈련 할 수있는 방법을 찾아서 적용해야 합니다.
+Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다.
+이번 해커톤 참가자에게 주어지는 과제는 <a href="https://en.wikipedia.org/wiki/Algorithmic_trading">알고리즘 트레이딩</a>을 수행하는 에이전트를 개발하는 것입니다.
+각 참가자는 자신의 에이전트를 훈련 할 수 있는 방법을 찾아서 적용해야 합니다. 에이전트는 Market이라는 하나의 환경 속에서 REST API를 통해 실시간으로 학습합니다.
 
 # 대회 방식 
+
 - 트레이딩 시간 : 10:00 - 18:50
 - 모든 에어전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
 - 대회가 종료되는 18시 50분에 가장 큰 수익률을 기록한 에이전트가 우승합니다.
 
 # 순위 산정 방식
+
 - 수익률= (포트폴리오 가치 / 10,000,000 KRW) x 100 (%)
 - 포트폴리오 가치 = 현금 + 잔고수량 x 현재가, 18시 50분 기준.
 - 수익률이 0% 이하인 에이전트는 순위 산정에서 제외됩니다. 
 - 동점자가 존재할 경우 거래 회수가 더 높은 에이전트 개발자가 우승합니다.
 
 # Awards
+
 우승자에게는 에어팟(AirPods)이 수여됩니다.
 
 # 제약 조건
+
 - <a href="http://bit.ly/seoulai_market_hackathon">Form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
 - 주문수량, 현금, 잔고 수량은 소수점 넷째 자리까지만 유효합니다.
 - 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
 - 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
+- 현금이 1,000 KRW 미만일 때 매수 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다. (최소 주문 금액 1,000 KRW)
+- 잔고 수량이 0인데 매도 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다.
 - 트레이딩 방식에는 제약조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
 
 # 일정
@@ -63,7 +70,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 # 등록
 
-모든 참가자는 <a href="http://bit.ly/seoulai_market_hackathon">Form</a>을 통해 agent_id(hackathon_id) 를 사전 등록해야 합니다.
+모든 참가자는 <a href="http://bit.ly/seoulai_market_hackathon">Form</a>을 통해 hackathon_id(agent_id) 를 사전 등록해야 합니다.
 문의사항은 seoul.ai.global@gmail 로 자유롭게 보내주세요.
 
 # 위치
@@ -117,17 +124,14 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 # Technical information
 
-다음 섹션에서는 Seoul AI Market 을 어떻게 설치하고 사용하는지 기술적으로 설명합니다.
-
+아래에서는 Seoul AI Market 을 어떻게 설치하고 사용하는지 기술적으로 설명합니다.
 최신 일자의 documentation은
 [GitHub](https://github.com/seoulai/gym/blob/master/seoulai_gym/e
 nvs/market/README.md). 에서 확인할 수 있습니다.
-
 만약 문제가 발생한다면 
 [GitHub issues](https://github.com/seoulai/gym/issues) 에서 issue를 작성해주시기 바랍니다.
 기재된 이슈는 Seoul AI 팀이 가능한 빨리 해결하겠습니다.
-
-Seoul AI Market environment 를 사용하기 위해서는 Python 3.6+. 버전이 필요합니다.
+Seoul AI Market environment 를 사용하기 위해서는 3.6 버전 이상의 Python이 필요합니다.
 
 ## Install
 
@@ -150,92 +154,64 @@ cd gym
 pip3 install -e
 ```
 
-## Environment
 
-가장 중요한 컴포넌트는 Environment입니다.
-
-Environment는 비트코인의 실시간 시장 상황(state)을 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
+## Seoul AI Market 프레임워크
 
 {% highlight python %}
 
 import seoulai_gym as gym
-
-# Create Environment
-
-env = gym.make("Market")
-
-# Participate in Environment
-# Id와 mode를 선택하고 환경에 참여해야 합니다.
-# 현재 mode는LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
-# HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, 가상의 KRW와 잔고에 영향을 미치게 됩니다.
+from itertools import count
+from seoulai_gym.envs.market.base import Constants
 
 your_id = "seoul_ai"
 mode = Constants.LOCAL
+
+# 개발한 Agent를 생성합니다.
+a1 = YourAgentClassName(
+     your_id,
+     )
+
+# Market 환경을 생성합니다. 
+env = gym.make("Market")
+
+# id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
 env.participate(your_id, mode)
 
-# Reset Environment
-# Reset은 비트코인 시장의 초기 상태를 받아오는 역할을 수행합니다.
-
+# reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
 obs = env.reset()
 
-# obs
-# obs는 observation을 의미합니다.
-# obs에 포함된 데이터 셋은 다음과 같습니다.
-
-order_book = # [매수1호가, 현재가, 매도1호가]
-statistics = # {Agent가 사용할 수 있는 통계값}
-agent_info = # {현금, 잔고수량}
-portfolio_rets = # {알고리즘 수행에 따른 포트폴리오 지표}
-
-# Agent 가 action을 만드는 과정은 다음과 같습니다.
-action = a1.act(obs)
-
-# act는 내부적으로 아래의 순서로 수행됩니다.
-set_actions() = # 참여자가 Agent의 action을 직접 정의합니다.
-preprocess() = # obs로 받아온 raw data를 정제합니다. obs 데이터 중 원하는 데이터를 선택, 생성하고 정규화를 수행하시길 권장합니다.
-algo() = # 알고리즘 트레이딩 방식을 정의합니다.
-
-# action을 Market으로 보내는 방법은 다음과 같습니다. 
-obs, rewards, done, info = env.step(action)
+# online reinforcement learning을 위해 계속해서 반복문을 수행합니다.
+for t in count():
+    # Agent 가 action을 수행하기 위해선 act 함수를 호출해야 합니다. 
+    action = a1.act(obs)
+    
+    # action을 Market으로 보내는 방법은 다음과 같습니다. 
+    obs, rewards, done, _ = env.step(**action)
+    
+    # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
+    a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
-## Agent
-에이전트는 Market이라는 하나의 환경 속에서 REST API를 통해 실시간으로 학습합니다.
+## Detail
 
-### Example
+### mode
 
-```python
-```
+현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
+HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
+따라서 LOCAL 모드에서 충분히 테스트를 진행한 후 HACKATHON 모드로 전환하길 권장합니다.
 
-## Environment variables
-
-There are 4 important environment variables returned by
-`step` method:
-
-- `obs`
-
-- `rewards`
-
-- `done`
-
-- `info`
-
-```python
-```
-
-## main 함수 작성에 대한 안내
-#### Local mode example
+#### LOCAL 모드 예제 1
+LOCAL에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
 
 ```python
 your_id = "seoul_ai"
-mode = 0    # LOCAL
+mode = Constants.LOCAL
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# LOCAL 모드의 reset에서는 로컬에 저장된 현금과 잔고수량이 모두 초기화됩니다.
-obs = env.reset()
+obs = env.reset()    # 현금과 잔고수량이 모두 초기화
 
 for t in count():
     action = a1.act(obs)
@@ -243,13 +219,12 @@ for t in count():
     a1.postprocess(obs, action, next_obs, rewards)
 ```
 
-#### Local mode example2
+#### LOCAL 모드 예제 2
+LOCAL 모드에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 
 ```python
-# LOCAL 모드에서는 Episodes를 활용해 반복 학습을 할 수 있습니다.
-
 your_id = "seoul_ai"
-mode = 0    # LOCAL
+mode = Constants.LOCAL
 
 env = gym.make("Market")
 env.participate(your_id, mode)
@@ -268,16 +243,18 @@ for e in EPISODES:
             break
 ```
 
-#### Hackathon mode example
+#### HACKATHON 모드 예제
+HACKATHON 모드의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
+LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
+Episodes를 활용한 반복 학습은 불가합니다.
 
 ```python
 your_id = "seoul_ai"
-mode = 1    # HACKATHON 
+mode = Constants.HACKATHON
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# HACKATHON 모드의 reset에서는 서버에서 현금과 잔고수량을 가져옵니다. (초기화 작업은 일어나지 않습니다.)
 obs = env.reset()
 
 for t in count():
@@ -286,26 +263,68 @@ for t in count():
     a1.postprocess(obs, action, next_obs, rewards)
 ```
 
-## Agent 클래스 개발에 대한 안내 
+### act
+act는 내부적으로 아래의 순서로 수행됩니다.
+- preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
+- algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
 
-### Agent 생성 예제 
+```python
+action = a1.act(obs)
+```
+    
+### step
+step 함수는 크립토의 실시간 시장 상황(state)을 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
+step 함수를 수행하면 세 가지 변수를 return 받습니다.
+
+- `obs`
+obs는 observation을 의미합니다.
+obs에 포함된 데이터 셋은 다음과 같습니다.
+
+```python
+order_book = obs.get("order_book")    # [매수1호가, 현재가, 매도1호가]
+statistics = obs.get("statistics")    # {Agent가 사용할 수 있는 통계값}
+agent_info = obs.get("agent_info")    # {현금, 잔고수량}
+portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
+```
+- `rewards`
+기본적으로 아래의 5 가지 rewards가 제공됩니다.
+
+```python
+rewards = dict(
+    return_amt=return_amt,    # 현재 action으로 발생한 수익 금액
+    return_per=return_per,    # 현재 action으로 발생한 수익률 = (현재 포트폴리오 가치 / 이전 포트폴리오 가치-1) x 100 (%)
+    return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
+    score_amt=score_amt,    # 초기 자본(10,000,0000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
+    score=score)    # 초기 자본(110,000,0000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
+```
+
+- `done`
+일반적인 강화학습에서는 게임의 끝(done)이 있으나,
+Online Reinforcement Learning인 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
+따라서 done의 값은 항상 False입니다.
+
+
+
+### Agent 클래스 개발
+
+#### Agent 생성
+Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
+
 ```python
 import seoulai_gym as gym
 from seoulai_gym.envs.market.agents import Agent
 
-# Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
 class YourAgentClassName(Agent):
     ...
 ```
 
-### set_actions 함수
-
-#### action 정의
-- 참가자는 반드시 set_actions 함수를 정의해야 합니다.
-- actions는 딕셔너리 형태로 정의합니다. ex. your_actions = dict(key1=value1, key2=value2...)
-- key는 action name, value는 order_percent를 입력합니다.
-- action name은 당신이 원하는 어떤 이름을 사용해도 무방합니다.
-- order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
+#### set_actions 함수 정의
+참가자는 반드시 set_actions 함수를 정의해야 합니다.
+actions는 딕셔너리 형태로 정의하고 마지막에 반드시 return 해야 합니다.
+딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
+action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
+order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
+order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다.
 
 ```python
 class YourAgentClassName(Agent):
@@ -317,16 +336,16 @@ class YourAgentClassName(Agent):
         your_actions = {}
         your_actions = dict(
             holding = 0,
-            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다.
-            sell_20per = -20,  # sell_20 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다.
+            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다. (매도 1호가로) 
+            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다. (매수 1호가로)
         )
         return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
 ```
 
 #### preprocess (데이터 전처리)
-- obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, 필요한 데이터의 형태로 변경 가능합니다.
-- obs가 전달하는 raw data를 정제하고, 정규화 합니다.
-- preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
+obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, 원하는 형태로 변경 가능합니다.
+데이터 정규화를 수행하길 권장합니다.
+preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
 
 ```python
     def preprocess(
@@ -347,7 +366,10 @@ class YourAgentClassName(Agent):
 ```
 
 #### algo (알고리즘 정의)
-- 어떤 조건에서 어떤 action을 취할지 정의하는 함수입니다. 
+어떤 조건에 따라 trading을 수행할지 정의하는 함수입니다.
+action은 set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다. 
+set_actions에서 정의한 action_name의 index를 파라미터로 입력 할 수 있습니다.
+
 
 ```python
     def algo(
@@ -359,7 +381,33 @@ class YourAgentClassName(Agent):
         elif state["sell_signal"]:
             return self.action("sell_20per")
         else:
-            return self.action(0)    # action은 set_actions에서 정의한 순서를 index로 활용할 수 있습니다.
+            return self.action(0)    # set_actions에서 정의한 action_name의 index를 파라미터로 입력 할 수 있습니다.
+```
+
+#### postprocess (데이터 후처리)
+postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
+```python
+    def postprocess(
+        self,
+        obs,
+        action,
+        next_obs,
+        rewards,
+    ):
+        your_reward = 0
+
+        decision = action.get("decision")
+        order_book = obs.get("order_book")
+        cur_price = order_book[0+1]
+
+        next_order_book = obs.get("order_book")
+        next_price = next_order_book[0+1]
+        diff = next_price - cur_price
+
+        if decision == Constants.BUY and diff > 0:
+            your_reward = 1
+        elif decision == Constants.SELL and diff < 0:
+            your_reward = 1
 ```
 
 #### DQN example
@@ -371,35 +419,6 @@ class YourAgentClassName(Agent):
 ```python
 # link 2
 ```
-
-### Rewards (`rewards`)
-
-기본적으로 아래의 5 가지 rewards가 제공됩니다.
-
-- `return_amt` - 해당 action으로 발생한 수익 금액
-
-- `return_per` - 해당 action으로 발생한 수익률 = (이전 포트폴리오 가치 / 현재 포트폴리오 가치) x 100 (%)
-
-- `return_sign` - 해당 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 포트폴리오 가치에 변화가 없다면 0점
-
-- `score_amt` - 10,000,0000 KRW 대비 현재까지 발생한 수익(혹은 손익) 금액 
-
-- `score` - 10,000,0000 KRW 대비 현재까지 발생한 수익(혹은 손익) 률 = 순위 산정 지표 
-
-
-postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
-```python
-```
-
-#### 아래의 경우에는 자동으로 hold 주문이 발생됩니다.
-- 현금이 1,000 KRW 미만일 때 매수 주문을 낼 경우. (최소 주문 금액 1,000 KRW)
-- 잔고 수량이 0인데 매도 주문을 낼 경우 
-
-## End of game (`done`)
-
-일반적인 강화학습에서는 게임의 끝(done)이 있으나,
-Online Reinforcement Learning인 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
-따라서 done의 값은 항상 False입니다.
 
 {% endcapture %}
 
