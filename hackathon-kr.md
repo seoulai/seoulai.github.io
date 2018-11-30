@@ -43,10 +43,10 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 우승자에게는 에어팟(AirPods)이 수여됩니다.
 
 # 제약 조건
-- <a href="http://bit.ly/seoulai_market_hackathon">form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
-- 주문수량, 현금, 자산 수량은 소수점 넷째 자리까지만 유효합니다.
+- <a href="http://bit.ly/seoulai_market_hackathon">Form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
+- 주문수량, 현금, 잔고 수량은 소수점 넷째 자리까지만 유효합니다.
 - 매수주문은 매도 1호가, 매도주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
-- 매수, 매도 주문은 % 단위의 가능수량으로만 매매 가능합니다. (technical information 참조)
+- 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
 - 트레이딩 방식에는 제약조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
 
@@ -63,7 +63,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 # 등록
 
-모든 참가자는 http://bit.ly/seoulai_market_hackathon를 통해 agent_id(hackathon_id) 를 사전등록해야 합니다.
+모든 참가자는 <a href="http://bit.ly/seoulai_market_hackathon">Form</a>을 통해 agent_id(hackathon_id) 를 사전 등록해야 합니다.
 문의사항은 seoul.ai.global@gmail 로 자유롭게 보내주세요.
 
 # 위치
@@ -111,35 +111,28 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
   </div>
 </div>
 
-# Seoul AI Leaderboard.
-해커톤 참여자는 일괄적으로 100 point를 얻게됩니다.
-이 점수는 Seoul AI Learderboard에 누적 되어지고, 멤버 모두에게 공유될 예정입니다.
-Learder / Follower
-
 {% endcapture %}
 
 {% capture technical_info %}
 
 # Technical information
 
-Following sections describe how to install and use
-Checkers environnment from Seoul AI Gym.
+다음 섹션에서는 Seoul AI Market 을 어떻게 설치하고 사용하는지 기술적으로 설명합니다.
 
-The latest up to date documentation you can find at
+최신 일자의 documentation은
 [GitHub](https://github.com/seoulai/gym/blob/master/seoulai_gym/e
-nvs/checkers/README.md).
+nvs/market/README.md). 에서 확인할 수 있습니다.
 
-If you encounter any issue reach out for help through
-[GitHub issues](https://github.com/seoulai/gym/issues)
-and we will try to resolve your problem as soon as
-possible.
+만약 문제가 발생한다면 
+[GitHub issues](https://github.com/seoulai/gym/issues) 에서 issue를 작성해주시기 바랍니다.
+기재된 이슈는 Seoul AI 팀이 가능한 빨리 해결하겠습니다.
 
-Checkers environment requires Python 3.6+.
+Seoul AI Market environment 를 사용하기 위해서는 Python 3.6+. 버전이 필요합니다.
 
 ## Install
 
-We try to keep PyPI package up to date, but the latest
-version of the code can be always found at [GitHub](https://github.com/seoulai/gym).
+Seoul AI 팀은 PyPI package를 최신 일자로 유지할 것입니다. 최신 버전의 코드는 
+[GitHub](https://github.com/seoulai/gym). 에서도 확인할 수 있습니다.
 
 Install through PyPI
 
@@ -159,128 +152,60 @@ pip3 install -e
 
 ## Environment
 
-The main game component is Environment.
+가장 중요한 컴포넌트는 Environment입니다.
 
-The Environment stores the state of the game and allows
-Agents to perform moves.
+Environment는 비트코인의 실시간 시장 상황(state)를 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
 
 {% highlight python %}
 
 import seoulai_gym as gym
 
-# Create environment
+# Create Environment
 
-env = gym.make("Checkers")
+env = gym.make("Market")
 
-# Reset environment - run before every new game
+# Participate in Environment
+# Id와 mode를 선택하고 환경에 참여해야 합니다.
+# 현재 mode는LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
+# HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, 가상의 KRW와 잔고에 영향을 미치게 됩니다.
+
+your_id = "seoul_ai"
+mode = Constants.LOCAL
+env.participate(your_id, mode)
+
+# Reset Environment
+# Reset은 비트코인 시장의 초기 상태를 받아오는 역할을 수행합니다.
 
 obs = env.reset()
 
-from_row = # row location of agent's piece
+# obs
+# obs는 observation을 의미합니다.
+# obs에 포함된 데이터 셋은 다음과 같습니다.
 
-from_col = # column location of agent's piece
+order_book = # [매수1호가, 현재가, 매도1호가]
+statistics = # {Agent가 사용할 수 있는 통계값}
+agent_info = # {현금, 잔고수량}
+portfolio_rets = # {알고리즘 수행에 따른 포트폴리오 지표}
 
-to_row = # new row location of agent's piece
+# Agent 가 action을 만드는 과정은 다음과 같습니다.
+action = a1.act(obs)
 
-to_col = # new column location of agent's piece
+# act는 내부적으로 아래의 순서로 수행됩니다.
+set_actions() = # 참여자가 Agent의 action을 직접 정의합니다.
+preprocess() = # obs로 받아온 raw data를 정제합니다. obs 데이터 중 원하는 데이터를 선택, 생성하고 정규화를 수행하시길 권장합니다.
+algo() = # 알고리즘 트레이딩 방식을 정의합니다.
 
-# Agent makes move from (from_row, from_col)
-
-# position to (to_row, to_col) position using environment
-
-obs, rew, done, info = env.step(agent, from_row,
-from_col, to_row, to_col)
-
-# Display state of game in graphically
-
-env.render()
-
-# Clean termination of environment
-
-env.close()
+# action을 Market으로 보내는 방법은 다음과 같습니다. 
+obs, rewards, done, info = env.step(action)
 
 {% endhighlight %}
 
 ## Agent
+에이전트는 Market이라는 하나의 환경 속에서 REST API를 통해 실시간으로 학습합니다.
 
-Environment enables two Agents to play checkers with
-each other.
-
-Agents take turns and if Agent attempts to make non
-valid move, no move will be performed.
-
-In such case opponent will make two moves in a row.
-
-### Example with 2 random agents
+### Example
 
 ```python
-import seoulai_gym as gym
-
-from seoulai_gym.envs.checkers.agents import
-RandomAgentLight
-
-from seoulai_gym.envs.checkers.agents import
-RandomAgentDark
-
-
-
-
-
-env = gym.make("Checkers")
-
-
-
-a1 = RandomAgentLight("Agent 1")
-
-a2 = RandomAgentDark("Agent 2")
-
-
-
-obs = env.reset()
-
-
-
-current_agent = a1
-
-next_agent = a2
-
-
-
-while True:
-
-    from_row, from_col, to_row, to_col =
-current_agent.act(obs)
-
-    obs, rew, done, info = env.step(current_agent,
-from_row, from_col, to_row, to_col)
-
-    current_agent.consume(obs, rew, done)
-
-
-
-    if done:
-
-        print(f"Game over! {current_agent} agent wins.")
-
-        obs = env.reset()
-
-
-
-    # switch agents
-
-    temporary_agent = current_agent
-
-    current_agent = next_agent
-
-    next_agent = temporary_agent
-
-
-
-    env.render()
-
-
-
-env.close()
 ```
 
 ## Environment variables
@@ -290,188 +215,66 @@ There are 4 important environment variables returned by
 
 - `obs`
 
-- `rew`
+- `rewards`
 
 - `done`
 
 - `info`
 
-### State of the game (`obs`)
-
-State of the game (`obs`) is represented as `List[List [Piece]]`.
-
-To enable easier manipulation (e.g. input to
-convolutional network) with the state of game, we
-provide [`board_list2numpy`]
-(https://github.com/seoulai/gym/blob/master/seoulai_gym/e
-nvs/checkers/utils.py#L67-L103) function that converts
-state to 2D NumPy array.
-
 ```python
->>> from seoulai_gym.envs.checkers.utils import
-board_list2numpy
-
->>> help(board_list2numpy)
-
-Help on function board_list2numpy in module
-seoulai_gym.envs.checkers.utils:
-
-
-
-board_list2numpy(board_list, encoding)
-
-    Convert the state of game (`board_list`) into 2D
-NumPy Array using `encoding`.
-
-
-
-    Args:
-
-        board_list: (List[List[Piece]]) State of the
-game.
-
-        encoding: (BoardEncoding) Optional argument.
-
-          If not given default encoding will be utilized.
-
-
-
-    Returns:
-
-        board_numpy: (np.array)
 ```
 
-#### Example of converting state of the game with
-
-_default_ encoding
+#### Example
 
 ```python
->>> from seoulai_gym.envs.checkers.utils import
-board_list2numpy
+```
 
->>> board_numpy = board_list2numpy(obs)
+#### Example
+
+
+```python
 ```
 
 ```python
-array([[10.,  0., 10.,  0., 10.,  0., 10.,  0.],
-
-       [ 0., 10.,  0., 10.,  0., 10.,  0., 10.],
-
-       [10.,  0., 10.,  0., 10.,  0., 10.,  0.],
-
-       [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-
-       [ 0.,  0.,  0.,  0.,  0.,  0., 20.,  0.],
-
-       [ 0., 20.,  0., 20.,  0., 20.,  0.,  0.],
-
-       [20.,  0., 20.,  0., 20.,  0., 20.,  0.],
-
-       [ 0., 20.,  0., 20.,  0., 20.,  0., 20.]])
 ```
 
-#### Example of converting state of the game with
-
-_modified_ encoding
-
-```python
->>> from seoulai_gym.envs.checkers.utils import
-board_list2numpy
-
->>> from seoulai_gym.envs.checkers.utils import
-BoardEncoding
-
->>> enc = BoardEncoding()
-
->>> enc.dark = 99
-
->>> enc.light = 33
-
->>> board_numpy = board_list2numpy(obs, enc)
-```
-
-```python
-array([[99.,  0., 99.,  0., 99.,  0., 99.,  0.],
-
-       [ 0., 99.,  0., 99.,  0., 99.,  0., 99.],
-
-       [99.,  0., 99.,  0., 99.,  0., 99.,  0.],
-
-       [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-
-       [ 0.,  0.,  0.,  0.,  0.,  0., 33.,  0.],
-
-       [ 0., 33.,  0., 33.,  0., 33.,  0.,  0.],
-
-       [33.,  0., 33.,  0., 33.,  0., 33.,  0.],
-
-       [ 0., 33.,  0., 33.,  0., 33.,  0., 33.]])
-```
-
-### Reward (`rew`)
+### Reward (`rewards`)
 
 Rewards for different situations in the game are
 predefined within environment.
 
-There are 7 different reward situations that are
+There are 7 different basic rewards that are
 mutually exclusive.
 
 Some rewards should be considered as "punishments"
 (`invalid_move`, `move_opponent_piece`).
 
-- `default` - agent performed a valid move
+- `return_amt` - 
 
-- `invalid_move` - agent attempted to make an [invalid
+- `return_per` - agent attempted to make an [invalid
   move](#invalid-move)
 
-- `move_opponent_piece` - agent attempted to move with
+- `return_sign` - agent attempted to move with
   opponent's piece
 
-- `remove_opponent_piece` - agent removed opponent's
+- `score_amt` - agent removed opponent's
   piece
 
-- `become_king` - agent made move with piece that became
+- `score` - agent made move with piece that became
   king
-
-- `opponent_no_pieces` - opponent has no pieces left,
-  current agent won game
-
-- `opponent_no_valid_move` - opponent cannot move,
-  current agent won game
 
 In case you want to set your own rewards, you can do as
 following:
 
 ```python
-env = gym.make("Checkers")
-
-rewards_map = {
-
-  "default": 1.0,
-
-  "invalid_move": 0.0,
-
-}
-
-env.update_rewards(rewards_map)
 ```
 
-#### Invalid moves
+#### Invalid Actions 
 
-- Location of piece out of boundaries (0 - 7)
+- 현금이 1,000 KRW 미만인데 매수 주문을 낼 경우 
+- 잔고 수량이 0인데 매도 주문을 낼 경우 
 
-- Move piece from empty location
-
-- Move piece to taken position
-
-- Move piece in location that is out for reach
-
-To get valid moves for given `obs`, and `from_row`,
-`from_col`, use [`get_valid_moves`]
-(https://github.com/seoulai/gym/blob/master/seoulai_gym/e
-nvs/checkers/rules.py#L64-L83).
-
-### End of game (`done`)
+## End of game (`done`)
 
 When game finished, environment returns `True` from
 `step` method, otherwise `False`.
@@ -479,12 +282,6 @@ When game finished, environment returns `True` from
 Agent that receives `True` won the game.
 
 ### Additional information (`info`)
-
-The last returned value from `step` method contains
-additional information about performed move.
-
-This is useful for debugging purposes or as a simple way
-for exploring current move.
 
 {% endcapture %}
 
