@@ -23,7 +23,7 @@ tags:
 
 {% capture event_info %}
 
-# Overview
+# 소개
 
 Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다.
 이번 해커톤 참가자에게 주어지는 과제는 <a href="https://en.wikipedia.org/wiki/Algorithmic_trading">알고리즘 트레이딩</a>을 수행하는 에이전트를 개발하는 것입니다.
@@ -32,24 +32,24 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 # 대회 방식 
 
 - 트레이딩 시간 : 10:00 - 18:50
-- 모든 에어전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
+- 모든 에이전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
 - 대회가 종료되는 18시 50분에 가장 큰 수익률을 기록한 에이전트가 우승합니다.
 
-# 순위 산정 방식
+# 수상 방식
 
 - 수익률= (포트폴리오 가치 / 10,000,000 KRW) x 100 (%)
 - 포트폴리오 가치 = 현금 + 잔고수량 x 현재가, 18시 50분 기준.
-- 수익률이 0% 이하인 에이전트는 순위 산정에서 제외됩니다. 
-- 동점자가 존재할 경우 거래 회수가 더 높은 에이전트 개발자가 우승합니다.
+- 수익률이 0% 이하인 에이전트는 수상에서 제외됩니다. 
+- 동점자가 존재할 경우 거래 횟수가 더 높은 에이전트가 우승합니다.
 
-# Awards
+# 수상
 
-우승자에게는 에어팟(AirPods)이 수여됩니다.
+우승자에게 애플 에어팟(AirPods)이 수여됩니다.
 
 # 제약 조건
 
 - <a href="http://bit.ly/seoulai_market_hackathon">Form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
-- 주문수량, 현금, 잔고 수량은 소수점 넷째 자리까지만 유효합니다.
+- 주문수량, 현금, 잔고 수량은 소수점 넷째 자리 까지만 유효합니다.
 - 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
 - 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
@@ -71,7 +71,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 # 등록
 
 모든 참가자는 <a href="http://bit.ly/seoulai_market_hackathon">Form</a>을 통해 hackathon_id(agent_id) 를 사전 등록해야 합니다.
-문의사항은 seoul.ai.global@gmail 로 자유롭게 보내주세요.
+문의사항은 seoul.ai.global@gmail.com 로 자유롭게 보내주세요.
 
 # 위치
 
@@ -133,7 +133,7 @@ nvs/market/README.md). 에서 확인할 수 있습니다.
 기재된 이슈는 Seoul AI 팀이 가능한 빨리 해결하겠습니다.
 Seoul AI Market environment 를 사용하기 위해서는 3.6 버전 이상의 Python이 필요합니다.
 
-## Install
+## 설치 
 
 Seoul AI 팀은 PyPI package를 최신 일자로 유지할 것입니다. 최신 버전의 코드는 
 [GitHub](https://github.com/seoulai/gym). 에서도 확인할 수 있습니다.
@@ -156,6 +156,7 @@ pip3 install -e
 
 
 ## Seoul AI Market 프레임워크
+Seoul AI Market은 실시간 <a href="https://github.com/seoulai/gym">강화학습</a> 프레임워크를 지향합니다.
 
 {% highlight python %}
 
@@ -166,7 +167,7 @@ from seoulai_gym.envs.market.base import Constants
 your_id = "seoul_ai"
 mode = Constants.LOCAL
 
-# 개발한 Agent를 생성합니다.
+# 개발한 에이전트를 생성합니다.
 a1 = YourAgentClassName(
      your_id,
      )
@@ -180,9 +181,9 @@ env.participate(your_id, mode)
 # reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
 obs = env.reset()
 
-# online reinforcement learning을 위해 계속해서 반복문을 수행합니다.
+# 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
 for t in count():
-    # Agent 가 action을 수행하기 위해선 act 함수를 호출해야 합니다. 
+    # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다. 
     action = a1.act(obs)
     
     # action을 Market으로 보내는 방법은 다음과 같습니다. 
@@ -193,15 +194,15 @@ for t in count():
 
 {% endhighlight %}
 
-## Detail
+## 세부사항 
 
 ### mode
 
 - 현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
-- HACKATHON 모드로 알고리즘을 수행할 경우 트레이딩이 실제로 수행되어지고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
-- 따라서 LOCAL 모드에서 충분히 테스트를 진행한 후 HACKATHON 모드로 전환하길 권장합니다.
+- HACKATHON mode로 알고리즘을 수행할 경우 트레이딩이 실제로 일어나고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
+- 따라서 LOCAL mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
 
-#### LOCAL 모드 예제 1
+#### LOCAL mode 예제 1
 
 ```python
 your_id = "seoul_ai"
@@ -219,7 +220,7 @@ for t in count():
     a1.postprocess(obs, action, next_obs, rewards)
 ```
 
-#### LOCAL 모드 예제 2
+#### LOCAL mode 예제 2
 
 ```python
 your_id = "seoul_ai"
@@ -230,7 +231,7 @@ env.participate(your_id, mode)
 
 obs = env.reset()
 
-# LOCAL 모드에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
+# LOCAL mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 EPISODES = 100
 for e in EPISODES: 
     for t in count():
@@ -243,7 +244,7 @@ for e in EPISODES:
             break
 ```
 
-#### HACKATHON 모드 예제
+#### HACKATHON mode 예제
 
 ```python
 your_id = "seoul_ai"
@@ -252,7 +253,7 @@ mode = Constants.HACKATHON
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# HACKATHON 모드의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
+# HACKATHON mode의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
 # LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
 obs = env.reset()
 
@@ -270,12 +271,13 @@ action = a1.act(obs)
 ```
 
 act는 내부적으로 아래의 순서로 수행됩니다.
+- _get_common() = obs로 받아온 raw data 를 에이전트 클래스의 변수로 저장합니다.
 - preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
 - algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
 
     
 ### step
-step 함수는 크립토의 실시간 시장 상황(state)을 저장하고 Agent들이 Trading을 수행할 수 있도록 합니다.
+step 함수는 크립토의 실시간 시장 상황(state)을 저장하고 에이전트들이 트레이딩을 수행합니다.
 step 함수를 수행하면 세 가지 변수를 return 받습니다.
 
 #### `obs`
@@ -284,7 +286,7 @@ obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
 order_book = obs.get("order_book")    # [매수1호가, 현재가, 매도1호가]
-statistics = obs.get("statistics")    # {Agent가 사용할 수 있는 통계값}
+statistics = obs.get("statistics")    # {에이전트가 사용할 수 있는 통계값}
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
@@ -305,17 +307,36 @@ rewards = dict(
 따라서 done의 값은 항상 False입니다.
 
 
-### Agent 클래스 개발
+### 에이전트 클래스 개발
 
-#### Agent 생성
+#### 에이전트 생성
 
 ```python
 import seoulai_gym as gym
 from seoulai_gym.envs.market.agents import Agent
 
-# Agent 개발 시 Seoul AI의 Agent 클래스를 반드시 상속받아야 합니다.
+# 에이전트 개발 시 Seoul AI의 에이전트 클래스를 반드시 상속받아야 합니다.
 class YourAgentClassName(Agent):
     ...
+```
+
+#### _get_common() 함수
+_get_common 함수는 에이전트의 act 함수를 실행하면 내부에서 자동으로 수행됩니다.
+obs의 raw 데이터를 에이전트 클래스의 변수로 저장합니다.
+```python
+    def _get_common(
+        self,
+        obs,
+    ):
+        self.order_book = obs.get("order_book")
+        self.statistics = obs.get("statistics")
+
+        self.agent_info = obs.get("agent_info")
+        self.portfolio_ret = obs.get("portfolio_rets")
+
+        self.cash = self.agent_info["cash"]    # 현금
+        self.asset_qtys = self.agent_info.get("asset_qtys")    # 잔고수량
+        self.cur_price = self.order_book[0+1]    # 현재가
 ```
 
 #### set_actions 함수 정의
@@ -368,7 +389,7 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
 ```
 
 #### algo (알고리즘 정의)
-어떤 조건에 따라 trading을 수행할지 정의하는 함수입니다.
+어떤 조건에 따라 트레이딩을 수행할지 정의하는 함수입니다.
 
 ```python
     def algo(
@@ -410,12 +431,12 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
             your_reward = 1
 ```
 
-#### DQN example
+#### DQN 예제
 ```python
 # link 1
 ```
 
-#### Rule Base example
+#### 룰 베이스 예제
 ```python
 # link 2
 ```
