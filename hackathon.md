@@ -52,8 +52,10 @@ The winner will receive Apple AirPods.
 
 - The hackathon_id (agent_id) you enter on <a href="http://bit.ly/seoulai_market_hackathon"> Form </a> must be the same as your agent class.
 - Order quantity, cash and balance will be calculated to the 4th decimal place.
-- 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
-- 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
+-  
+- 
+- Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%. (refer to technical information)
+- Buy and sell order can be executed as the unit of available quantity in percent. (refer to technical information)
 - The buy and sell commissions are 0.05%.
 - If you have less than 1,000 KRW in cash, your order will automatically be changed to hold order (Minimum order amount is 1,000 KRW)
 - If your balance is 0, and you place an order to sell, it will automatically be changed to hold order.
@@ -286,7 +288,7 @@ The step function fetches and saves the crypto market state so that the agent ma
 
 #### `obs`
 obs is short for observation.
-The 3 datasets in obs are as follows:
+The datasets in obs are as follows:
 
 ```python
 order_book = obs.get("order_book")    # [Buy price, Current price, Sell price]
