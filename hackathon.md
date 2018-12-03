@@ -26,7 +26,7 @@ tags:
 
 # Overview
 
-Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Grm. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the dataset. The agent will be provided via REST API and train in real time.
+Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the dataset. The agent will be provided via REST API and train in real time.
 
 
 # Competition
@@ -34,6 +34,15 @@ All agents will receive 100,000,000KRW at 10:00. The agent with the highest reve
 
 We encourage you to participate in the competition from the start of the competition, but you can join at any time on December 15th. 
 
+# Prizes
+
+The winner will receive Apple AirPods.
+
+# Registration
+
+All participands must register their *hackathon_id* (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
+
+If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 # Judging Criteria
 
@@ -41,11 +50,6 @@ We encourage you to participate in the competition from the start of the competi
 - Portfolio value = cash + balance amount * current value (at 18:50)
 - Agents with a return lower than 0% will be disqualified.
 - If there is a tie, the agent with the higher transaction number wins.
-
-
-# Prizes
-
-The winner will receive Apple AirPods.
 
 
 # Important information
@@ -61,7 +65,6 @@ The winner will receive Apple AirPods.
 - If your balance is 0, and you place an order to sell, it will automatically be changed to hold order.
 - There are no restrictions on trading methods. Reinforcement learning, rule based methods, direct trading and other methods are all possible.
 
-
 # Schedule
 
 Saturday, 15th of December, 2018
@@ -72,13 +75,6 @@ Saturday, 15th of December, 2018
 - 12:30 - 1:30 Lunch 
 - 13:30 - 18:50 Hacking
 - 18:50 - 19:00 Winner announcement 
-
-# Registration
-
-All participands must register their *hackathon_id* (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
-
-If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
-
 
 # Location
 
