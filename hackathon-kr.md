@@ -356,8 +356,8 @@ class YourAgentClassName(Agent):
 
         your_actions = dict(
             holding = 0,
-            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다.
-            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다.
+            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100%를 매수할 것임을 의미합니다.
+            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매도할 것임을 의미합니다.
         )
         return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
 ```
@@ -430,9 +430,7 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 ```
 
 #### DQN 예제
-```python
-# link 1
-```
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/dqn_example.py">dqn_example.py</a>
 
 #### 룰 베이스 예제
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>

@@ -30,7 +30,7 @@ Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This
 
 
 # Competition
-All agents will receive 100,000,000KRW at 10:00. The agent with the highest revenue by 18:50 will be the winner of the competition. 
+All agents will receive virtual 100,000,000KRW at 10:00. The agent with the highest revenue by 18:50 will be the winner of the competition. 
 
 We encourage you to participate in the competition from the start of the competition, but you can join at any time on December 15th. 
 
@@ -148,7 +148,7 @@ pip3 install -e .
 
 ## Seoul AI Market Framework
 
-Seoul AI Market is based ona real-time <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">reinforcement learning</a> based method.
+Seoul AI Market is based on a real-time <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">reinforcement learning</a>. 
 
 
 {% highlight python %}
@@ -358,7 +358,7 @@ class YourAgentClassName(Agent):
         your_actions = dict(
             holding = 0,
             buy_all = +100,    # buy_all means that you will buy 100% of the purchase amount
-            sell_20per = -20,  # sell_20per means buy and sell 20% of the available volume
+            sell_20per = -20,  # sell_20per means you will sell 20% of the available volume
         )
         return your_actions    # You must return the actions dictionary you defined.
 ```
@@ -431,9 +431,7 @@ You can redifine rewards through the postprocess.
 ```
 
 #### DQN Example
-```python
-# link 1
-```
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/dqn_example.py">dqn_example.py</a>
 
 #### Rule based Example
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
