@@ -141,22 +141,15 @@ You will need Python v 3.6 to run the Seoul AI Market environment.
 
 
 ## Installation
-You can install SeoulAI Gym via pip. You can also check the latest version on [GitHub](https://github.com/seoulai/gym)
 
-Install through PyPI
-
-```bash
-pip install seoulai_gym
-```
-
-or install from source.
+install from source.
 
 ```bash
-git clone https://github.com/seoulai/gym.git
+git clone -b market https://github.com/seoulai/gym.git
 
 cd gym
 
-pip3 install -e
+pip3 install -e .
 ```
 
 

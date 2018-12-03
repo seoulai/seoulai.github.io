@@ -135,23 +135,14 @@ Seoul AI Market environment 를 사용하기 위해서는 3.6 버전 이상의 P
 
 ## 설치 
 
-Seoul AI 팀은 PyPI package를 최신 일자로 유지할 것입니다. 최신 버전의 코드는 
-[GitHub](https://github.com/seoulai/gym). 에서도 확인할 수 있습니다.
-
-Install through PyPI
+install from source.
 
 ```bash
-pip install seoulai_gym
-```
-
-or install from source.
-
-```bash
-git clone https://github.com/seoulai/gym.git
+git clone -b market https://github.com/seoulai/gym.git
 
 cd gym
 
-pip3 install -e
+pip3 install -e .
 ```
 
 
