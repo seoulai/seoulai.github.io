@@ -146,7 +146,7 @@ pip3 install -e .
 
 
 ## Seoul AI Market 프레임워크
-Seoul AI Market은 실시간 <a href="https://github.com/seoulai/gym">강화학습</a> 프레임워크를 지향합니다.
+Seoul AI Market은 실시간 <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">강화학습</a> 프레임워크를 지향합니다.
 
 {% highlight python %}
 
