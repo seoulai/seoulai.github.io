@@ -188,7 +188,7 @@ for t in count():
     # To send your action to market:  
     obs, rewards, done, _ = env.step(**action)
     
-    # We reccomend that rewards override user-defined fuctions
+    # We recommend that rewards override user-defined fuctions
     a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
