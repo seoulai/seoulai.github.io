@@ -275,7 +275,8 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-order_book = obs.get("order_book")    # [매수1호가, 현재가, 매도1호가]
+order_book = obs.get("order_book")    # [매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량]
+trade = obs.get("trade")    # {현재가, 거래량}
 statistics = obs.get("statistics")    # {에이전트가 사용할 수 있는 통계값}
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
@@ -350,12 +351,13 @@ class YourAgentClassName(Agent):
         """ 딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
             action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
             order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
-            order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다. """
+            order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다.
+            매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다. """
 
         your_actions = dict(
             holding = 0,
-            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다. (매도 1호가로) 
-            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다. (매수 1호가로)
+            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100 %를 매매할 것임을 의미합니다.
+            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매매할 것임을 의미합니다.
         )
         return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
 ```
