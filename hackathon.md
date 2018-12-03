@@ -134,8 +134,7 @@ Republic of Korea
 
 # Technical information
 
-You can check our latest documentation on [GitHub](https://github.com/seoulai/gym/blob/master/seoulai_gym/e
-nvs/market/README.md). If you encounter any issues, please create an issue on [GitHub Issues](https://github.com/seoulai/gym/issues) and we will try to take care of it as soon as possible.
+You can check our latest documentation on [GitHub](https://github.com/seoulai/gym/tree/market/seoulai_gym/envs/market/README.md). If you encounter any issues, please create an issue on [GitHub Issues](https://github.com/seoulai/gym/issues) and we will try to take care of it as soon as possible.
 
 You will need Python v 3.6 to run the Seoul AI Market environment.
 
@@ -436,9 +435,7 @@ You can redifine rewards through the postprocess.
 ```
 
 #### Rule based Example
-```python
-# link 2
-```
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
 
 {% endcapture %}
 

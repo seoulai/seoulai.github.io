@@ -126,8 +126,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 아래에서는 Seoul AI Market 을 어떻게 설치하고 사용하는지 기술적으로 설명합니다.
 최신 일자의 documentation은
-[GitHub](https://github.com/seoulai/gym/blob/master/seoulai_gym/e
-nvs/market/README.md). 에서 확인할 수 있습니다.
+[GitHub](https://github.com/seoulai/gym/tree/market/seoulai_gym/envs/market/README.md). 에서 확인할 수 있습니다.
 만약 문제가 발생한다면 
 [GitHub issues](https://github.com/seoulai/gym/issues) 에서 issue를 작성해주시기 바랍니다.
 기재된 이슈는 Seoul AI 팀이 가능한 빨리 해결하겠습니다.
@@ -428,9 +427,7 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 ```
 
 #### 룰 베이스 예제
-```python
-# link 2
-```
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
 
 {% endcapture %}
 
