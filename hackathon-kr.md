@@ -60,7 +60,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
 - 현금이 1,000 KRW 미만일 때 매수 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다. (최소 주문 금액 1,000 KRW)
 - 잔고 수량이 0인데 매도 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다.
-- 트레이딩 방식에는 제약조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
+- 트레이딩 방식에는 제약 조건이 없습니다. 강화학습, 룰 베이스, 직접 매매, 기타 다른 테크닉 등 모든 방법이 가능합니다.
 
 # 일정
 
@@ -319,14 +319,19 @@ obs의 raw 데이터를 에이전트 클래스의 변수로 저장합니다.
         obs,
     ):
         self.order_book = obs.get("order_book")
+
+        self.trade= obs.get("trade")
+        self.cur_price = self.trade.get("cur_price")    # 현재가
+        self.cur_volume = self.trade.get("cur_volume")    # 거래량
+
         self.statistics = obs.get("statistics")
 
         self.agent_info = obs.get("agent_info")
-        self.portfolio_ret = obs.get("portfolio_rets")
+        self.cash = self.agent_info["cash"]
+        self.asset_qtys = self.agent_info.get("asset_qtys")    # 잔고 수량
 
-        self.cash = self.agent_info["cash"]    # 현금
-        self.asset_qtys = self.agent_info.get("asset_qtys")    # 잔고수량
-        self.cur_price = self.order_book[0+1]    # 현재가
+        self.portfolio_rets = obs.get("portfolio_rets")
+        self.portfolio_val = self.portfolio_rets.get("val")
 ```
 
 #### set_actions 함수 정의
@@ -408,11 +413,12 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
         your_reward = 0
 
         decision = action.get("decision")
-        order_book = obs.get("order_book")
-        cur_price = order_book[0+1]
+        trade = obs.get("trade")
+        cur_price = trade.get("cur_price")
 
-        next_order_book = obs.get("order_book")
-        next_price = next_order_book[0+1]
+        next_trade = next_obs.get("trade")
+        next_price = next_trade.get("cur_price")
+
         diff = next_price - cur_price
 
         if decision == Constants.BUY and diff > 0:

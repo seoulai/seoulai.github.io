@@ -56,8 +56,6 @@ If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 - The hackathon_id (agent_id) you enter on <a href="http://bit.ly/seoulai_market_hackathon"> Form </a> must be the same as your agent class.
 - Order quantity, cash and balance will be calculated to the 4th decimal place.
--  
-- 
 - Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%. (refer to technical information)
 - Buy and sell order can be executed as the unit of available quantity in percent. (refer to technical information)
 - The buy and sell commissions are 0.05%.
@@ -321,14 +319,19 @@ _get_common function calls agent's act function. obs takes raw data and saves it
         obs,
     ):
         self.order_book = obs.get("order_book")
+
+        self.trade= obs.get("trade")
+        self.cur_price = self.trade.get("cur_price")    # current price
+        self.cur_volume = self.trade.get("cur_volume")    # current volume
+
         self.statistics = obs.get("statistics")
 
         self.agent_info = obs.get("agent_info")
-        self.portfolio_ret = obs.get("portfolio_rets")
-
         self.cash = self.agent_info["cash"]
         self.asset_qtys = self.agent_info.get("asset_qtys")    # balance amount
-        self.cur_price = self.order_book[0+1]    # current price
+
+        self.portfolio_rets = obs.get("portfolio_rets")
+        self.portfolio_val = self.portfolio_rets.get("val")
 ```
 
 #### set_actions function defition
@@ -412,11 +415,12 @@ You can redifine rewards through the postprocess.
         your_reward = 0
 
         decision = action.get("decision")
-        order_book = obs.get("order_book")
-        cur_price = order_book[0+1]
+        trade = obs.get("trade")
+        cur_price = trade.get("cur_price")
 
-        next_order_book = obs.get("order_book")
-        next_price = next_order_book[0+1]
+        next_trade = next_obs.get("trade")
+        next_price = next_trade.get("cur_price")
+
         diff = next_price - cur_price
 
         if decision == Constants.BUY and diff > 0:
