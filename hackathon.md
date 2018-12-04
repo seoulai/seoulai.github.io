@@ -70,7 +70,7 @@ Saturday, 15th of December, 2018
 - 10:00 - 10:15 Opening
 - 10:15 - 10:30 Introduction to Seoul AI Gym and the Market environment
 - 10:30 - 12:30 Hacking
-- 12:30 - 1:30 Lunch 
+- 12:30 - 13:30 Lunch 
 - 13:30 - 18:50 Hacking
 - 18:50 - 19:00 Winner announcement 
 
