@@ -261,7 +261,6 @@ action = a1.act(obs)
 ```
 
 act는 내부적으로 아래의 순서로 수행됩니다.
-- _get_common() = obs로 받아온 raw data 를 에이전트 클래스의 변수로 저장합니다.
 - preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
 - algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
 
@@ -289,8 +288,8 @@ rewards = dict(
     return_amt=return_amt,    # 현재 action으로 발생한 수익 금액
     return_per=return_per,    # 현재 action으로 발생한 수익률 = (현재 포트폴리오 가치 / 이전 포트폴리오 가치-1) x 100 (%)
     return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
-    score_amt=score_amt,    # 초기 자본(10,000,0000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
-    score=score)    # 초기 자본(110,000,0000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
+    score_amt=score_amt,    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
+    score=score)    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
 ```
 
 #### `done`
@@ -309,30 +308,6 @@ from seoulai_gym.envs.market.agents import Agent
 # 에이전트 개발 시 Seoul AI의 에이전트 클래스를 반드시 상속받아야 합니다.
 class YourAgentClassName(Agent):
     ...
-```
-
-#### _get_common() 함수
-_get_common 함수는 에이전트의 act 함수를 실행하면 내부에서 자동으로 수행됩니다.
-obs의 raw 데이터를 에이전트 클래스의 변수로 저장합니다.
-```python
-    def _get_common(
-        self,
-        obs,
-    ):
-        self.order_book = obs.get("order_book")
-
-        self.trade= obs.get("trade")
-        self.cur_price = self.trade.get("cur_price")    # 현재가
-        self.cur_volume = self.trade.get("cur_volume")    # 거래량
-
-        self.statistics = obs.get("statistics")
-
-        self.agent_info = obs.get("agent_info")
-        self.cash = self.agent_info["cash"]
-        self.asset_qtys = self.agent_info.get("asset_qtys")    # 잔고 수량
-
-        self.portfolio_rets = obs.get("portfolio_rets")
-        self.portfolio_val = self.portfolio_rets.get("val")
 ```
 
 #### set_actions 함수 정의
