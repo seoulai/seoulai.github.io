@@ -222,11 +222,11 @@ mode = Constants.LOCAL
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-obs = env.reset()
-
 # LOCAL mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 EPISODES = 100
-for e in EPISODES: 
+for e in range(EPISODES): 
+    obs = env.reset()
+
     for t in count():
         action = a1.act(obs)
         next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
