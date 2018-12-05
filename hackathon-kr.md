@@ -23,13 +23,16 @@ tags:
 
 {% capture event_info %}
 
+<p>
+<div style="text-align: right"> <div> 한국어 | <a href="/hackathon">영어</a></div> </div>
+</p>
 # 소개
 
 Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니다. 해커톤은 <a href="https://github.com/seoulai/gym">Seoul AI Gym</a>을 활용합니다.
 이번 해커톤 참가자에게 주어지는 과제는 <a href="https://en.wikipedia.org/wiki/Algorithmic_trading">알고리즘 트레이딩</a>을 수행하는 에이전트를 개발하는 것입니다.
 각 참가자는 자신의 에이전트를 훈련 할 수 있는 방법을 찾아서 적용해야 합니다. 에이전트는 Market이라는 하나의 환경 속에서 REST API를 통해 실시간으로 학습합니다.
 
-# 대회 방식 
+# 대회 방식
 
 - 트레이딩 시간 : 10:00 - 18:50
 - 모든 에이전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
@@ -48,7 +51,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 - 수익률= (포트폴리오 가치 / 10,000,000 KRW) x 100 (%)
 - 포트폴리오 가치 = 현금 + 잔고수량 x 현재가, 18시 50분 기준.
-- 수익률이 0% 이하인 에이전트는 수상에서 제외됩니다. 
+- 수익률이 0% 이하인 에이전트는 수상에서 제외됩니다.
 - 동점자가 존재할 경우 거래 횟수가 더 높은 에이전트가 우승합니다.
 
 # 제약 조건
@@ -66,7 +69,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 2018 년 12 월 15 일 토요일
 
-- 10:00 - 10:15 Opening 
+- 10:00 - 10:15 Opening
 - 10:15 - 10:30 Seoul AI Gym 과 Market 소개
 - 10:30 - 12:30 해킹
 - 12:30 - 13:30 중식 (간단한 다과류)
@@ -127,12 +130,12 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 아래에서는 Seoul AI Market 을 어떻게 설치하고 사용하는지 기술적으로 설명합니다.
 최신 일자의 documentation은
 [GitHub](https://github.com/seoulai/gym/tree/market/seoulai_gym/envs/market/README.md). 에서 확인할 수 있습니다.
-만약 문제가 발생한다면 
+만약 문제가 발생한다면
 [GitHub issues](https://github.com/seoulai/gym/issues) 에서 issue를 작성해주시기 바랍니다.
 기재된 이슈는 Seoul AI 팀이 가능한 빨리 해결하겠습니다.
 Seoul AI Market environment 를 사용하기 위해서는 3.6 버전 이상의 Python이 필요합니다.
 
-## 설치 
+## 설치
 
 install from source.
 
@@ -147,8 +150,8 @@ cd gym
 pip3 install -e .
 ```
 
-
 ## Seoul AI Market 프레임워크
+
 Seoul AI Market은 실시간 <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">강화학습</a> 프레임워크를 지향합니다.
 
 {% highlight python %}
@@ -161,33 +164,39 @@ your_id = "seoul_ai"
 mode = Constants.LOCAL
 
 # 개발한 에이전트를 생성합니다.
-a1 = YourAgentClassName(
-     your_id,
-     )
 
-# Market 환경을 생성합니다. 
+a1 = YourAgentClassName(
+your_id,
+)
+
+# Market 환경을 생성합니다.
+
 env = gym.make("Market")
 
 # id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
+
 env.participate(your_id, mode)
 
 # reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
+
 obs = env.reset()
 
 # 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
-for t in count():
-    # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다. 
-    action = a1.act(obs)
-    
-    # action을 Market으로 보내는 방법은 다음과 같습니다. 
-    obs, rewards, done, _ = env.step(**action)
-    
-    # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
-    a1.postprocess(obs, action, next_obs, rewards)
+
+for t in count(): # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
+action = a1.act(obs)
+
+# action을 Market으로 보내는 방법은 다음과 같습니다.
+
+obs, rewards, done, \_ = env.step(\*\*action)
+
+# reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
+
+a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
-## 세부사항 
+## 세부사항
 
 ### mode
 
@@ -224,14 +233,14 @@ env.participate(your_id, mode)
 
 # LOCAL mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 EPISODES = 100
-for e in range(EPISODES): 
+for e in range(EPISODES):
     obs = env.reset()
 
     for t in count():
         action = a1.act(obs)
         next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
         a1.postprocess(obs, action, next_obs, rewards)
-    
+
         # Local에 저장된 데이터를 모두 학습하면 게임이 끝납니다.
         if done:
             break
@@ -264,15 +273,17 @@ action = a1.act(obs)
 ```
 
 act는 내부적으로 아래의 순서로 수행됩니다.
-- preprocess() = obs로 받아온 raw data를 state로 변환합니다. 
+
+- preprocess() = obs로 받아온 raw data를 state로 변환합니다.
 - algo() = 참여자가 정의한 방식대로 트레이딩을 수행합니다.
 
-    
 ### step
+
 step 함수는 크립토의 실시간 시장 상황(state)을 전달하고, 에이전트들은 실시간 시장 상황(state)를 활용해 트레이딩을 수행합니다.
 step 함수를 수행하면 세 가지 변수를 return 받습니다.
 
 #### `obs`
+
 obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
@@ -283,7 +294,9 @@ statistics = obs.get("statistics")    # {에이전트가 사용할 수 있는 �
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
+
 #### `rewards`
+
 기본적으로 아래의 6 가지 rewards가 제공됩니다.
 
 ```python
@@ -297,9 +310,9 @@ rewards = dict(
 ```
 
 #### `done`
+
 일반적인 강화학습에서는 게임의 끝(done)이 있으나, 이번 Hackathon에서는 게임이 끝나는 상황이 존재하지 않습니다.
 따라서 done의 값은 항상 False입니다.
-
 
 ### 에이전트 클래스 개발
 
@@ -315,6 +328,7 @@ class YourAgentClassName(Agent):
 ```
 
 #### set_actions 함수 정의
+
 참가자는 반드시 set_actions 함수를 정의해야 합니다.
 actions는 딕셔너리 형태로 정의하고 마지막에 반드시 return 해야 합니다.
 
@@ -342,8 +356,10 @@ class YourAgentClassName(Agent):
 ```
 
 #### preprocess (데이터 전처리)
+
 obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, 원하는 형태로 변경 가능합니다.
 데이터 정규화를 수행하길 권장합니다.
+
 - preprocess는 생략 가능합니다. 생략할 경우 obs는 그대로 state로 입력되어 집니다.
 
 ```python
@@ -365,6 +381,7 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
 ```
 
 #### algo (알고리즘 정의)
+
 어떤 조건에 따라 트레이딩을 수행할지 정의하는 함수입니다.
 
 ```python
@@ -373,7 +390,7 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         state,
     ):
         if state["buy_signal"]:
-            # set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다. 
+            # set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다.
             return self.action("buy_all")
         elif state["sell_signal"]:
             return self.action("sell_20per")
@@ -382,7 +399,9 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
 ```
 
 #### postprocess (데이터 후처리)
+
 postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
+
 ```python
     def postprocess(
         self,
@@ -409,9 +428,11 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 ```
 
 #### DQN 예제
+
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/dqn_example.py">dqn_example.py</a>
 
 #### 룰 베이스 예제
+
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
 
 {% endcapture %}
