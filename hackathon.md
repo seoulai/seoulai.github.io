@@ -26,7 +26,7 @@ tags:
 
 # Overview
 
-Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the dataset. The agent will be provided via REST API and train in real time.
+Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the real-time dataset.
 
 
 # Competition
@@ -283,13 +283,14 @@ agent_info = obs.get("agent_info")    # {Cash, balance amount}
 portfolio_rets = obs.get("portfolio_rets")    # {Portfolio indicators based on algorithm performance}
 ```
 #### `rewards`
-There are 5 types of rewards
+There are 6 types of rewards
 
 ```python
 rewards = dict(
     return_amt=return_amt,    # Revenue from current action
     return_per=return_per,    # Yield from current action (current value of portfolio/ previous value of portfolio -1) * 100(%)
     return_sign=return_sign,    # 1 if profited from current action. -1 if loss. 0 if no change. 
+    hit=hit,    # 1 if you buy and price goes up or you sell and price goes down. else 0.
     score_amt=score_amt,    # Amount of revenue (or profit or loss) incurred to date relative to initial capital (100,000,000 KRW)
     score=score)    # Revenue (or profit or loss) incurred to date relative to initial capital (100,000,000 KRW) (%)
 ```
