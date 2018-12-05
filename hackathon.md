@@ -138,6 +138,9 @@ You will need Python v 3.6 to run the Seoul AI Market environment.
 install from source.
 
 ```bash
+virtualenv -p python3.6 your_virtual_env
+source your_virtual_env/bin/activate
+
 git clone -b market https://github.com/seoulai/gym.git
 
 cd gym
@@ -193,7 +196,7 @@ for t in count():
 
 - There are 2 modes: LOCAL and HACKATHON.
 - Your agent will start trading in HACKATHON mode. This will affect the virtual KRW balance provided by Seoul AI.
-- You can trian your agent in the LOCAL mode. We advice you to train your agent before trying out the HACKATHON mode.
+- You can train your agent in the LOCAL mode. We advice you to train your agent before trying out the HACKATHON mode.
 
 #### LOCAL mode Example 1
 
@@ -312,7 +315,7 @@ class YourAgentClassName(Agent):
     ...
 ```
 
-#### set_actions function defition
+#### set_actions function definition
 All participants must define the set_action function.
 actions must be in dictionary form and must be returned.
 
@@ -364,7 +367,7 @@ You can select your data from raw data (fetched by obs), and change it as you'd 
 ```
 
 #### algo (algorithm definition)
-It is a function that defines the conditions for tradtion.
+It is a function that defines the conditions for trading.
 
 ```python
     def algo(

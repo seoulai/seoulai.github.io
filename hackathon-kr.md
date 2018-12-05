@@ -137,6 +137,9 @@ Seoul AI Market environment 를 사용하기 위해서는 3.6 버전 이상의 P
 install from source.
 
 ```bash
+virtualenv -p python3.6 your_virtual_env
+source your_virtual_env/bin/activate
+
 git clone -b market https://github.com/seoulai/gym.git
 
 cd gym
