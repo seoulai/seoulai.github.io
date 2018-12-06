@@ -379,6 +379,7 @@ You can select your data from raw data (fetched by obs), and change it as you'd 
 #### algo (algorithm definition)
 
 It is a function that defines the conditions for trading.
+algo function must return self.action function.
 
 ```python
     def algo(
