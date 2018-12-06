@@ -188,7 +188,7 @@ action = a1.act(obs)
  # To send your action to market:  
  obs, rewards, done, \_ = env.step(\*\*action)
   
- # We recommend that rewards override user-defined fuctions
+ # It is recommended that reward override and user-defined function usage be done via postprocess function.
 a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
