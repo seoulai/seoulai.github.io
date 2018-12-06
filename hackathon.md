@@ -49,7 +49,7 @@ If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 # Judging Criteria
 
-- Revenue = (portfolio value /10,000,000 KRW) \* 100 (%)
+- Revenue = (portfolio value /100,000,000 KRW) \* 100 (%) (Revenue will be calculated to the 4th decimal place.)
 - Portfolio value = cash + balance amount \* current value (at 18:50)
 - Agents with a return lower than 0% will be disqualified.
 - If there is a tie, the agent with the higher transaction number wins.
