@@ -124,6 +124,12 @@ Republic of Korea
   </div>
 </div>
 
+<div class="user-projects" style="vertical-align: center">
+  <div class="images-left">
+    <img src="{{ "/assets/img/hackathon/wingeat.png" | prepend: site.baseurl }}" />
+  </div>
+</div>
+
 {% endcapture %}
 
 {% capture technical_info %}
