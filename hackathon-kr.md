@@ -118,6 +118,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
   </div>
   <div class="images-center">
     <img src="{{ "/assets/img/hackathon/aws.png" | prepend: site.baseurl }}" />
+  </div>
   <div class="images-right">
     <img src="{{ "/assets/img/hackathon/wingeat.png" | prepend: site.baseurl }}" />
   </div>
