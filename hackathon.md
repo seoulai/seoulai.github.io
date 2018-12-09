@@ -43,7 +43,7 @@ The winner will receive Apple AirPods.
 
 # Registration
 
-All participands must register their _hackathon_id_ (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
+All participants must register their _hackathon_id_ (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
 
 If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
@@ -437,6 +437,10 @@ You can redifine rewards through the postprocess.
 #### Rule based Example
 
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
+
+#### Random Example
+
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">mean_reverting_example.py</a>
 
 {% endcapture %}
 
