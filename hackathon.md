@@ -72,7 +72,7 @@ Saturday, 15th of December, 2018
 - 10:00 - 10:15 Opening
 - 10:15 - 10:30 Introduction to Seoul AI Gym and the Market environment
 - 10:30 - 12:30 Hacking
-- 12:30 - 13:30 Lunch
+- 12:30 - 13:30 Lunch (WingEat)
 - 13:30 - 18:50 Hacking
 - 18:50 - 19:00 Winner announcement
 
@@ -291,7 +291,7 @@ obs is short for observation.
 The datasets in obs are as follows:
 
 ```python
-order_book = obs.get("order_book")    # [First buy price, Remain quantity, First sell price, Remain quantity]
+order_book = obs.get("order_book")    # {Ask price, Remain quantity, Bid price, Remain quantity}
 trade = obs.get("trade")    # {Current price, Volume}
 statistics = obs.get("statistics")    # {Statistical value for agent's use}
 agent_info = obs.get("agent_info")    # {Cash, balance amount}

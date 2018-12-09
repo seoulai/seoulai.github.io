@@ -72,7 +72,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 - 10:00 - 10:15 Opening
 - 10:15 - 10:30 Seoul AI Gym 과 Market 소개
 - 10:30 - 12:30 해킹
-- 12:30 - 13:30 중식 (간단한 다과류)
+- 12:30 - 13:30 중식 (윙잇 간편식)
 - 13:30 - 18:50 해킹
 - 18:50 - 19:00 우승자 발표
 
@@ -294,7 +294,7 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-order_book = obs.get("order_book")    # [매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량]
+order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량}
 trade = obs.get("trade")    # {현재가, 거래량}
 statistics = obs.get("statistics")    # {에이전트가 사용할 수 있는 통계값}
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
