@@ -440,7 +440,7 @@ You can redifine rewards through the postprocess.
 
 #### Random Example
 
-<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">mean_reverting_example.py</a>
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">random_agent_example.py</a>
 
 {% endcapture %}
 

@@ -444,7 +444,7 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 
 #### 랜덤 에이전트 예제
 
-<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">mean_reverting_example.py</a>
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">random_agent_example.py</a>
 {% endcapture %}
 
 {% capture build_with %}
