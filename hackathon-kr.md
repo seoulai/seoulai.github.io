@@ -170,26 +170,22 @@ your_id = "seoul_ai"
 mode = Constants.LOCAL
 
 # 개발한 에이전트를 생성합니다.
-
 a1 = YourAgentClassName(
 your_id,
 )
 
 # Market 환경을 생성합니다.
-
 env = gym.make("Market")
 
 # id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
-
 env.participate(your_id, mode)
 
 # reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
-
 obs = env.reset()
 
 # 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
-
-for t in count(): # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
+for t in count():
+    # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
     action = a1.act(obs)
 
     # action을 Market으로 보내는 방법은 다음과 같습니다.

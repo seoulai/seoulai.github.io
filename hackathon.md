@@ -50,7 +50,7 @@ If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 # Judging Criteria
 
 - Revenue = (portfolio value /100,000,000 KRW) \* 100 (%) (Revenue will be calculated to the 4th decimal place.)
-- Portfolio value = cash + balance amount \* current value (at 18:50)
+- Portfolio value = cash + balance amount \* current price (at 18:50)
 - Agents with a return lower than 0% will be disqualified.
 - If there is a tie, the agent with the higher transaction number wins.
 
@@ -169,33 +169,29 @@ your_id = "seoul_ai"
 mode = Constants.LOCAL
 
 # Create your agent.
-
 a1 = YourAgentClassName(
 your_id,
 )
 
 # Create your market environment.
-
 env = gym.make("Market")
 
 # Select your id and mode to participate
-
 env.participate(your_id, mode)
 
 # reset fetches the initial state of the crypto market.
-
 obs = env.reset()
 
 # Perform real-time reinforcement learning
-
-for t in count(): # Call act for the agent to take an action
-action = a1.act(obs)
+for t in count():
+    # Call act for the agent to take an action
+    action = a1.act(obs)
   
- # To send your action to market:  
- obs, rewards, done, \_ = env.step(\*\*action)
+    # To send your action to market:  
+    obs, rewards, done, _ = env.step(**action)
   
- # It is recommended that reward override and user-defined function usage be done via postprocess function.
-a1.postprocess(obs, action, next_obs, rewards)
+    # It is recommended that reward override and user-defined function usage be done via postprocess function.
+    a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
