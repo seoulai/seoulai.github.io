@@ -190,15 +190,13 @@ obs = env.reset()
 # 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
 
 for t in count(): # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
-action = a1.act(obs)
+    action = a1.act(obs)
 
-# action을 Market으로 보내는 방법은 다음과 같습니다.
+    # action을 Market으로 보내는 방법은 다음과 같습니다.
+    obs, rewards, done, _ = env.step(**action)
 
-obs, rewards, done, \_ = env.step(\*\*action)
-
-# reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
-
-a1.postprocess(obs, action, next_obs, rewards)
+    # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
+    a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
