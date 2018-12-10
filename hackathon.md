@@ -163,35 +163,40 @@ Seoul AI Market is based on a real-time <a href="https://en.wikipedia.org/wiki/R
 
 import seoulai_gym as gym
 from itertools import count
+from seoulai_gym.envs.market.agents import Agent
 from seoulai_gym.envs.market.base import Constants
 
-your_id = "seoul_ai"
-mode = Constants.LOCAL
+class YourAgentClassName(Agent):
+...
 
-# Create your agent.
-a1 = YourAgentClassName(
-your_id,
-)
-
-# Create your market environment.
-env = gym.make("Market")
-
-# Select your id and mode to participate
-env.participate(your_id, mode)
-
-# reset fetches the initial state of the crypto market.
-obs = env.reset()
-
-# Perform real-time reinforcement learning
-for t in count():
-    # Call act for the agent to take an action
-    action = a1.act(obs)
-  
-    # To send your action to market:  
-    obs, rewards, done, _ = env.step(**action)
-  
-    # It is recommended that reward override and user-defined function usage be done via postprocess function.
-    a1.postprocess(obs, action, next_obs, rewards)
+if __name__ == "__main__":
+    your_id = "seoul_ai"
+    mode = Constants.LOCAL
+    
+    # Create your agent.
+    a1 = YourAgentClassName(
+        your_id,
+        )
+    
+    # Create your market environment.
+    env = gym.make("Market")
+    
+    # Select your id and mode to participate
+    env.participate(your_id, mode)
+    
+    # reset fetches the initial state of the crypto market.
+    obs = env.reset()
+    
+    # Perform real-time reinforcement learning
+    for t in count():
+        # Call act for the agent to take an action
+        action = a1.act(obs)
+      
+        # To send your action to market:  
+        obs, rewards, done, _ = env.step(**action)
+      
+        # It is recommended that reward override and user-defined function usage be done via postprocess function.
+        a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
