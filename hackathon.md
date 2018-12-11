@@ -313,12 +313,12 @@ rewards = dict(
     score=score)    # Return(%) from initial cash (100,000,000 KRW) = hackathon score
 
 ```
-* Formula
-return_amt= portfolio value - previous portfolio value
-return_per = (return_amt / previous portfolio value) x 100 (%)
-fee = trading amount x fee ratio = (price x trading quantity) x 0.0005
-score_amt = portfolio value - 100,000,000 KRW
-score = (score_amt / 100,000,000 KRW) x 100 (%)
+Formula
+* return_amt= portfolio value - previous portfolio value
+* return_per = (return_amt / previous portfolio value) x 100 (%)
+* fee = trading amount x fee ratio = (price x trading quantity) x 0.0005
+* score_amt = portfolio value - 100,000,000 KRW
+* score = (score_amt / 100,000,000 KRW) x 100 (%)
 
 #### `done`
 
