@@ -1,4 +1,4 @@
--rent--
+---
 layout: hackathon
 title: SeoulAI Hackathon
 date: Saturday, December 15, 2018 10:00:00 PM GMT+09:00
