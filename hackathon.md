@@ -193,7 +193,7 @@ if __name__ == "__main__":
         action = a1.act(obs)
       
         # To send your action to market:  
-        obs, rewards, done, _ = env.step(**action)
+        next_obs, rewards, done, _ = env.step(**action)
       
         # It is recommended that reward override and user-defined function usage be done via postprocess function.
         a1.postprocess(obs, action, next_obs, rewards)
@@ -292,20 +292,20 @@ obs is short for observation.
 The datasets in obs are as follows:
 
 ```python
-order_book = obs.get("order_book")    # {Ask price, Remain quantity, Bid price, Remain quantity}
-trade = obs.get("trade")    # {Current price, Volume}
-statistics = obs.get("statistics")    # {Statistical value for agent's use}
-agent_info = obs.get("agent_info")    # {Cash, balance amount}
-portfolio_rets = obs.get("portfolio_rets")    # {Portfolio indicators based on algorithm performance}
+order_book = obs.get("order_book")    # {ask price, remain quantity, bid price, remain quantity} (200 tick)
+trade = obs.get("trade")    # {trade price, trade volume, ask_bid} (200 tick)
+agent_info = obs.get("agent_info")    # {cash, balance amount}
+portfolio_rets = obs.get("portfolio_rets")    # {portfolio indicators based on algorithm performance}
 ```
 
 #### `rewards`
 
-There are 6 types of rewards
+There are 7 types of rewards
 
 ```python
 rewards = dict(
     return_amt=return_amt,    # Revenue from current action
+    fee=fee,    # Fee from current action
     return_per=return_per,    # Yield from current action (current value of portfolio/ previous value of portfolio -1) * 100(%)
     return_sign=return_sign,    # 1 if profited from current action. -1 if loss. 0 if no change.
     hit=hit,    # 1 if you buy and price goes up or you sell and price goes down. else 0.

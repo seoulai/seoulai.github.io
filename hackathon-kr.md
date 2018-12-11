@@ -37,6 +37,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 - 트레이딩 시간 : 10:00 - 18:50
 - 모든 에이전트는 10 시에 가상의 100,000,000 KRW 를 지급 받습니다.
 - 대회가 종료되는 18시 50분에 가장 큰 수익률을 기록한 에이전트가 우승합니다.
+- 팀 참여자는 팀원의 평균 수익률이 가장 높을 경우 우승합니다.
 
 # 수상
 
@@ -164,35 +165,40 @@ Seoul AI Market은 실시간 <a href="https://en.wikipedia.org/wiki/Reinforcemen
 
 import seoulai_gym as gym
 from itertools import count
+from seoulai_gym.envs.market.agents import Agent
 from seoulai_gym.envs.market.base import Constants
 
-your_id = "seoul_ai"
-mode = Constants.LOCAL
+class YourAgentClassName(Agent):
+...
 
-# 개발한 에이전트를 생성합니다.
-a1 = YourAgentClassName(
-your_id,
-)
-
-# Market 환경을 생성합니다.
-env = gym.make("Market")
-
-# id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
-env.participate(your_id, mode)
-
-# reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
-obs = env.reset()
-
-# 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
-for t in count():
-    # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
-    action = a1.act(obs)
-
-    # action을 Market으로 보내는 방법은 다음과 같습니다.
-    obs, rewards, done, _ = env.step(**action)
-
-    # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
-    a1.postprocess(obs, action, next_obs, rewards)
+if __name__ == "__main__":
+    your_id = "seoul_ai"
+    mode = Constants.LOCAL
+    
+    # 개발한 에이전트를 생성합니다.
+    a1 = YourAgentClassName(
+    your_id,
+    )
+    
+    # Market 환경을 생성합니다.
+    env = gym.make("Market")
+    
+    # id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
+    env.participate(your_id, mode)
+    
+    # reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
+    obs = env.reset()
+    
+    # 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
+    for t in count():
+        # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
+        action = a1.act(obs)
+    
+        # action을 Market으로 보내는 방법은 다음과 같습니다.
+        next_obs, rewards, done, _ = env.step(**action)
+    
+        # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
+        a1.postprocess(obs, action, next_obs, rewards)
 
 {% endhighlight %}
 
@@ -288,20 +294,20 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량}
-trade = obs.get("trade")    # {현재가, 거래량}
-statistics = obs.get("statistics")    # {에이전트가 사용할 수 있는 통계값}
+order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량} (200 tick)
+trade = obs.get("trade")    # {체결가, 거래량, 매수매도구분} (200 tick)
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
 
 #### `rewards`
 
-기본적으로 아래의 6 가지 rewards가 제공됩니다.
+기본적으로 아래 7 가지 rewards가 제공됩니다.
 
 ```python
 rewards = dict(
     return_amt=return_amt,    # 현재 action으로 발생한 수익 금액
+    fee=fee,    # 현재 action으로 발생한 수수료
     return_per=return_per,    # 현재 action으로 발생한 수익률 = (현재 포트폴리오 가치 / 이전 포트폴리오 가치-1) x 100 (%)
     return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
     hit=hit,    # 매수 후 가격이 올라가거나 매도 후 가격이 내려간다면 1점, 나머지 경우엔 0점.
