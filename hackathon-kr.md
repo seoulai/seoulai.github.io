@@ -1,4 +1,4 @@
----
+-rent--
 layout: hackathon
 title: SeoulAI Hackathon
 date: Saturday, December 15, 2018 10:00:00 PM GMT+09:00
@@ -307,13 +307,19 @@ portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 �
 ```python
 rewards = dict(
     return_amt=return_amt,    # 현재 action으로 발생한 수익 금액
-    fee=fee,    # 현재 action으로 발생한 수수료
     return_per=return_per,    # 현재 action으로 발생한 수익률 = (현재 포트폴리오 가치 / 이전 포트폴리오 가치-1) x 100 (%)
     return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
+    fee=fee,    # 현재 action으로 발생한 수수료
     hit=hit,    # 매수 후 가격이 올라가거나 매도 후 가격이 내려간다면 1점, 나머지 경우엔 0점.
     score_amt=score_amt,    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
     score=score)    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
 ```
+계산식
+* return_amt= 현재 포트폴리오 가치 - 이전 포트폴리오 가치 
+* return_per = (return_amt / 이전 포트폴리오 가치) x 100 (%)
+* fee = 거래 금액 x 수수료율 = (가격 x 거래 수량) x 0.0005
+* score_amt = 현재 포트폴리오 가치 - 100,000,000 KRW
+* score = (score_amt / 100,000,000 KRW) x 100 (%)
 
 #### `done`
 
@@ -384,12 +390,9 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         obs,
     ):
         # get data
-        order_books = obs.get("order_book")
         trades = obs.get("trade")
-        agent_info = obs.get("agent_info")
-        portfolio_rets = obs.get("portfolio_rets")
 
-        # base data
+        # make your own data!
         price_list = trades.get("price")
         cur_price = price_list[-1]
         price10 = price_list[-10:]
@@ -398,6 +401,7 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         std10 = np.std(price10)
         thresh_hold = 1.0
 
+        # obs -> state
         your_state = dict(
             buy_signal=(cur_price > ma10 + std10*thresh_hold),
             sell_signal=(cur_price < ma10 - std10*thresh_hold),
