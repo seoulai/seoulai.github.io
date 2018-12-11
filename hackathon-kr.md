@@ -347,16 +347,26 @@ class YourAgentClassName(Agent):
 
         your_actions = {}
 
-        """ 딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
+        """ 딕셔너리의 key는 action name, value는 order parameters 를 입력합니다.
             action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
-            order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. (-100 <= order_percent <= 100)
-            order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다.
             매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다. """
 
         your_actions = dict(
+
+            # hold 액션은 반드시 정의해야 합니다.
             holding = 0,
-            buy_all = +100,    # buy_all 이라는 이름으로 매수 가능 수량의 100%를 매수할 것임을 의미합니다.
-            sell_20per = -20,  # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매도할 것임을 의미합니다.
+
+            # + 는 매수, - 는 매도를 의미합니다.
+            buy_1 = +1,    # buy_1 이라는 이름으로 비트코인 1개를 매수할 것임을 의미합니다.
+            sell_2 = -2,  # sell_2 이라는 이름으로 비트코인 2개를 매도할 것임을 의미합니다.
+            
+            # 소수점 4 자리까지 입력 가능 합니다.
+            buy_1_2345 = +1.2345,    # buy_1_2345 이라는 이름으로 비트코인 1.2345 개를 매수할 것임을 의미합니다.
+            sell_2_001 = -2.001,  # sell_2_001 이라는 이름으로 비트코인 2.001 개를 매도할 것임을 의미합니다.
+
+            # % 단위로 액션을 정의할 수 있습니다. 단, -100 이상 100이하의 정수를 입력해야 합니다.
+            buy_all = (+100, '%'),    # buy_all 이라는 이름으로 매수 가능 수량의 100% 를 매수할 것임을 의미합니다.
+            sell_20per = (-20, '%'),     # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매도할 것임을 의미합니다.
         )
         return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
 ```
@@ -373,9 +383,19 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         self,
         obs,
     ):
-        cur_price = self.cur_price
-        ma10 = self.statistics.get("ma10")
-        std10 = self.statistics.get("std10")
+        # get data
+        order_books = obs.get("order_book")
+        trades = obs.get("trade")
+        agent_info = obs.get("agent_info")
+        portfolio_rets = obs.get("portfolio_rets")
+
+        # base data
+        price_list = trades.get("price")
+        cur_price = price_list[-1]
+        price10 = price_list[-10:]
+
+        ma10 = np.mean(price10)
+        std10 = np.std(price10)
         thresh_hold = 1.0
 
         your_state = dict(
@@ -407,7 +427,7 @@ algo 함수는 반드시 self.action 함수를 리턴해야 합니다.
 
 #### postprocess (데이터 후처리)
 
-postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
+postprocess 함수를 통해 reward를 선택하고, reward를 재정의 할 수 있습니다.
 
 ```python
     def postprocess(
@@ -419,19 +439,19 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
     ):
         your_reward = 0
 
-        decision = action.get("decision")
-        trade = obs.get("trade")
-        cur_price = trade.get("cur_price")
+        # 선택
+        your_rewards = rewards.get("hit")
 
-        next_trade = next_obs.get("trade")
-        next_price = next_trade.get("cur_price")
+        # 재정의
+        trades = obs.get("trade")
+        next_trades = next_obs.get("trade")
 
-        diff = next_price - cur_price
+        cur_price = trade.get("price")[-1]
+        next_price = next_trade.get("price")[-1]
 
-        if decision == Constants.BUY and diff > 0:
-            your_reward = 1
-        elif decision == Constants.SELL and diff < 0:
-            your_reward = 1
+        change_price = (next_price-cur_price)
+
+        your_reward = np.sign(change_price)
 ```
 
 #### DQN 예제

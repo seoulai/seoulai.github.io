@@ -344,17 +344,26 @@ class YourAgentClassName(Agent):
 
         your_actions = {}
 
-        """
-        The dictionary's key is action name, value is order_percent.
-        action name is named by the participant
-        order_percent takes value between -100 and 100
-        order_percent values + represents to buy and - represents to sell.
-       """
+        """ The dictionary's key is action name, value is order_parameters.
+        action name is named by the participant """
 
         your_actions = dict(
+
+            # You have to define holding action!
             holding = 0,
-            buy_all = +100,    # buy_all means that you will buy 100% of the purchase amount
-            sell_20per = -20,  # sell_20per means you will sell 20% of the available volume
+
+            # + means buying, - means selling.
+            buy_1 = +1,    # buy_1 means that you will buy 1 bitcoin.
+            sell_2 = -2,  # sell_2 means that you will sell 2 bitcoin.
+            
+            # 4th decimal place 
+            buy_1_2345 = +1.2345,
+            sell_2_001 = -2.001,
+
+            # You can define actions by %. However, integer between -100 and 100 must be entered.
+            buy_all = (+100, '%'),    # buy_all means that you will buy 100% of the purchase amount
+            sell_20per = (-20, '%'),    # sell_20per means you will sell 20% of the available volume
+
         )
         return your_actions    # You must return the actions dictionary you defined.
 ```
@@ -370,9 +379,19 @@ You can select your data from raw data (fetched by obs), and change it as you'd 
         self,
         obs,
     ):
-        cur_price = self.cur_price
-        ma10 = self.statistics.get("ma10")
-        std10 = self.statistics.get("std10")
+        # get data
+        order_books = obs.get("order_book")
+        trades = obs.get("trade")
+        agent_info = obs.get("agent_info")
+        portfolio_rets = obs.get("portfolio_rets")
+
+        # base data
+        price_list = trades.get("price")
+        current_price = price_list[-1]
+        price10 = price_list[-10:]
+
+        ma10 = np.mean(price10)
+        std10 = np.std(price10)
         thresh_hold = 1.0
 
         your_state = dict(
@@ -404,7 +423,7 @@ algo function must return self.action function.
 
 #### postprocess
 
-You can redifine rewards through the postprocess.
+You can select and redifine reward through the postprocess.
 
 ```python
     def postprocess(
@@ -416,19 +435,19 @@ You can redifine rewards through the postprocess.
     ):
         your_reward = 0
 
-        decision = action.get("decision")
-        trade = obs.get("trade")
-        cur_price = trade.get("cur_price")
+        # Select
+        your_rewards = rewards.get("hit")
 
-        next_trade = next_obs.get("trade")
-        next_price = next_trade.get("cur_price")
+        # Redefine
+        trades = obs.get("trade")
+        next_trades = next_obs.get("trade")
 
-        diff = next_price - cur_price
+        cur_price = trade.get("price")[-1]
+        next_price = next_trade.get("price")[-1]
 
-        if decision == Constants.BUY and diff > 0:
-            your_reward = 1
-        elif decision == Constants.SELL and diff < 0:
-            your_reward = 1
+        change_price = (next_price-cur_price)
+
+        your_reward = np.sign(change_price)
 ```
 
 #### DQN Example
