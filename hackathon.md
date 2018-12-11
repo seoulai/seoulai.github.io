@@ -304,14 +304,21 @@ There are 7 types of rewards
 
 ```python
 rewards = dict(
-    return_amt=return_amt,    # Revenue from current action
+    return_amt=return_amt,    # Return(amount) from current action
+    return_per=return_per,    # Return(%) from current action
+    return_sign=return_sign,    # 1 if profited from current action. -1 if loss. else 0
     fee=fee,    # Fee from current action
-    return_per=return_per,    # Yield from current action (current value of portfolio/ previous value of portfolio -1) * 100(%)
-    return_sign=return_sign,    # 1 if profited from current action. -1 if loss. 0 if no change.
-    hit=hit,    # 1 if you buy and price goes up or you sell and price goes down. else 0.
-    score_amt=score_amt,    # Amount of revenue (or profit or loss) incurred to date relative to initial capital (100,000,000 KRW)
-    score=score)    # Revenue (or profit or loss) incurred to date relative to initial capital (100,000,000 KRW) (%)
+    hit=hit,    # 1 if buy and price goes up or sell and price goes down. else 0.
+    score_amt=score_amt,    # Return(amount) from initial cash (100,000,000 KRW)
+    score=score)    # Return(%) from initial cash (100,000,000 KRW) = hackathon score
+
 ```
+* Formula
+return_amt= portfolio value - previous portfolio value
+return_per = (return_amt / previous portfolio value) x 100 (%)
+fee = trading amount x fee ratio = (price x trading quantity) x 0.0005
+score_amt = portfolio value - 100,000,000 KRW
+score = (score_amt / 100,000,000 KRW) x 100 (%)
 
 #### `done`
 
@@ -380,20 +387,18 @@ You can select your data from raw data (fetched by obs), and change it as you'd 
         obs,
     ):
         # get data
-        order_books = obs.get("order_book")
         trades = obs.get("trade")
-        agent_info = obs.get("agent_info")
-        portfolio_rets = obs.get("portfolio_rets")
 
-        # base data
+        # make your own data!
         price_list = trades.get("price")
-        current_price = price_list[-1]
+        cur_price = price_list[-1]
         price10 = price_list[-10:]
 
         ma10 = np.mean(price10)
         std10 = np.std(price10)
         thresh_hold = 1.0
 
+        # obs -> state
         your_state = dict(
             buy_signal=(cur_price > ma10 + std10*thresh_hold),
             sell_signal=(cur_price < ma10 - std10*thresh_hold),
