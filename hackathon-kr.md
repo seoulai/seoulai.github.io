@@ -59,8 +59,7 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 
 - <a href="http://bit.ly/seoulai_market_hackathon">Form</a>에 입력한 hackathon_id(agent_id)를 에이전트 클래스 생성 시에 정확하게 입력해야 합니다.
 - 주문수량, 현금, 잔고 수량은 소수점 넷째 자리 까지만 유효합니다.
-- 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다. (technical information 참조)
-- 매수, 매도 주문은 % 단위의 가능 수량으로만 매매 가능합니다. (technical information 참조)
+- 매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100 % 체결됩니다.
 - 매수, 매도 수수료는 5bp (0.05%) 로 계산합니다.
 - 현금이 1,000 KRW 미만일 때 매수 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다. (최소 주문 금액 1,000 KRW)
 - 잔고 수량이 0인데 매도 주문을 낼 경우, 자동으로 hold 주문으로 변경됩니다.
@@ -294,15 +293,15 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량} (200 tick)
-trade = obs.get("trade")    # {체결가, 거래량, 매수매도구분} (200 tick)
+order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량} (최근 200개 데이터)
+trade = obs.get("trade")    # {체결가, 거래량, 매수매도구분} (최근 200개 데이터)
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
 
 #### `rewards`
 
-기본적으로 아래 7 가지 rewards가 제공됩니다.
+기본적으로 아래 8 가지 rewards가 제공됩니다.
 
 ```python
 rewards = dict(
@@ -311,10 +310,12 @@ rewards = dict(
     return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
     fee=fee,    # 현재 action으로 발생한 수수료
     hit=hit,    # 매수 후 가격이 올라가거나 매도 후 가격이 내려간다면 1점, 나머지 경우엔 0점.
+    real_hit=real_hit,    # 수수료를 고려한 hit 
     score_amt=score_amt,    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
     score=score)    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
 ```
 계산식
+* 포트폴리오 가치 = 현금 + (자산 수량 x 현재가)
 * return_amt= 현재 포트폴리오 가치 - 이전 포트폴리오 가치 
 * return_per = (return_amt / 이전 포트폴리오 가치) x 100 (%)
 * fee = 거래 금액 x 수수료율 = (가격 x 거래 수량) x 0.0005
@@ -394,8 +395,8 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
 
         # make your own data!
         price_list = trades.get("price")
-        cur_price = price_list[-1]
-        price10 = price_list[-10:]
+        cur_price = price_list[0]
+        price10 = price_list[:10]
 
         ma10 = np.mean(price10)
         std10 = np.std(price10)
@@ -450,8 +451,8 @@ postprocess 함수를 통해 reward를 선택하고, reward를 재정의 할 수
         trades = obs.get("trade")
         next_trades = next_obs.get("trade")
 
-        cur_price = trade.get("price")[-1]
-        next_price = next_trade.get("price")[-1]
+        cur_price = trades["price"][0]
+        next_price = next_trade["price"][0]
 
         change_price = (next_price-cur_price)
 

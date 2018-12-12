@@ -58,8 +58,7 @@ If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 - The hackathon_id (agent_id) you enter on <a href="http://bit.ly/seoulai_market_hackathon"> Form </a> must be the same as your agent class.
 - Order quantity, cash and balance will be calculated to the 4th decimal place.
-- Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%. (refer to technical information)
-- Buy and sell order can be executed as the unit of available quantity in percent. (refer to technical information)
+- Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%.
 - The buy and sell commissions are 0.05%.
 - If you have less than 1,000 KRW in cash, your order will automatically be changed to hold order (Minimum order amount is 1,000 KRW)
 - If your balance is 0, and you place an order to sell, it will automatically be changed to hold order.
@@ -292,15 +291,15 @@ obs is short for observation.
 The datasets in obs are as follows:
 
 ```python
-order_book = obs.get("order_book")    # {ask price, remain quantity, bid price, remain quantity} (200 tick)
-trade = obs.get("trade")    # {trade price, trade volume, ask_bid} (200 tick)
+order_book = obs.get("order_book")    # {ask price, remain quantity, bid price, remain quantity} (the last 200 data)
+trade = obs.get("trade")    # {trade price, trade volume, ask_bid} (the last 200 data)
 agent_info = obs.get("agent_info")    # {cash, balance amount}
 portfolio_rets = obs.get("portfolio_rets")    # {portfolio indicators based on algorithm performance}
 ```
 
 #### `rewards`
 
-There are 7 types of rewards
+There are 8 types of rewards
 
 ```python
 rewards = dict(
@@ -309,11 +308,13 @@ rewards = dict(
     return_sign=return_sign,    # 1 if profited from current action. -1 if loss. else 0
     fee=fee,    # Fee from current action
     hit=hit,    # 1 if buy and price goes up or sell and price goes down. else 0.
+    real_hit=real_hit,    # Fee based hit
     score_amt=score_amt,    # Return(amount) from initial cash (100,000,000 KRW)
     score=score)    # Return(%) from initial cash (100,000,000 KRW) = hackathon score
 
 ```
 Formula
+* portfolio value = cash + (asset quantity x current price)
 * return_amt= portfolio value - previous portfolio value
 * return_per = (return_amt / previous portfolio value) x 100 (%)
 * fee = trading amount x fee ratio = (price x trading quantity) x 0.0005
@@ -391,8 +392,8 @@ You can select your data from raw data (fetched by obs), and change it as you'd 
 
         # make your own data!
         price_list = trades.get("price")
-        cur_price = price_list[-1]
-        price10 = price_list[-10:]
+        cur_price = price_list[0]
+        price10 = price_list[:10]
 
         ma10 = np.mean(price10)
         std10 = np.std(price10)
@@ -447,8 +448,8 @@ You can select and redifine reward through the postprocess.
         trades = obs.get("trade")
         next_trades = next_obs.get("trade")
 
-        cur_price = trade.get("price")[-1]
-        next_price = next_trade.get("price")[-1]
+        cur_price = trades["price"][0]
+        next_price = next_trades["price"][0]
 
         change_price = (next_price-cur_price)
 
