@@ -29,7 +29,7 @@ tags:
 
 # Overview
 
-Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the real-time dataset.
+Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to choose any machine learning algorithm of their choice. SeoulAI will provide the real-time dataset.
 
 # Competition
 
@@ -224,7 +224,7 @@ mode = Constants.TEST
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# IF you call reset in TEST, your cash and balance will be updated to 100,000,000 KRW and 0.0 respectively.
+# IF you call reset in TEST mode, your cash and balance will be updated to 100,000,000 KRW and 0.0 respectively.
 obs = env.reset()
 ...
 ```
@@ -239,7 +239,7 @@ env = gym.make("Market")
 env.participate(your_id, mode)
 
 # Calling reset in HACKATHON mode fetches the cash and balance
-# It is different from calling reset in TEST as your cash and balance will not be reset.
+# It is different from calling reset in TEST mode as your cash and balance will not be reset.
 obs = env.reset()
 ...
 ```
@@ -253,11 +253,11 @@ action = a1.act(obs)
 The act function calls the following functions.
 
 - preprocess() = changes raw data fetched by obs to state
-- algo() = performs training as defined by the participant.
+- algo() = performs trading as defined by the participant.
 
 ### step
 
-The step function fetches and saves the crypto market state so that the agent may start trading. This function returns 3 variables.
+The step function fetches and saves the crypto market state so that the agent may start trading. This function returns 3 variables. (obs, rewards and done)
 
 #### `obs`
 
@@ -297,7 +297,7 @@ Formula
 
 #### `done`
 
-The value of done is always False under HACKATHON mode.
+The value of done is always False.
 
 ### Developing Agent class
 
@@ -331,7 +331,8 @@ def __init__(
         key = action name, value = order parameters
         Use any action name
         Buy order'll be concluded at the first sell price
-        Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%.
+        Sell order'll be concluded at the first buy price.
+        The probability of conclusion'll be 100%.
     """
 
     your_actions = dict(
@@ -397,12 +398,12 @@ algo function must return self.action function.
         state,
     ):
         if state["buy_signal"]:
-            # Enter action_name as a parameter of set_actions
+            # Enter action_name as a parameter of actions dictionary.
             return self.action("buy_all")
         elif state["sell_signal"]:
             return self.action("sell_20per")
         else:
-            return self.action(0)    # You can enter the index of the action_name defined in set_actions as a parameter.
+            return self.action(0)    # You can enter the index of the action_name as a parameter.
 ```
 
 #### postprocess
