@@ -172,7 +172,14 @@ class YourAgentClassName(Agent):
 
 if __name__ == "__main__":
     your_id = "seoul_ai"
-    mode = Constants.LOCAL
+    mode = Constants.TEST
+
+    # 액션 스페이스를 정의합니다.
+    your_actions = dict(
+        holding = 0,
+        buy_1 = +1,
+        sell_2 = -2,
+    )
     
     # 개발한 에이전트를 생성합니다.
     a1 = YourAgentClassName(
@@ -205,20 +212,20 @@ if __name__ == "__main__":
 
 ### mode
 
-- 현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
+- 현재 mode는 TEST, HACKATHON 두 가지로 구성되어 있습니다.
 - HACKATHON mode로 알고리즘을 수행할 경우 트레이딩이 실제로 일어나고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
-- 따라서 LOCAL mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
+- 따라서 TEST mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
 
-#### LOCAL mode 예제 1
+#### TEST mode 예제 1
 
 ```python
 your_id = "seoul_ai"
-mode = Constants.LOCAL
+mode = Constants.TEST
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# LOCAL에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
+# TEST에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
 obs = env.reset()
 
 for t in count():
@@ -227,16 +234,16 @@ for t in count():
     a1.postprocess(obs, action, next_obs, rewards)
 ```
 
-#### LOCAL mode 예제 2
+#### TEST mode 예제 2
 
 ```python
 your_id = "seoul_ai"
-mode = Constants.LOCAL
+mode = Constants.TEST
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# LOCAL mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
+# TEST mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
 EPISODES = 100
 for e in range(EPISODES):
     obs = env.reset()
@@ -261,7 +268,7 @@ env = gym.make("Market")
 env.participate(your_id, mode)
 
 # HACKATHON mode의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
-# LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
+# TEST mode 에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
 obs = env.reset()
 
 # Episodes를 활용한 반복 학습은 불가합니다.
@@ -293,8 +300,8 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-order_book = obs.get("order_book")    # {매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량} (최근 200개 데이터)
-trade = obs.get("trade")    # {체결가, 거래량, 매수매도구분} (최근 200개 데이터)
+order_book = obs.get("order_book")    # {타임스탬프, 매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량}
+trade = obs.get("trade")    # {타임스탬프, 체결가, 체결량, 매수매도구분, 체결번호} (최근 200개 시계열 데이터)
 agent_info = obs.get("agent_info")    # {현금, 잔고수량}
 portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
@@ -340,42 +347,34 @@ class YourAgentClassName(Agent):
     ...
 ```
 
-#### set_actions 함수 정의
+#### actions 딕셔너리 정의
 
-참가자는 반드시 set_actions 함수를 정의해야 합니다.
-actions는 딕셔너리 형태로 정의하고 마지막에 반드시 return 해야 합니다.
+참가자는 반드시 action을 딕셔너리 형태로 정의해야 합니다.
 
 ```python
-class YourAgentClassName(Agent):
+your_actions = {}
 
-    def set_actions(
-        self,
-    )->dict:
+""" 딕셔너리의 key는 action name, value는 order parameters 를 입력합니다.
+    action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
+    매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다. """
 
-        your_actions = {}
+your_actions = dict(
 
-        """ 딕셔너리의 key는 action name, value는 order parameters 를 입력합니다.
-            action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
-            매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다. """
+    # hold 액션은 반드시 정의해야 합니다.
+    holding = 0,
 
-        your_actions = dict(
+    # + 는 매수, - 는 매도를 의미합니다.
+    buy_1 = +1,    # buy_1 이라는 이름으로 비트코인 1개를 매수할 것임을 의미합니다.
+    sell_2 = -2,  # sell_2 이라는 이름으로 비트코인 2개를 매도할 것임을 의미합니다.
+    
+    # 소수점 4 자리까지 입력 가능 합니다.
+    buy_1_2345 = +1.2345,    # buy_1_2345 이라는 이름으로 비트코인 1.2345 개를 매수할 것임을 의미합니다.
+    sell_2_001 = -2.001,  # sell_2_001 이라는 이름으로 비트코인 2.001 개를 매도할 것임을 의미합니다.
 
-            # hold 액션은 반드시 정의해야 합니다.
-            holding = 0,
-
-            # + 는 매수, - 는 매도를 의미합니다.
-            buy_1 = +1,    # buy_1 이라는 이름으로 비트코인 1개를 매수할 것임을 의미합니다.
-            sell_2 = -2,  # sell_2 이라는 이름으로 비트코인 2개를 매도할 것임을 의미합니다.
-            
-            # 소수점 4 자리까지 입력 가능 합니다.
-            buy_1_2345 = +1.2345,    # buy_1_2345 이라는 이름으로 비트코인 1.2345 개를 매수할 것임을 의미합니다.
-            sell_2_001 = -2.001,  # sell_2_001 이라는 이름으로 비트코인 2.001 개를 매도할 것임을 의미합니다.
-
-            # % 단위로 액션을 정의할 수 있습니다. 단, -100 이상 100이하의 정수를 입력해야 합니다.
-            buy_all = (+100, '%'),    # buy_all 이라는 이름으로 매수 가능 수량의 100% 를 매수할 것임을 의미합니다.
-            sell_20per = (-20, '%'),     # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매도할 것임을 의미합니다.
-        )
-        return your_actions    # 정의한 actions 딕셔너리를 반드시 리턴해야 함.
+    # % 단위로 액션을 정의할 수 있습니다. 단, -100 이상 100이하의 정수를 입력해야 합니다.
+    buy_all = (+100, '%'),    # buy_all 이라는 이름으로 매수 가능 수량의 100% 를 매수할 것임을 의미합니다.
+    sell_20per = (-20, '%'),     # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 매도할 것임을 의미합니다.
+)
 ```
 
 #### preprocess (데이터 전처리)

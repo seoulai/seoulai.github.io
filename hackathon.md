@@ -170,11 +170,19 @@ class YourAgentClassName(Agent):
 
 if __name__ == "__main__":
     your_id = "seoul_ai"
-    mode = Constants.LOCAL
-    
+    mode = Constants.TEST
+
+    # Define your actions.    
+    your_actions = dict(
+        holding = 0,
+        buy_1 = +1,
+        sell_2 = -2,
+    )
+
     # Create your agent.
     a1 = YourAgentClassName(
         your_id,
+        your_actions,
         )
     
     # Create your market environment.
@@ -203,20 +211,20 @@ if __name__ == "__main__":
 
 ### mode
 
-- There are 2 modes: LOCAL and HACKATHON.
+- There are 2 modes: TEST and HACKATHON.
 - Your agent will start trading in HACKATHON mode. This will affect the virtual KRW balance provided by Seoul AI.
-- You can train your agent in the LOCAL mode. We advice you to train your agent before trying out the HACKATHON mode.
+- You can train your agent in the TEST mode. We advice you to train your agent before trying out the HACKATHON mode.
 
-#### LOCAL mode Example 1
+#### TEST mode Example 1
 
 ```python
 your_id = "seoul_ai"
-mode = Constants.LOCAL
+mode = Constants.TEST
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# IF you call reset in LOCAL, your cash and balance will be updated to 100,000,000 KRW and 0.0 respectively.
+# IF you call reset in TEST, your cash and balance will be updated to 100,000,000 KRW and 0.0 respectively.
 obs = env.reset()
 
 for t in count():
@@ -225,16 +233,16 @@ for t in count():
     a1.postprocess(obs, action, next_obs, rewards)
 ```
 
-#### LOCAL mode Example 2
+#### TEST mode Example 2
 
 ```python
 your_id = "seoul_ai"
-mode = Constants.LOCAL
+mode = Constants.TEST
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# You can use Episodes under LOCAL mode to train similar scenarios.
+# You can use Episodes under TEST mode to train similar scenarios.
 EPISODES = 100
 for e in range(EPISODES):
     obs = env.reset()
@@ -259,7 +267,7 @@ env = gym.make("Market")
 env.participate(your_id, mode)
 
 # Calling reset in HACKATHON mode fetches the cash and balance
-# It is different from calling reset in LOCAL as your cash and balance will not be reset.
+# It is different from calling reset in TEST as your cash and balance will not be reset.
 obs = env.reset()
 
 
@@ -291,8 +299,8 @@ obs is short for observation.
 The datasets in obs are as follows:
 
 ```python
-order_book = obs.get("order_book")    # {ask price, remain quantity, bid price, remain quantity} (the last 200 data)
-trade = obs.get("trade")    # {trade price, trade volume, ask_bid} (the last 200 data)
+order_book = obs.get("order_book")    # {timestamp, ask price, ask_size, bid price, bid size}
+trade = obs.get("trade")    # {timestamp, price, volume, ask_bid, sid} (the last 200 time series data)
 agent_info = obs.get("agent_info")    # {cash, balance amount}
 portfolio_rets = obs.get("portfolio_rets")    # {portfolio indicators based on algorithm performance}
 ```
@@ -340,40 +348,32 @@ class YourAgentClassName(Agent):
 
 #### set_actions function definition
 
-All participants must define the set_action function.
-actions must be in dictionary form and must be returned.
+All participants must define the actions dictionary.
 
 ```python
-class YourAgentClassName(Agent):
+your_actions = {}
 
-    def set_actions(
-        self,
-    )->dict:
+""" The dictionary's key is action name, value is order_parameters.
+action name is named by the participant """
 
-        your_actions = {}
+your_actions = dict(
 
-        """ The dictionary's key is action name, value is order_parameters.
-        action name is named by the participant """
+    # You have to define holding action!
+    holding = 0,
 
-        your_actions = dict(
+    # + means buying, - means selling.
+    buy_1 = +1,    # buy_1 means that you will buy 1 bitcoin.
+    sell_2 = -2,  # sell_2 means that you will sell 2 bitcoin.
+    
+    # 4th decimal place 
+    buy_1_2345 = +1.2345,
+    sell_2_001 = -2.001,
 
-            # You have to define holding action!
-            holding = 0,
+    # You can define actions by %. However, integer between -100 and 100 must be entered.
+    buy_all = (+100, '%'),    # buy_all means that you will buy 100% of the purchase amount
+    sell_20per = (-20, '%'),    # sell_20per means you will sell 20% of the available volume
 
-            # + means buying, - means selling.
-            buy_1 = +1,    # buy_1 means that you will buy 1 bitcoin.
-            sell_2 = -2,  # sell_2 means that you will sell 2 bitcoin.
-            
-            # 4th decimal place 
-            buy_1_2345 = +1.2345,
-            sell_2_001 = -2.001,
-
-            # You can define actions by %. However, integer between -100 and 100 must be entered.
-            buy_all = (+100, '%'),    # buy_all means that you will buy 100% of the purchase amount
-            sell_20per = (-20, '%'),    # sell_20per means you will sell 20% of the available volume
-
-        )
-        return your_actions    # You must return the actions dictionary you defined.
+)
 ```
 
 #### preprocess
