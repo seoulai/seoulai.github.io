@@ -184,6 +184,7 @@ if __name__ == "__main__":
     # 개발한 에이전트를 생성합니다.
     a1 = YourAgentClassName(
     your_id,
+    your_actions,
     )
     
     # Market 환경을 생성합니다.
@@ -216,7 +217,7 @@ if __name__ == "__main__":
 - HACKATHON mode로 알고리즘을 수행할 경우 트레이딩이 실제로 일어나고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
 - 따라서 TEST mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
 
-#### TEST mode 예제 1
+#### TEST mode의 env.reset() 
 
 ```python
 your_id = "seoul_ai"
@@ -227,38 +228,10 @@ env.participate(your_id, mode)
 
 # TEST에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
 obs = env.reset()
-
-for t in count():
-    action = a1.act(obs)
-    next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
-#### TEST mode 예제 2
-
-```python
-your_id = "seoul_ai"
-mode = Constants.TEST
-
-env = gym.make("Market")
-env.participate(your_id, mode)
-
-# TEST mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
-EPISODES = 100
-for e in range(EPISODES):
-    obs = env.reset()
-
-    for t in count():
-        action = a1.act(obs)
-        next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
-        a1.postprocess(obs, action, next_obs, rewards)
-
-        # Local에 저장된 데이터를 모두 학습하면 게임이 끝납니다.
-        if done:
-            break
-```
-
-#### HACKATHON mode 예제
+#### HACKATHON mode의 env.reset() 
 
 ```python
 your_id = "seoul_ai"
@@ -270,12 +243,7 @@ env.participate(your_id, mode)
 # HACKATHON mode의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
 # TEST mode 에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
 obs = env.reset()
-
-# Episodes를 활용한 반복 학습은 불가합니다.
-for t in count():
-    action = a1.act(obs)
-    next_obs, rewards, done, _ = env.step(**action)    # action 은 dictionary 입니다.
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
 ### act

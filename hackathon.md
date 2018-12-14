@@ -215,7 +215,7 @@ if __name__ == "__main__":
 - Your agent will start trading in HACKATHON mode. This will affect the virtual KRW balance provided by Seoul AI.
 - You can train your agent in the TEST mode. We advice you to train your agent before trying out the HACKATHON mode.
 
-#### TEST mode Example 1
+#### env.reset() in TEST mode
 
 ```python
 your_id = "seoul_ai"
@@ -226,38 +226,10 @@ env.participate(your_id, mode)
 
 # IF you call reset in TEST, your cash and balance will be updated to 100,000,000 KRW and 0.0 respectively.
 obs = env.reset()
-
-for t in count():
-    action = a1.act(obs)
-    next_obs, rewards, done, _ = env.step(**action)    # action is in dictionary format.
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
-#### TEST mode Example 2
-
-```python
-your_id = "seoul_ai"
-mode = Constants.TEST
-
-env = gym.make("Market")
-env.participate(your_id, mode)
-
-# You can use Episodes under TEST mode to train similar scenarios.
-EPISODES = 100
-for e in range(EPISODES):
-    obs = env.reset()
-
-    for t in count():
-        action = a1.act(obs)
-        next_obs, rewards, done, _ = env.step(**action)    # action is in dictionary format.
-        a1.postprocess(obs, action, next_obs, rewards)
-
-        # The game ends once the agent has been trained on all Local data
-        if done:
-            break
-```
-
-#### HACKATHON mode Example
+#### env.reset() in HACKATHON mode
 
 ```python
 your_id = "seoul_ai"
@@ -269,13 +241,7 @@ env.participate(your_id, mode)
 # Calling reset in HACKATHON mode fetches the cash and balance
 # It is different from calling reset in TEST as your cash and balance will not be reset.
 obs = env.reset()
-
-
-# You cannot train with Episodes in HACKATHON mode.
-for t in count():
-    action = a1.act(obs)
-    next_obs, rewards, done, _ = env.step(**action)    # action is in dictionary format.
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
 ### act
