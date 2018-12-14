@@ -343,37 +343,49 @@ from seoulai_gym.envs.market.agents import Agent
 
 # Your agent must inherit from Seoul AI's agent class
 class YourAgentClassName(Agent):
-    ...
+
+    # You need to develop 4 functions.
+    __init__()
+    preprocess()
+    algo()
+    postprocess()
 ```
 
-#### set_actions function definition
+#### init(set actions)
 
 All participants must define the actions dictionary.
 
 ```python
-your_actions = {}
+def __init__(
+    self,
+    agent_id: str,
+):  
 
-""" The dictionary's key is action name, value is order_parameters.
-action name is named by the participant """
+    """ Actions Dictionary
+        key = action name, value = order parameters
+        Use any action name
+        Buy order'll be concluded at the first sell price
+        Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%.
+    """
 
-your_actions = dict(
+    your_actions = dict(
+        # You have to define holding action!
+        holding = 0,
 
-    # You have to define holding action!
-    holding = 0,
+        # + means buying, - means selling.
+        buy_1 = +1,    # buy_1 means that you will buy 1 bitcoin.
+        sell_2 = -2,  # sell_2 means that you will sell 2 bitcoin.
 
-    # + means buying, - means selling.
-    buy_1 = +1,    # buy_1 means that you will buy 1 bitcoin.
-    sell_2 = -2,  # sell_2 means that you will sell 2 bitcoin.
-    
-    # 4th decimal place 
-    buy_1_2345 = +1.2345,
-    sell_2_001 = -2.001,
+        # 4th decimal place
+        buy_1_2345 = +1.2345,
+        sell_2_001 = -2.001,
 
-    # You can define actions by %. However, integer between -100 and 100 must be entered.
-    buy_all = (+100, '%'),    # buy_all means that you will buy 100% of the purchase amount
-    sell_20per = (-20, '%'),    # sell_20per means you will sell 20% of the available volume
-
-)
+        # You can define actions by %. However, integer between -100 and 100 must be entered.
+        buy_all = (+100, '%'),    # buy_all means that you will buy 100% of the purchase amount
+        sell_20per = (-20, '%'),    # sell_20per means you will sell 20% of the available volume
+    )   
+    super().__init__(agent_id, your_actions)
+    ...
 ```
 
 #### preprocess
