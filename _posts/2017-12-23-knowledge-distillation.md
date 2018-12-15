@@ -1,11 +1,11 @@
 ---
-layout: blog
 title:  "Temperature in softmax layer"
 date:   2017-12-23 00:0:00 +0000
 disqus_identifier: 2017-12-23
-author: martin
+author: Martin Kersner
 comments: true
-abstract: In <a href="https://arxiv.org/abs/1503.02531">Distilling the Knowledge in a Neural Network</a> paper, there is described how soft targets of the final <a href="https://en.wikipedia.org/wiki/Softmax_function">softmax layer</a> can be modified by additional denominator called <i>temperature</i>. This blog posts aims to visualize effect of temperature magnitude on output of modified softmax layer.
+description: In <a href="https://arxiv.org/abs/1503.02531">Distilling the Knowledge in a Neural Network</a> paper, there is described how soft targets of the final <a href="https://en.wikipedia.org/wiki/Softmax_function">softmax layer</a> can be modified by additional denominator called <i>temperature</i>. This blog posts aims to visualize effect of temperature magnitude on output of modified softmax layer.
+featured_image: '/images/blog/blog1.png'
 ---
 
 In [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531) paper, there is described how soft targets of the final [softmax layer](https://en.wikipedia.org/wiki/Softmax_function) can be modified by additional denominator called *temperature*. This blog posts aims to visualize effect of temperature magnitude on output of modified softmax layer.
