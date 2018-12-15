@@ -25,22 +25,22 @@ featured_image: '/images/project/10x ML Developer.png'
   I am open to suggestions, but for now I would suggest **Dive into Deep Learning** book.
   http://en.diveintodeeplearning.org/
 
-  - 600+ pages
-  - includes Jupyter notebooks
-  - MXNEt (doesn't mean that we have to/will use it!)
-  - about deep learning but that does not mean we have to focus on Deep Learning only!
+  * 600+ pages
+  * includes Jupyter notebooks
+  * MXNEt (doesn't mean that we have to/will use it!)
+  * about deep learning but that does not mean we have to focus on Deep Learning only!
 
 ## Group focus
-  - Understand theory
-  - Algorithm design
-  - Implementation and optimization
-  - Model training
-  - Deployment
+  * Understand theory
+  * Algorithm design
+  * Implementation and optimization
+  * Model training
+  * Deployment
 
 ## Who is this group for? For people ...
-  - want to become the best ML developers
-  - want to start a startup
-  - like challenges
+  * want to become the best ML developers
+  * want to start a startup
+  * like challenges
 
  If you agreed with at least one point you are probably the right fit.
 
@@ -48,21 +48,28 @@ featured_image: '/images/project/10x ML Developer.png'
   Not sure yet.
 
 ## When?
-  Negotiable but I would suggest that we meet
 
-  - every two weeks on Tuesday evening at 8 PM
-  - starting from January 8, 2019
-    - You should read following chapters (198 pages) from **Dive into Deep Learning** book:
-        1. Introduction
-        2. A taste of Deep Learning
-        3. Deep Learning Basics
-    - It is not necessary to read about MXNet, but you should be able to to implement the same solutions in any other framework or language.
-    - If you don't finish reading all suggested content, it is okay, but ...
-    - The meeting will be in a form of group discussion.
-    - If you don't understand some part, others will try to explain it to you, but always to try understand first before asking.
+Negotiable but I would suggest that we meet
+
+* every two weeks on Tuesday evening at 8 PM
+* starting from January 8, 2019
 
 ## Where?
   Hyperconnect 14th floor or somewhere in Gangnam
+
+
+## Prerequisite
+
+* You should read following chapters (198 pages) from **Dive into Deep Learning** book:
+  1. Introduction
+  2. A taste of Deep Learning
+  3. Deep Learning Basics
+
+* It is not necessary to read about MXNet, but you should be able to to implement the same solutions in any other framework or language.
+* If you don't finish reading all suggested content, it is okay, but ...
+* The meeting will be in a form of group discussion.
+* If you don't understand some part, others will try to explain it to you, but always to try understand first before asking.
+
 
 ## Foreigner friendly?
   Yes, English is be the main language of group, but you can communicate in any language.
