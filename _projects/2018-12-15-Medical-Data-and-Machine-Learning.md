@@ -9,28 +9,28 @@ featured_image: '/images/project/a.jpeg'
 ## Members
 
 * [Cinyoung Hur](https://www.github.com/hurcy)
-* Hyesu Lee
+* Grace Lee
 * Bomee Woo
-* Min Hyuk Lim
 * James Park
-* **1 more member**
+* **more members**
 
 ## Goals
 
 * Data analysis for healthcare management
 * Analysis for disease prognosis
 * Proof-of-concept applications using analysis result
+* **Open to any suggestions!**
 
 ## Datasets
 
 * Public dataset
   * [MIMIC Critical Care Data](https://mimic.physionet.org/)
   * [Informatics for Integrating Biology & the Bedside](https://www.i2b2.org/NLP/DataSets/Main.php)
-* Open to any suggestions!
+* **Open to any suggestions!**
 
 ## When
-* Everyweek starting from Jan 5 2019
-* Weekday is not decided yet.
+* Starting from Jan 5 2019
+* Schedule is not decided yet.
 
 ## Where
 * Not decided yet.
