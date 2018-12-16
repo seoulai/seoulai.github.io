@@ -27,6 +27,11 @@ Lightning talk is a short presentation between 5 and 10 minutes. You can for exa
 
 For a lightning talk we do not need to know in advance that you will present, but we can't guarantee there will be a free time slot for you.
 
-## Contact
+---
 
-The best way to get in touch with us is through Slack. Register at [https://seoulai.herokuapp.com/](https://seoulai.herokuapp.com/) and join our slack group [https://seoulai.slack.com](https://seoulai.slack.com/).
+## Do you want to join?
+
+We use slack. Join us!
+
+<a href="https://seoulai.slack.com/messages/C503NSXE1" class="button button--large">Join this group</a>
+<a href="https://seoulai.herokuapp.com/" class="button button--large">Sign up Slack</a>

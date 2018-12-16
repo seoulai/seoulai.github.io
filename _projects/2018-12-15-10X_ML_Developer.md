@@ -82,3 +82,4 @@ Negotiable but I would suggest that we meet
 We use slack. Join us!
 
 <a href="https://seoulai.slack.com/messages/CEU0W110Q" class="button button--large">Join this group</a>
+<a href="https://seoulai.herokuapp.com/" class="button button--large">Sign up Slack</a>

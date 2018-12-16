@@ -42,3 +42,4 @@ featured_image: '/images/project/a.jpeg'
 We use slack. Join us!
 
 <a href="https://seoulai.slack.com/messages/CEM2RUP43" class="button button--large">Join this group</a>
+<a href="https://seoulai.herokuapp.com/" class="button button--large">Sign up Slack</a>

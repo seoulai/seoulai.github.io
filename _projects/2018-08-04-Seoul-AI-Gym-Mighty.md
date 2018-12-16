@@ -23,3 +23,4 @@ featured_image: '/images/project/mighty.png'
 We use slack. Join us!
 
 <a href="https://seoulai.slack.com/messages/CB4V2L9L5" class="button button--large">Join this group</a>
+<a href="https://seoulai.herokuapp.com/" class="button button--large">Sign up Slack</a>
