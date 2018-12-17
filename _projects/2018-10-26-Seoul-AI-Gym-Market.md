@@ -1,8 +1,8 @@
 ---
 title: 'Seoul AI Gym Market'
-subtitle: 'Cryptocurrency trading game using Seoul AI Gym'
+subtitle: 'Real time based trading using Seoul AI Gym'
 date: 2018-10-26 00:00:00
-description: Cryptocurrency trading game using Seoul AI Gym.
+description: Real time based trading using Seoul AI Gym.
 featured_image: '/images/project/market.png'
 active: True
 ---
@@ -12,12 +12,15 @@ active: True
 * [James Park](https://www.linkedin.com/in/james-park-laplace)
 * [Cinyoung Hur](https://www.github.com/hurcy)
 * [Hyeyun Jung](https://www.linkedin.com/in/hyeyun-jung-377b891b)
-* YongJun Park
-* Jenny Kang
+* [YongJun Park](https://www.linkedin.com/in/yongjun-park/)
+* [Jenny Kang](https://www.linkedin.com/in/jieunjennykang/)
 
 ## Hackathon
 
-Hackathon will be opened in Dec 15th.
+We opened Hackathon for real-time based trading on Dec 15th.
+<div align="center" class="image-wrap">
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fseoulai%2Fposts%2F344433936374999&width=500" width="500" height="669" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+</div>
 
 ---
 

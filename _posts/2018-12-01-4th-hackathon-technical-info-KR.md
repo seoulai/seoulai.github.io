@@ -1,7 +1,7 @@
 ---
 title:  "기술 문서 - 트레이딩"
-date:   2018-12-01 00:0:00 +0000
-disqus_identifier: 2018-12-01
+date:   2018-12-14 00:0:00 +0000
+disqus_identifier: 2018-12-14
 author: James Park
 comments: true
 description: 
@@ -41,98 +41,73 @@ Seoul AI Market은 실시간 <a href="https://en.wikipedia.org/wiki/Reinforcemen
 ```python
 import seoulai_gym as gym
 from itertools import count
+from seoulai_gym.envs.market.agents import Agent
 from seoulai_gym.envs.market.base import Constants
 
-your_id = "seoul_ai"
-mode = Constants.LOCAL
+class YourAgentClassName(Agent):
+...
 
-# 개발한 에이전트를 생성합니다.
+if __name__ == "__main__":
+    your_id = "seoul_ai"
+    mode = Constants.TEST
 
-a1 = YourAgentClassName(
-your_id,
-)
-
-# Market 환경을 생성합니다.
-
-env = gym.make("Market")
-
-# id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
-
-env.participate(your_id, mode)
-
-# reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
-
-obs = env.reset()
-
-# 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
-
-# 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
-for t in count(): 
-action = a1.act(obs)
-
-# action을 Market으로 보내는 방법은 다음과 같습니다.
-
-obs, rewards, done, \_ = env.step(\*\*action)
-
-# reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
-
-a1.postprocess(obs, action, next_obs, rewards)
+    # 액션 스페이스를 정의합니다.
+    your_actions = dict(
+        holding = 0,
+        buy_1 = +1,
+        sell_2 = -2,
+    )
+    
+    # 개발한 에이전트를 생성합니다.
+    a1 = YourAgentClassName(
+    your_id,
+    your_actions,
+    )
+    
+    # Market 환경을 생성합니다.
+    env = gym.make("Market")
+    
+    # id와 mode를 선택하고 환경에 참여(participate)해야 합니다.
+    env.participate(your_id, mode)
+    
+    # reset은 크립토 시장의 초기 상태를 받아오는 역할을 수행합니다.
+    obs = env.reset()
+    
+    # 실시간 강화학습을 위해 계속해서 반복문을 수행합니다.
+    for t in count():
+        # 에이전트 가 action을 수행하기 위해선 act 함수를 호출해야 합니다.
+        action = a1.act(obs)
+    
+        # action을 Market으로 보내는 방법은 다음과 같습니다.
+        next_obs, rewards, done, _ = env.step(**action)
+    
+        # reward 재정의와 사용자 정의 함수 사용은 postprocess를 통해서 수행하길 권장합니다.
+        a1.postprocess(obs, action, next_obs, rewards)
 ```
 
 ## 세부사항
 
 ### mode
 
-- 현재 mode는 LOCAL, HACKATHON 두 가지로 구성되어 있습니다.
+- 현재 mode는 TEST, HACKATHON 두 가지로 구성되어 있습니다.
 - HACKATHON mode로 알고리즘을 수행할 경우 트레이딩이 실제로 일어나고, Seoul AI에서 제공한 가상의 KRW와 잔고에 영향을 미치게 됩니다.
-- 따라서 LOCAL mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
+- 따라서 TEST mode에서 충분히 테스트를 진행한 후 HACKATHON mode로 전환하길 권장합니다.
 
-#### LOCAL mode 예제 1
+#### TEST mode의 env.reset() 
 
 ```python
 your_id = "seoul_ai"
-mode = Constants.LOCAL
+mode = Constants.TEST
 
 env = gym.make("Market")
 env.participate(your_id, mode)
 
-# LOCAL에서 reset을 수행하면 
-# 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
+# TEST에서 reset을 수행하면 현금과 잔고 수량이 각각 100,000,000 KRW, 0.0 으로 초기화됩니다.
 obs = env.reset()
-
-for t in count():
-    action = a1.act(obs)
-    # action 은 dictionary 입니다.
-    next_obs, rewards, done, _ = env.step(**action)    
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
-#### LOCAL mode 예제 2
-
-```python
-your_id = "seoul_ai"
-mode = Constants.LOCAL
-
-env = gym.make("Market")
-env.participate(your_id, mode)
-
-# LOCAL mode에서는 Episodes를 활용해 동일한 시나리오를 반복적으로 학습할 수 있습니다.
-EPISODES = 100
-for e in range(EPISODES):
-    obs = env.reset()
-
-    for t in count():
-        action = a1.act(obs)
-        # action 은 dictionary 입니다.
-        next_obs, rewards, done, _ = env.step(**action)    
-        a1.postprocess(obs, action, next_obs, rewards)
-
-        # Local에 저장된 데이터를 모두 학습하면 게임이 끝납니다.
-        if done:
-            break
-```
-
-#### HACKATHON mode 예제
+#### HACKATHON mode의 env.reset() 
 
 ```python
 your_id = "seoul_ai"
@@ -142,15 +117,9 @@ env = gym.make("Market")
 env.participate(your_id, mode)
 
 # HACKATHON mode의 reset에서는 서버에서 현금과 잔고 수량을 가져옵니다.
-# LOCAL에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
+# TEST mode 에서 reset을 수행하면 현금과 잔고 수량이 초기화되는 것과는 다릅니다.
 obs = env.reset()
-
-# Episodes를 활용한 반복 학습은 불가합니다.
-for t in count():
-    action = a1.act(obs)
-    # action 은 dictionary 입니다.
-    next_obs, rewards, done, _ = env.step(**action)    
-    a1.postprocess(obs, action, next_obs, rewards)
+...
 ```
 
 ### act
@@ -166,8 +135,8 @@ act는 내부적으로 아래의 순서로 수행됩니다.
 
 ### step
 
-step 함수는 크립토의 실시간 시장 상황(state)을 전달하고, 에이전트들은 실시간 시장 상황(state)를 활용해 트레이딩을 수행합니다.
-step 함수를 수행하면 세 가지 변수를 return 받습니다.
+step 함수는 크립토의 실시간 시장 상황을 전달하고, 에이전트들은 실시간 시장 상황를 활용해 트레이딩을 수행합니다.
+step 함수를 수행하면 obs, rewards, done 세 가지 변수를 return 받습니다.
 
 #### `obs`
 
@@ -175,38 +144,34 @@ obs는 observation을 의미합니다.
 obs에 포함된 데이터 셋은 다음과 같습니다.
 
 ```python
-# [매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량]
-order_book = obs.get("order_book")    
-# {현재가, 거래량}
-trade = obs.get("trade")
-# {에이전트가 사용할 수 있는 통계값}
-statistics = obs.get("statistics")
-# {현금, 잔고수량}    
-agent_info = obs.get("agent_info")
-# {알고리즘 수행에 따른 포트폴리오 지표}
-portfolio_rets = obs.get("portfolio_rets")    
+order_book = obs.get("order_book")    # {타임스탬프, 매수1호가, 매수 1호가 잔량, 매도1호가, 매도 1호가 잔량}
+trade = obs.get("trade")    # {타임스탬프, 체결가, 체결량, 매수매도구분, 체결번호} (최근 200개 시계열 데이터)
+agent_info = obs.get("agent_info")    # {현금, 잔고수량}
+portfolio_rets = obs.get("portfolio_rets")    # {알고리즘 수행에 따른 포트폴리오 지표}
 ```
 
 #### `rewards`
 
-기본적으로 아래의 6 가지 rewards가 제공됩니다.
+기본적으로 아래 8 가지 rewards가 제공됩니다.
 
 ```python
 rewards = dict(
-    # 현재 action으로 발생한 수익 금액
-    return_amt=return_amt,
-    # 현재 action으로 발생한 수익률 = 
-    # (현재 포트폴리오 가치 / 이전 포트폴리오 가치-1) x 100 (%)   
-    return_per=return_per,
-    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점  
-    return_sign=return_sign,
-    # 매수 후 가격이 올라가거나 매도 후 가격이 내려간다면 1점, 나머지 경우엔 0점.   
-    hit=hit,
-    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
-    score_amt=score_amt, 
-    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
-    score=score)    
+    return_amt=return_amt,    # 현재 action으로 발생한 수익 금액
+    return_per=return_per,    # 현재 action으로 발생한 수익률
+    return_sign=return_sign,    # 현재 action으로 수익이 발생했다면 1점, 손해가 발생했다면 -1점, 변화가 없다면 0점
+    fee=fee,    # 현재 action으로 발생한 수수료
+    hit=hit,    # 매수 후 가격이 올라가거나 매도 후 가격이 내려간다면 1점, 나머지 경우엔 0점.
+    real_hit=real_hit,    # 수수료를 고려한 hit 
+    score_amt=score_amt,    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 금액
+    score=score)    # 초기 자본(100,000,000 KRW) 대비 현재까지 발생한 수익(혹은 손익) 률(%)
 ```
+계산식
+* 포트폴리오 가치 = 현금 + (자산 수량 x 현재가)
+* return_amt= 현재 포트폴리오 가치 - 이전 포트폴리오 가치 
+* return_per = (return_amt / 이전 포트폴리오 가치) x 100 (%)
+* fee = 거래 금액 x 수수료율 = (가격 x 거래 수량) x 0.0005
+* score_amt = 현재 포트폴리오 가치 - 100,000,000 KRW
+* score = (score_amt / 100,000,000 KRW) x 100 (%)
 
 #### `done`
 
@@ -223,40 +188,48 @@ from seoulai_gym.envs.market.agents import Agent
 
 # 에이전트 개발 시 Seoul AI의 에이전트 클래스를 반드시 상속받아야 합니다.
 class YourAgentClassName(Agent):
-    ...
+
+    # 클래스 개발 시 4개의 함수를 정의해야 합니다.
+    __init__()
+    preprocess()
+    algo()
+    postprocess()
 ```
 
-#### set_actions 함수 정의
+#### actions 딕셔너리 정의
 
-참가자는 반드시 set_actions 함수를 정의해야 합니다.
-actions는 딕셔너리 형태로 정의하고 마지막에 반드시 return 해야 합니다.
+참가자는 반드시 action을 딕셔너리 형태로 정의해야 합니다.
 
 ```python
-class YourAgentClassName(Agent):
+def __init__(
+    self,
+    agent_id: str,
+):  
 
-    def set_actions(
-        self,
-    )->dict:
+    """ 딕셔너리의 key는 action name, value는 order parameters 를 입력합니다.
+        action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
+        매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다.
+    """
 
-        your_actions = {}
+    your_actions = dict(
+        # hold 액션은 반드시 정의해야 합니다.
+        holding = 0,
 
-        """ 딕셔너리의 key는 action name, value는 order_percent를 입력합니다.
-            action name은 참여자가 원하는 어떤 이름을 사용해도 무방합니다.
-            order_percent는 -100 이상 100 이하의 정수를 입력해야 합니다. 
-            (-100 <= order_percent <= 100)
-            order_percent가 + 값이면 매수, - 값이면 매도를 의미합니다.
-            매수 주문은 매도 1호가, 매도 주문은 매수 1호가로 100% 체결됩니다. """
+        # + 는 매수, - 는 매도를 의미합니다.
+        buy_1 = +1,    # buy_1 이라는 이름으로 비트코인 1개를 매수할 것임을 의미합니다.
+        sell_2 = -2,  # sell_2 이라는 이름으로 비트코인 2개를 매도할 것임을 의미합니다.
+        
+        # 소수점 4 자리까지 입력 가능 합니다.
+        buy_1_2345 = +1.2345,    # buy_1_2345 이라는 이름으로 비트코인 1.2345 개를 매수할 것임을 의미합니다.
+        sell_2_001 = -2.001,  # sell_2_001 이라는 이름으로 비트코인 2.001 개를 매도할 것임을 의미합니다.
 
-        your_actions = dict(
-            holding = 0,
-            # buy_all 이라는 이름으로 매수 가능 수량의 100%를 매수할 것임을 의미합니다.
-            buy_all = +100,
-             # sell_20per 이라는 이름으로 매도 가능 수량의 20%를 
-             # 매도할 것임을 의미합니다.   
-            sell_20per = -20, 
-        )
-        # 정의한 actions 딕셔너리를 반드시 리턴해야 합니다.
-        return your_actions    
+        # % 단위로 액션을 정의할 수 있습니다. 단, -100 이상 100이하의 정수를 입력해야 합니다.
+        buy_all = (+100, '%'),    # buy_all 이라는 이름으로 매수 가능 수량의 100% 를 매수할 것임을 의미합니다.
+        sell_20per = (-20, '%'),     # sell_20per 이라는 이름으로 매도 가능 수량의 20% 를 매도할 것임을 의미합니다.
+    )   
+    super().__init__(agent_id, your_actions)
+    ...
+)
 ```
 
 #### preprocess (데이터 전처리)
@@ -271,11 +244,19 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         self,
         obs,
     ):
-        cur_price = self.cur_price
-        ma10 = self.statistics.get("ma10")
-        std10 = self.statistics.get("std10")
+        # get data
+        trades = obs.get("trade")
+
+        # make your own data!
+        price_list = trades.get("price")
+        cur_price = price_list[0]
+        price10 = price_list[:10]
+
+        ma10 = np.mean(price10)
+        std10 = np.std(price10)
         thresh_hold = 1.0
 
+        # obs -> state
         your_state = dict(
             buy_signal=(cur_price > ma10 + std10*thresh_hold),
             sell_signal=(cur_price < ma10 - std10*thresh_hold),
@@ -287,6 +268,7 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
 #### algo (알고리즘 정의)
 
 어떤 조건에 따라 트레이딩을 수행할지 정의하는 함수입니다.
+algo 함수는 반드시 self.action 함수를 리턴해야 합니다.
 
 ```python
     def algo(
@@ -294,19 +276,17 @@ obs가 전달하는 raw data 중 필요한 데이터를 선택할 수 있고, �
         state,
     ):
         if state["buy_signal"]:
-            # set_actions에서 정의한 action_name을 파라미터로 입력해야 합니다.
+            # actions 딕셔너리에서 정의한 action_name을 파라미터로 입력해야 합니다.
             return self.action("buy_all")
         elif state["sell_signal"]:
             return self.action("sell_20per")
         else:
-            # set_actions에서 정의한 action_name의 index를 
-            # 파라미터로 입력 할 수 있습니다.
-            return self.action(0)    
+            return self.action(0)    # actions 딕셔너리에서 정의한 action_name의 index를 파라미터로 입력 할 수 있습니다.
 ```
 
 #### postprocess (데이터 후처리)
 
-postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
+postprocess 함수를 통해 reward를 선택하고, reward를 재정의 할 수 있습니다.
 
 ```python
     def postprocess(
@@ -318,19 +298,19 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
     ):
         your_reward = 0
 
-        decision = action.get("decision")
-        trade = obs.get("trade")
-        cur_price = trade.get("cur_price")
+        # 선택
+        your_rewards = rewards.get("hit")
 
-        next_trade = next_obs.get("trade")
-        next_price = next_trade.get("cur_price")
+        # 재정의
+        trades = obs.get("trade")
+        next_trades = next_obs.get("trade")
 
-        diff = next_price - cur_price
+        cur_price = trades["price"][0]
+        next_price = next_trade["price"][0]
 
-        if decision == Constants.BUY and diff > 0:
-            your_reward = 1
-        elif decision == Constants.SELL and diff < 0:
-            your_reward = 1
+        change_price = (next_price-cur_price)
+
+        your_reward = np.sign(change_price)
 ```
 
 #### DQN 예제
@@ -340,3 +320,7 @@ postprocess 함수를 통해 rewards를 재정의 할 수 있습니다.
 #### 룰 베이스 예제
 
 <a href="https://github.com/seoulai/gym/blob/market/examples/market/mean_reverting_example.py">mean_reverting_example.py</a>
+
+#### 랜덤 에이전트 예제
+
+<a href="https://github.com/seoulai/gym/blob/market/examples/market/random_agent_example.py">random_agent_example.py</a>
