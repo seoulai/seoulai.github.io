@@ -4,6 +4,7 @@ subtitle:
 date: 2017-04-06 00:00:00
 description: 
 featured_image: '/images/project/wall.png'
+active: True
 ---
 
 

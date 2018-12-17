@@ -4,6 +4,7 @@ subtitle: ''
 date: 2018-10-26 00:00:00
 description: 
 featured_image: '/images/project/10x ML Developer.png'
+active: True
 ---
 
   ML = Machine Learning

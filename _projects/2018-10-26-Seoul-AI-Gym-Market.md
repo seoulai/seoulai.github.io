@@ -4,6 +4,7 @@ subtitle: 'Cryptocurrency trading game using Seoul AI Gym'
 date: 2018-10-26 00:00:00
 description: Cryptocurrency trading game using Seoul AI Gym.
 featured_image: '/images/project/market.png'
+active: True
 ---
 
 ## Members

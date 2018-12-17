@@ -32,19 +32,32 @@
 		<div class="projects-menu">
 			<ul class="menu__list">
 				{% for project in site.projects reversed %}
-				<li class="menu__list__item">
-					<a href="{{ project.url }}" class="menu__list__item__link">{{ project.title }}</a>
-				</li>
+					{% if project.active %}
+					<li class="menu__list__item">
+						<a href="{{ project.url }}" class="menu__list__item__link">{{ project.title }}</a>
+					</li>
+					{% endif %}
 				{% endfor %}
-			</ul>
+			</ul>			
 		</div>
+
+		<div class="projects-menu">
+				<ul class="menu__list">
+					<li class="menu__list__item">
+							<a href="2018" class="menu__list__item__link">2018</a>
+					</li>
+					<li class="menu__list__item">
+							<a href="2017" class="menu__list__item__link">2017</a>
+					</li>
+				</ul>
+			</div>
 
 		<div class="header__lower">
 
 			{% include socials.html %}
 
 			<div class="footer__copyright">
-				<span>© {{ 'now' | date: "%Y" }} {{ site.data.settings.basic_settings.site_title }}</span>
+				<span>© 2017 - {{ 'now' | date: "%Y" }} {{ site.data.settings.basic_settings.site_title }}</span>
 				
 			</div>
 
