@@ -12,7 +12,7 @@ featured_image: '/images/project/market.png'
 * [Cinyoung Hur](https://www.github.com/hurcy)
 * [Hyeyun Jung](https://www.linkedin.com/in/hyeyun-jung-377b891b)
 * [YongJun Park](https://www.linkedin.com/in/yongjun-park/)
-* Jenny Kang
+* [Jenny Kang](https://www.linkedin.com/in/jieunjennykang/)
 
 ## Hackathon
 
