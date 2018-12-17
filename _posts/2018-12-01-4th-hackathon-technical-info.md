@@ -1,6 +1,6 @@
 ---
 title:  "Technical information - Trading"
-date:   2018-12-01 00:0:00 +0000
+date:   2018-12-14 00:0:00 +0000
 disqus_identifier: 2018-12-14
 author: James Park
 comments: true
