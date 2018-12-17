@@ -13,7 +13,7 @@ description: Seoul AI is hosting 4th AI hackathon on Saturday, December 15th. Ha
 
 ## Overview
 
-Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to chose any machine learning algorithm of their choice. SeoulAI will provide the real-time dataset.
+Seoul AI is hosting our 4th AI hackathon on **Saturday, 15th of December**. This hackathon is based on a new toolkit from SeoulAI for developing AI algorithms: Seoul AI Gym. This gym simulates various environments and enables the use of any teaching techniques on an agent. The goal of every hackathon participant is to develop an agent that can trade cryptocurrency. Each participant will train an agent to compete to become the most successful trader. Participants are free to choose any machine learning algorithm of their choice. SeoulAI will provide the real-time dataset.
 
 ## Competition
 
@@ -27,14 +27,14 @@ The winner will receive Apple AirPods.
 
 ## Registration
 
-All participands must register their _hackathon_id_ (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
+All participants must register their _hackathon_id_ (agent_id) through this <a href="http://bit.ly/seoulai_market_hackathon">Form</a>
 
 If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 ## Judging Criteria
 
-- Revenue = (portfolio value /10,000,000 KRW) \* 100 (%)
-- Portfolio value = cash + balance amount \* current value (at 18:50)
+- Revenue = (portfolio value /100,000,000 KRW) \* 100 (%) (Revenue will be calculated to the 4th decimal place.)
+- Portfolio value = cash + balance amount \* current price (at 18:50)
 - Agents with a return lower than 0% will be disqualified.
 - If there is a tie, the agent with the higher transaction number wins.
 
@@ -42,8 +42,7 @@ If you have any questions, feel free to ask us at seoul.ai.global@gmail.com
 
 - The hackathon_id (agent_id) you enter on <a href="http://bit.ly/seoulai_market_hackathon"> Form </a> must be the same as your agent class.
 - Order quantity, cash and balance will be calculated to the 4th decimal place.
-- Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%. (refer to technical information)
-- Buy and sell order can be executed as the unit of available quantity in percent. (refer to technical information)
+- Buy order'll be concluded at the first sell price and Sell order'll be concluded at the first buy price. The probability of conclusion'll be 100%.
 - The buy and sell commissions are 0.05%.
 - If you have less than 1,000 KRW in cash, your order will automatically be changed to hold order (Minimum order amount is 1,000 KRW)
 - If your balance is 0, and you place an order to sell, it will automatically be changed to hold order.
@@ -56,7 +55,7 @@ Saturday, 15th of December, 2018
 - 10:00 - 10:15 Opening
 - 10:15 - 10:30 Introduction to Seoul AI Gym and the Market environment
 - 10:30 - 12:30 Hacking
-- 12:30 - 13:30 Lunch
+- 12:30 - 13:30 Lunch (WingEat)
 - 13:30 - 18:50 Hacking
 - 18:50 - 19:00 Winner announcement
 
