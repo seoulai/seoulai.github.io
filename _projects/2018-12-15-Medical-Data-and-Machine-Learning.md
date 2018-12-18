@@ -11,9 +11,7 @@ active: True
 
 * [Cinyoung Hur](https://www.github.com/hurcy)
 * Grace Lee
-* Bomee Woo
 * James Park
-* **more members**
 
 ## Goals
 
