@@ -12,8 +12,6 @@ featured_image: '/images/blog/blog3.png'
 <a href="/blog/4th-hackathon-KR">KOREAN</a> | <a href="/blog/4th-hackathon-technical-info">Technical Information</a>
 </p>
 
-# 4th SeoulAI Hackathon for Trading
-
 
 ![](/images/hackathon/logo.png)
 
@@ -65,6 +63,10 @@ Saturday, 15th of December, 2018
 - 12:30 - 13:30 Lunch (WingEat)
 - 13:30 - 18:50 Hacking
 - 18:50 - 19:00 Winner announcement
+
+## Hosted by
+
+* [Market team](/project/seoul-ai-gym-market)
 
 ## Location
 

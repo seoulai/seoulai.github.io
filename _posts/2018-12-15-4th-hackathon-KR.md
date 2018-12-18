@@ -12,8 +12,6 @@ featured_image: '/images/blog/blog3.png'
 <a href="/blog/4th-hackathon">영어</a> | <a href="/blog/4th-hackathon-technical-info-kr">해커톤 매뉴얼</a>
 </p>
 
-# 제 4회 SeoulAI 해커톤 - 트레이딩
-
 ![](/images/hackathon/logo.png)
 
 ## 소개
@@ -64,6 +62,10 @@ Seoul AI 는 12 월 15 일 토요일에 네 번째 AI 해커톤을 개최 합니
 - 12:30 - 13:30 중식 (윙잇 간편식)
 - 13:30 - 18:50 해킹
 - 18:50 - 19:00 우승자 발표
+
+## 주최
+
+* [Market 팀](/project/seoul-ai-gym-market)
 
 ## 위치
 
