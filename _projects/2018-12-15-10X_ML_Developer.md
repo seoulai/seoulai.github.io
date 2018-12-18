@@ -1,7 +1,7 @@
 ---
 title: '10X ML Developer'
 subtitle: ''
-date: 2018-10-26 00:00:00
+date: 2018-12-15 00:00:00
 description: 
 featured_image: '/images/project/10x ML Developer.png'
 active: True

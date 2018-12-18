@@ -1,7 +1,7 @@
 ---
-title: 'MDDL'
-subtitle: 'Medical data and deep learning'
-date: 2018-10-26 00:00:00
+title: 'MDML'
+subtitle: 'Medical data and machine learning'
+date: 2018-12-15 00:00:00
 description: Analysis of medical data and making proof-of-concept applications
 featured_image: '/images/project/a.jpeg'
 active: True
