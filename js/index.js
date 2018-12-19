@@ -390,6 +390,11 @@
 		if ( $('.menu').hasClass('menu--open') ) {
 			$('.menu').removeClass('menu--open');
 		}
+		
+		// If not open on mobile
+		else {
+			$('.menu').addClass('menu--open');
+		}
 	});
 
 
