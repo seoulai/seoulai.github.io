@@ -6,7 +6,7 @@ collections:
     permalink: /:name
   members:
     output: true
-    permalink: /members/:name
+    permalink: /member/:slug
   posts:
     output: true
     permalink: /blog/:slug
@@ -26,6 +26,12 @@ defaults:
       type: "pages"
     values:
       layout: "page"
+  -
+    scope:
+      path: ""
+      type: "members"
+    values:
+      layout: "member"
   -
     scope:
       path: ""
