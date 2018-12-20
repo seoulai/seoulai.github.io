@@ -9,7 +9,7 @@ active: True
 
 ## Members
 
-* [James Park](https://www.linkedin.com/in/james-park-laplace)
+* [James Park](https://seoulai.com/member/james)
 * [Cinyoung Hur](https://www.github.com/hurcy)
 * [Hyeyun Jung](https://www.linkedin.com/in/hyeyun-jung-377b891b)
 * [YongJun Park](https://www.linkedin.com/in/yongjun-park/)
