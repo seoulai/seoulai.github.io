@@ -1,5 +1,5 @@
 ---
-membername: daeyoung
+membername: daeyong
 ---
 
 {% include member.md %}

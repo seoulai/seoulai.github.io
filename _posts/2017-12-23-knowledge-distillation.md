@@ -4,8 +4,8 @@ date:   2017-12-23 00:0:00 +0000
 disqus_identifier: 2017-12-23
 author: Martin Kersner
 comments: true
-description: In <a href="https://arxiv.org/abs/1503.02531">Distilling the Knowledge in a Neural Network</a> paper, there is described how soft targets of the final <a href="https://en.wikipedia.org/wiki/Softmax_function">softmax layer</a> can be modified by additional denominator called <i>temperature</i>. This blog posts aims to visualize effect of temperature magnitude on output of modified softmax layer.
-featured_image: '/images/blog/blog1.png'
+description: 
+featured_image: '/images/blog/blog/blog1.png'
 ---
 
 In [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531) paper, there is described how soft targets of the final [softmax layer](https://en.wikipedia.org/wiki/Softmax_function) can be modified by additional denominator called *temperature*. This blog posts aims to visualize effect of temperature magnitude on output of modified softmax layer.
@@ -56,7 +56,7 @@ softmax_temperature_test(L, T=1)
 
 
 
-![png]({{ "images/2017-12-23-knowledge-distillation/output_7_1.png" | absolute_url }})
+![png]({{ "images/blog/2017-12-23-knowledge-distillation/output_7_1.png" | absolute_url }})
 
 
 ### T = 10
@@ -70,7 +70,7 @@ softmax_temperature_test(L, T=10)
 
 
 
-![png]({{ "images/2017-12-23-knowledge-distillation/output_9_1.png" | absolute_url }})
+![png]({{ "images/blog/2017-12-23-knowledge-distillation/output_9_1.png" | absolute_url }})
 
 
 ### T = 20
@@ -84,7 +84,7 @@ softmax_temperature_test(L, T=20)
 
 
 
-![png]({{ "images/2017-12-23-knowledge-distillation/output_11_1.png" | absolute_url }})
+![png]({{ "images/blog/2017-12-23-knowledge-distillation/output_11_1.png" | absolute_url }})
 
 ### T = 30
 
@@ -97,7 +97,7 @@ softmax_temperature_test(L, T=30)
 
 
 
-![png]({{ "images/2017-12-23-knowledge-distillation/output_13_1.png" | absolute_url }})
+![png]({{ "images/blog/2017-12-23-knowledge-distillation/output_13_1.png" | absolute_url }})
 
 
 ### T = 100
@@ -111,5 +111,5 @@ softmax_temperature_test(L, T=100)
 
 
 
-![png]({{ "images/2017-12-23-knowledge-distillation/output_15_1.png" | absolute_url }})
+![png]({{ "images/blog/2017-12-23-knowledge-distillation/output_15_1.png" | absolute_url }})
 

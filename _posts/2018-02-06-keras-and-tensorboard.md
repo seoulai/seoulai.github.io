@@ -4,7 +4,7 @@ date:   2018-02-06 00:0:00 +0000
 disqus_identifier: 2018-02-06
 author: Martin Kersner
 comments: true
-description: <a href="https://keras.io/">Keras</a>, as a high-level neural networks API, tries to simplify procedure of training neural networks by introducing numerous constraints. Recently, I have stumbled upon one of them when I tried to visualize training metrics with <a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard" >TensoBoard</a>. Keras offers <a href="https://keras.io/callbacks/#tensorboard">TensorBoard callback</a> that is able to save and visualize graph, training and test metrics and activation histograms for different layers in model.
+description: 
 featured_image: '/images/blog/blog1.png'
 ---
 

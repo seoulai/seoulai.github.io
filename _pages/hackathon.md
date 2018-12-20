@@ -1,5 +1,5 @@
 ---
-title: Previous hackathons
+title: 
 subtitle: 
 description: 
 ---
