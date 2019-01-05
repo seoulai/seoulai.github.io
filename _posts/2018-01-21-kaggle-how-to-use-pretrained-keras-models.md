@@ -4,7 +4,7 @@ date:   2018-01-23 00:0:00 +0000
 disqus_identifier: 2018-01-23
 author: Martin Kersner
 comments: true
-description: Training deep learning models from scratch is never a good way of aproaching new problem. Moreover, if you want to obtain reasonable baseline results fast. One of the solutions is to use pretrained models, which are available for every major deep learning framework (e.g. <a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models">Tensorflow</a>, <a href="https://keras.io/applications/">Keras</a>) and <a hreaf="http://cs231n.github.io/transfer-learning/">finetune</a> them for your particular task or train separate model on outputs from pretrained model.
+description: 
 featured_image: '/images/blog/blog2.png'
 ---
 

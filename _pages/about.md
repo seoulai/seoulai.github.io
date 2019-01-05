@@ -17,9 +17,9 @@ Join our upcoming events!
 
 ## Meet the Awesome Organizers
 
-* [Cinyoung Hur](https://www.github.com/hurcy)
-* [Adel Sohbi](https://www.linkedin.com/in/adelshb)
-* [James Park](https://www.linkedin.com/in/james-park-laplace)
+* [Cinyoung Hur](/member/cinyoung)
+* [Adel Sohbi](/member/adel)
+* [James Park](/member/james)
 
 ## Schedules
 

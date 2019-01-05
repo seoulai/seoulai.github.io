@@ -1,0 +1,33 @@
+---
+layout: default
+title: Members
+description: 
+featured_image: 
+---
+
+<section class="intro">
+
+		<div class="wrap">
+	
+			<h1>{{ page.title }}</h1>
+			<p>{{ page.subtitle }}</p>
+	
+		</div>
+	
+	</section>
+
+<section class="single">
+
+	<div class="wrap">
+
+		{% for member in site.members %}
+			<ul>
+				<li>
+					<a href="/member/{{ member.membername }}">{{ site.data.members[member.membername].fullname }}</a>
+				</li>
+			</ul>
+		{% endfor %}
+
+	</div>
+
+</section>

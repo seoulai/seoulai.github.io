@@ -1,5 +1,5 @@
 ---
-title: Previous hackathons
+title: Previous Hackathons
 subtitle: 
 description: 
 ---
@@ -10,4 +10,3 @@ description:
 * 2018.5.12, [3rd hackathon](/blog/3rd-hackathon)
 * 2018.1.20, [2nd hackathon](/presentations/mini-ai-hackathon-20180120.pdf)
 * 2017.11.25, 1st hackathon
-
