@@ -12,6 +12,7 @@ active: True
 * [Cinyoung Hur](https://www.github.com/hurcy)
 * Grace Lee
 * James Park
+* Bomee Woo
 
 ## Goals
 
@@ -29,10 +30,10 @@ active: True
 
 ## When
 * Starting from Jan 5 2019
-* Schedule is not decided yet.
+* Every Sat morning
 
 ## Where
-* Not decided yet.
+* Subject to change
 
 ---
 

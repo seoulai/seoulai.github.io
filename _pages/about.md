@@ -21,6 +21,12 @@ Join our upcoming events!
 * [Adel Sohbi](https://www.linkedin.com/in/adelshb)
 * [James Park](https://www.linkedin.com/in/james-park-laplace)
 
+## Schedules
+
+<div align="center"  class="image-wrap">
+<iframe src="https://calendar.google.com/calendar/embed?src=seoul.ai.global%40gmail.com&ctz=Asia%2FSeoul" style="border: 0;" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+
 --- 
 
 We'd love to hear your thoughts, suggestions and questions.
