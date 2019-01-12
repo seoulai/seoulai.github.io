@@ -13,6 +13,7 @@ active: True
 * Grace Lee
 * James Park
 * Bomee Woo
+* Min Hyuk Lim
 
 ## Goals
 
