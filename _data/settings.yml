@@ -15,7 +15,7 @@ menu_settings:
       url: '/hackathon'
     - title: 'Blog'
       url: '/blog/'
-    - title: 'About'
+    - title: 'About / Schedule'
       url: '/about'
     - title: 'Contact'
       url: '/contact'
