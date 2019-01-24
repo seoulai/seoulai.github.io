@@ -7,7 +7,7 @@ description:
 We encourage small interest groups that members can actively participate and make proof-of-concept of their projects. 
 
 Do you want to brush up your skill? 
-Join the interest goups!
+Join the interest groups!
 
 Do you want to find people having same interest? 
 Propose one!
