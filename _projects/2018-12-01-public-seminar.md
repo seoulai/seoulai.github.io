@@ -1,9 +1,9 @@
 ---
 title: 'Public Seminar'
 subtitle: 
-date: 2017-04-06 00:00:00
+date: 2018-12-01 00:00:00
 description: 
-featured_image: '/images/project/wall.png'
+featured_image: '/images/project/f.jpeg'
 active: True
 ---
 
@@ -12,7 +12,7 @@ If you are interested in any topic related to Artificial Intelligence and would 
 
 All presentations/practice sessions should be held in **English**.
 
-If you feel ready to present, please fill out this form [https://bit.ly/seoulai-talk-proposal](https://bit.ly/seoulai-talk-proposal).
+If you feel ready to present, please fill out this form [http://bit.ly/seoulai_cfp](http://bit.ly/seoulai_cfp).
 
 ## Examples of topic propositions
 

@@ -3,7 +3,7 @@ title: 'Seoul AI Gym Checkers'
 subtitle: 'Checkers board game using Seoul AI Gym'
 date: 2018-06-30 00:00:00
 description: Checkers board game using Seoul AI Gym.
-featured_image: '/images/project/checkers.png'
+featured_image: '/images/project/e.jpeg'
 active: False
 ---
 

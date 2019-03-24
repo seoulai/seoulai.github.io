@@ -3,7 +3,7 @@ title: 'Seoul AI Gym Mighty'
 subtitle: 'Mighty card game using Seoul AI Gym'
 date: 2018-06-30 00:00:00
 description: Mighty card game using Seoul AI Gym.
-featured_image: '/images/project/mighty.png'
+featured_image: '/images/project/d.jpeg'
 active: False
 ---
 

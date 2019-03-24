@@ -3,7 +3,7 @@ title: 'Seoul AI Gym Market'
 subtitle: 'Real time based trading using Seoul AI Gym'
 date: 2018-10-26 00:00:00
 description: Real time based trading using Seoul AI Gym.
-featured_image: '/images/project/market.png'
+featured_image: '/images/project/g.jpeg'
 active: True
 ---
 

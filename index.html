@@ -14,18 +14,28 @@ featured_image:
 		<div class="portfolio-item">
 
 			<a class="portfolio-item__link" href="{{ project.url }}">
-
+				{% if project.active %}
+				<div class="portfolio-item__image_active">
+					<img src="{{ project.featured_image  }}" alt="{{ project.title }}">
+				</div>
+				<div class="portfolio-item__content_active">
+						<div class="portfolio-item__info">
+							<h2 class="portfolio-item__title">{{ project.title }}</h2>
+							<p class="portfolio-item__subtitle">{{ project.subtitle }}</p>
+						</div>
+					</div>
+	
+				{% else %}
 				<div class="portfolio-item__image">
 					<img src="{{ project.featured_image  }}" alt="{{ project.title }}">
 				</div>
-
 				<div class="portfolio-item__content">
 					<div class="portfolio-item__info">
 						<h2 class="portfolio-item__title">{{ project.title }}</h2>
 						<p class="portfolio-item__subtitle">{{ project.subtitle }}</p>
 					</div>
 				</div>
-
+				{% endif %}
 			</a>
 
 		</div>
