@@ -56,7 +56,7 @@ Negotiable but I would suggest that we meet
 * starting from January 8, 2019
 
 ## Where?
-  [See slack channel](https://seoulai.slack.com/messages/CEU0W110Q)
+  [Join the slack channel](https://seoulai.slack.com/messages/CEU0W110Q)
 
 
 ## Prerequisite
