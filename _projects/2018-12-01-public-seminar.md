@@ -8,15 +8,14 @@ active: True
 ---
 
 
+#### [Presentations from 2019](/2019)
+#### [Presentations from 2018](/2018)
+#### [Presentations from 2017](/2017)
 If you are interested in any topic related to Artificial Intelligence and would like to share with us your knowledge, let us know! After we would confirm your proposed presentation/practice you would get a time slot between 15 to 45 mins at our next meetup.
 
 All presentations/practice sessions should be held in **English**.
 
 If you feel ready to present, please fill out this form [http://bit.ly/seoulai_cfp](http://bit.ly/seoulai_cfp).
-
-### [Presentations from 2019](/2019)
-### [Presentations from 2018](/2018)
-### [Presentations from 2017](/2017)
 
 
 ## Examples of topic propositions
