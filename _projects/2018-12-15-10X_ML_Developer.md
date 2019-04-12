@@ -21,6 +21,13 @@ active: True
 
   `</joke>`
 
+### April 8, 2019
+
+<div align="center" class="image-wrap">
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fseoulai%2Fposts%2F410971113054614&width=500" width="500" height="381" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+</div>
+
+
 
 ## What will be covered?
   I am open to suggestions, but for now I would suggest **Dive into Deep Learning** book.
