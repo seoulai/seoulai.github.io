@@ -14,6 +14,11 @@ All presentations/practice sessions should be held in **English**.
 
 If you feel ready to present, please fill out this form [http://bit.ly/seoulai_cfp](http://bit.ly/seoulai_cfp).
 
+### [Presentations from 2019](/2019)
+### [Presentations from 2018](/2018)
+### [Presentations from 2017](/2017)
+
+
 ## Examples of topic propositions
 
 * Competing in [Kaggle](https://www.kaggle.com/) or any other only data science competition
