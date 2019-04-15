@@ -11,7 +11,7 @@ active: True
 
 MDML Journal Club opens Journal Day to catch up recent technical trends in medical data and deep learning.
 
-This is our [candidate papers](https://github.com/hurcy/awesome-ehr-deeplearning).
+These are our [candidate papers](https://github.com/hurcy/awesome-ehr-deeplearning).
 Feel free to add papers.
 
 ## Basic Guideline
