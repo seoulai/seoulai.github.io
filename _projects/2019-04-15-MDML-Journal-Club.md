@@ -30,11 +30,9 @@ To read multiple papers together, we would like to do as follows.
 **At the end of Journal Day:**
 * We select the next speakers and each speakers select papers to read.
 
-FYI, the paper selected by the first presenter is [Deep EHR](https://arxiv.org/abs/1706.03446).
 If you would like to cover papers you want, please talk to us in [Slack Channel](https://seoulai.slack.com/messages/CHVDLF7QC).
 
 ## When
-* Starting from April 30 2019
 * Every alternate Tuesdays 8pm
 
 ## Where
@@ -66,16 +64,29 @@ MDML 그룹이 의료 데이터와 딥러닝 분야의 최근 기술 동향을 �
 **논문 모임 끝:**
 * 다음 발표자를 정하고, 각 발표자는 논문을 고릅니다.
 
-참고로 첫번째 발표자가 고른 논문은 [Deep EHR](https://arxiv.org/abs/1706.03446) 입니다. 
 자신이 고른 논문을 함께 읽고 싶은 분은 [슬랙 채널](https://seoulai.slack.com/messages/CHVDLF7QC)에서 말씀해주세요.
 
 ## 시간
-* 2019년 4월 30일 부터
 * 격주 화요일 저녁 8시
 
 ## 장소
 [라인웍스](https://linewalks.com/) 회의실
 * 서울시 강남구 역삼동 테헤란로 14길 5 8층 
+
+-- 
+
+## Previous meeting
+
+### 2019.05.14 20pm
+* Kiha Shin, [Concep/Patient Representation](/presentations/Kiha Shin Presentation 20190513.pdf)
+* Taehwan Yoon, [High-throughput Phenotyping with Temporal Sequences](/presentations/High-throughput_Phenotyping_with_Temporal_Sequences.pptx)
+* Heaven Woo, [Matrix Profile](/presentations/03_Matrix_Profile_for_MDML_Journal_Club.pdf)
+* Grace Lee, [Natural language processing for EHR-based computational phenotyping](/presentations/NLP_EHR.pdf)
+
+### 2019.04.30 20pm
+* Cinyoung Hur, [Machine Learning and EHR](/presentations/Machine_Learning_and_Electronic_Health_Records.pdf)
+* Taehwan Yoon, [Opportunities in Machine Learning for Healthcare(SAI)](/presentations/Opportunities_in_Machine_Learning_for_Healthcare(SAI).pptx) 
+
 
 ---
 
